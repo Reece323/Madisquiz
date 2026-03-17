@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCMC Discharge Planning — Study Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c1117;
+  --surface: #151c25;
+  --surface-2: #1b2430;
+  --surface-3: #222e3c;
+  --border: #2a3a4d;
+  --text: #e4e9f0;
+  --text-dim: #8899ad;
+  --text-muted: #5c6f82;
+  --accent: #38bdf8;
+  --accent-glow: rgba(56, 189, 248, 0.15);
+  --correct: #34d399;
+  --correct-bg: rgba(52, 211, 153, 0.08);
+  --correct-border: rgba(52, 211, 153, 0.3);
+  --wrong: #f87171;
+  --wrong-bg: rgba(248, 113, 113, 0.08);
+  --wrong-border: rgba(248, 113, 113, 0.3);
+  --gold: #fbbf24;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Background atmosphere */
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at 20% 20%, rgba(56,189,248,0.04) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 80%, rgba(52,211,153,0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ====== HEADER ====== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(12, 17, 23, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 1.5rem;
+}
+.header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), #818cf8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+.logo-text {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+.logo-text span { color: var(--accent); }
+.header-stats {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+.header-stat {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.header-stat .num {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--text);
+  font-size: 0.85rem;
+}
+
+/* ====== MAIN LAYOUT ====== */
+.main-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* ====== LANDING SCREEN ====== */
+#landing {
+  text-align: center;
+  padding: 4rem 0 2rem;
+}
+.landing-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 6px 16px;
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.landing-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.landing-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+.landing-title em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--accent), #818cf8, var(--correct));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.landing-sub {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  max-width: 540px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+}
+
+/* Category cards */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  text-align: left;
+}
+.cat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.cat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.cat-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(56,189,248,0.08);
+}
+.cat-card:hover::before { opacity: 1; }
+.cat-card.selected {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+.cat-card.selected::before { opacity: 1; }
+.cat-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.cat-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+.cat-count {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #0c1117;
+  border: none;
+  border-radius: var(--radius);
+  padding: 14px 36px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: -0.2px;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 25px rgba(56,189,248,0.3);
+}
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 28px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-secondary:hover {
+  border-color: var(--text-dim);
+  background: var(--surface-3);
+}
+
+.mode-row {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+/* ====== QUIZ SCREEN ====== */
+#quiz { display: none; }
+
+.progress-bar-wrap {
+  background: var(--surface);
+  border-radius: 50px;
+  height: 6px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #818cf8);
+  border-radius: 50px;
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 0%;
+}
+
+.quiz-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.quiz-counter {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+.quiz-category-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--accent);
+  background: var(--accent-glow);
+  padding: 4px 12px;
+  border-radius: 50px;
+}
+
+.question-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  animation: fadeIn 0.4s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.question-text {
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.65;
+  margin-bottom: 1.75rem;
+  color: var(--text);
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.option-btn {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--surface-2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--text);
+  font-family: var(--font-body);
+  width: 100%;
+}
+.option-btn:hover:not(.disabled) {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+.option-letter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 8px;
+  background: var(--surface-3);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  transition: all 0.2s;
+}
+.option-btn:hover:not(.disabled) .option-letter {
+  background: var(--accent);
+  color: var(--bg);
+}
+.option-btn.correct {
+  border-color: var(--correct-border) !important;
+  background: var(--correct-bg) !important;
+}
+.option-btn.correct .option-letter {
+  background: var(--correct);
+  color: var(--bg);
+}
+.option-btn.wrong {
+  border-color: var(--wrong-border) !important;
+  background: var(--wrong-bg) !important;
+}
+.option-btn.wrong .option-letter {
+  background: var(--wrong);
+  color: var(--bg);
+}
+.option-btn.disabled {
+  cursor: default;
+  opacity: 0.65;
+}
+.option-btn.correct.disabled, .option-btn.wrong.disabled { opacity: 1; }
+
+/* Explanation */
+.explanation {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-top: 1.25rem;
+  animation: fadeIn 0.35s ease;
+  display: none;
+}
+.explanation.show { display: block; }
+.explanation-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--correct);
+  margin-bottom: 8px;
+}
+.explanation-text {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.65;
+}
+
+.quiz-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+/* ====== RESULTS SCREEN ====== */
+#results { display: none; }
+
+.results-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+.results-emoji { font-size: 3.5rem; margin-bottom: 1rem; }
+.results-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+.results-subtitle {
+  color: var(--text-dim);
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+.score-ring-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.score-ring {
+  width: 160px;
+  height: 160px;
+  position: relative;
+}
+.score-ring svg {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+.score-ring circle {
+  fill: none;
+  stroke-width: 8;
+  cx: 80;
+  cy: 80;
+  r: 72;
+}
+.ring-bg { stroke: var(--surface-3); }
+.ring-fill {
+  stroke: var(--accent);
+  stroke-linecap: round;
+  stroke-dasharray: 452.4;
+  stroke-dashoffset: 452.4;
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ring-fill.pass { stroke: var(--correct); }
+.ring-fill.fail { stroke: var(--wrong); }
+.score-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-mono);
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+.score-number small {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.stat-item {
+  text-align: center;
+}
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.stat-value.green { color: var(--correct); }
+.stat-value.red { color: var(--wrong); }
+.stat-value.gold { color: var(--gold); }
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+.results-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ====== REVIEW SCREEN ====== */
+#review { display: none; }
+.review-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  animation: fadeIn 0.3s ease;
+}
+.review-q-text {
+  font-weight: 500;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+.review-answer {
+  font-size: 0.88rem;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 6px;
+}
+.review-answer.user-correct {
+  background: var(--correct-bg);
+  border: 1px solid var(--correct-border);
+  color: var(--correct);
+}
+.review-answer.user-wrong {
+  background: var(--wrong-bg);
+  border: 1px solid var(--wrong-border);
+  color: var(--wrong);
+}
+.review-answer.actual-correct {
+  background: var(--correct-bg);
+  border: 1px solid var(--correct-border);
+  color: var(--correct);
+}
+.review-explain {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+  padding-left: 1rem;
+  border-left: 2px solid var(--border);
+}
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.review-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+}
+.review-filter {
+  display: flex;
+  gap: 0.5rem;
+}
+.filter-btn {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  border-radius: 50px;
+  padding: 6px 16px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 0.2s;
+}
+.filter-btn.active, .filter-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-glow);
+}
+
+/* FOOTER */
+.site-footer {
+  text-align: center;
+  padding: 3rem 1rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+}
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .question-card { padding: 1.25rem; }
+  .results-card { padding: 2rem 1rem; }
+  .header-stats { display: none; }
+  .category-grid { grid-template-columns: 1fr; }
+  .stats-row { gap: 1.25rem; }
+}
+
+/* Keyboard hint */
+.key-hint {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  background: var(--surface-3);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* Shuffle toggle */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  cursor: pointer;
+}
+.toggle-label input { display: none; }
+.toggle-switch {
+  width: 40px;
+  height: 22px;
+  border-radius: 50px;
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  position: relative;
+  transition: all 0.2s;
+}
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  transition: all 0.2s;
+}
+.toggle-label input:checked + .toggle-switch {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.toggle-label input:checked + .toggle-switch::after {
+  left: 20px;
+  background: var(--bg);
+}
+.question-count-select {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.question-count-select option { background: var(--surface); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">DP</div>
+      <div class="logo-text">Discharge<span>Prep</span></div>
+    </div>
+    <div class="header-stats">
+      <div class="header-stat">Score: <span class="num" id="hdr-score">0</span>/<span class="num" id="hdr-total">0</span></div>
+      <div class="header-stat">Streak: <span class="num" id="hdr-streak">0</span>🔥</div>
+    </div>
+  </div>
+</header>
+
+<div class="main-wrap">
+
+  <!-- LANDING -->
+  <section id="landing">
+    <div class="landing-badge">Practice Mode</div>
+    <h1 class="landing-title">CCMC <em>Discharge Planning</em> Study Hub</h1>
+    <p class="landing-sub">Master safe transitions, CMS/EMTALA regulations, and post-hospital care assessment with realistic ABCD practice questions.</p>
+
+    <div class="category-grid" id="category-grid"></div>
+
+    <div class="toggle-row">
+      <label class="toggle-label">
+        <input type="checkbox" id="shuffle-toggle" checked>
+        <span class="toggle-switch"></span>
+        Shuffle questions
+      </label>
+      <div>
+        <select class="question-count-select" id="q-count">
+          <option value="10">10 questions</option>
+          <option value="20">20 questions</option>
+          <option value="30">30 questions</option>
+          <option value="0" selected>All questions</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mode-row">
+      <button class="btn-primary" onclick="startQuiz()">Start Practice →</button>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz">
+    <div class="progress-bar-wrap"><div class="progress-bar" id="progress-bar"></div></div>
+    <div class="quiz-meta">
+      <span class="quiz-counter" id="q-counter">1 / 50</span>
+      <span class="quiz-category-tag" id="q-cat-tag">Category</span>
+    </div>
+    <div class="question-card">
+      <div class="question-text" id="q-text"></div>
+      <div class="options-list" id="options-list"></div>
+      <div class="explanation" id="explanation">
+        <div class="explanation-label">Explanation</div>
+        <div class="explanation-text" id="explanation-text"></div>
+      </div>
+    </div>
+    <div class="quiz-nav">
+      <button class="btn-secondary" onclick="endQuiz()">✕ End Quiz</button>
+      <button class="btn-primary" id="next-btn" onclick="nextQuestion()" style="display:none">Next →</button>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results">
+    <div class="results-card">
+      <div class="results-emoji" id="results-emoji">🏆</div>
+      <h2 class="results-title" id="results-title">Great Job!</h2>
+      <p class="results-subtitle" id="results-sub">Here's how you did</p>
+      <div class="score-ring-wrap">
+        <div class="score-ring">
+          <svg viewBox="0 0 160 160">
+            <circle class="ring-bg" />
+            <circle class="ring-fill" id="ring-fill" />
+          </svg>
+          <div class="score-number" id="score-pct">0<small>%</small></div>
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-item"><div class="stat-value green" id="stat-correct">0</div><div class="stat-label">Correct</div></div>
+        <div class="stat-item"><div class="stat-value red" id="stat-wrong">0</div><div class="stat-label">Incorrect</div></div>
+        <div class="stat-item"><div class="stat-value gold" id="stat-streak">0</div><div class="stat-label">Best Streak</div></div>
+      </div>
+      <div class="results-actions">
+        <button class="btn-secondary" onclick="showReview()">📋 Review Answers</button>
+        <button class="btn-secondary" onclick="retryMissed()">🔁 Retry Missed</button>
+        <button class="btn-primary" onclick="goHome()">New Quiz →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEW -->
+  <section id="review">
+    <div class="review-header">
+      <h2>Review Answers</h2>
+      <div class="review-filter">
+        <button class="filter-btn active" onclick="filterReview('all', this)">All</button>
+        <button class="filter-btn" onclick="filterReview('wrong', this)">Missed</button>
+        <button class="filter-btn" onclick="filterReview('correct', this)">Correct</button>
+      </div>
+    </div>
+    <div id="review-list"></div>
+    <div style="margin-top:1.5rem;text-align:center">
+      <button class="btn-secondary" onclick="showResults()">← Back to Results</button>
+      <button class="btn-primary" onclick="goHome()" style="margin-left:0.5rem">New Quiz →</button>
+    </div>
+  </section>
+
+</div>
+
+<footer class="site-footer">
+  Study tool for CCMC Discharge Planning exam prep · Not affiliated with CCMC · Made with ♥
+</footer>
+
+<script>
+// ============ QUESTION BANK ============
+const questions = [
+  // ===== CATEGORY: Safe Transitions =====
+  {
+    category: "Safe Transitions",
+    q: "What is the PRIMARY goal of discharge planning in case management?",
+    options: [
+      "A. Free hospital beds for incoming patients",
+      "B. Ensure a safe transition to the next level of care",
+      "C. Reduce documentation time for staff",
+      "D. Transfer liability to the outpatient setting"
+    ],
+    answer: 1,
+    explanation: "Discharge planning ensures continuity of care, patient safety, medication reconciliation, education, and resource coordination. While bed management is operationally relevant, patient safety and safe transitions are the ethical and professional priorities."
+  },
+  {
+    category: "Safe Transitions",
+    q: "A case manager is coordinating the transfer of a chronically ill patient from an acute care hospital to a lower level of care. The case manager can usually claim a cost savings when the patient:",
+    options: [
+      "A. Transfers to a facility the payor has pre-approved",
+      "B. Transfers from a higher to a lower intensity of care",
+      "C. Transfers to a facility closer to home",
+      "D. Transfers to a facility within the same PPO network"
+    ],
+    answer: 1,
+    explanation: "Cost savings in care transitions are primarily achieved when a patient moves from a higher-intensity setting (e.g., acute hospital) to a lower-intensity setting (e.g., skilled nursing or home health), as the daily cost of care decreases while still meeting the patient's clinical needs."
+  },
+  {
+    category: "Safe Transitions",
+    q: "Which communication tool is MOST effective in promoting safe care transitions between providers?",
+    options: [
+      "A. Independent decision-making by each provider",
+      "B. Withholding information to maintain confidentiality",
+      "C. Structured communication tools like SBAR",
+      "D. Informal hallway updates only"
+    ],
+    answer: 2,
+    explanation: "SBAR (Situation, Background, Assessment, Recommendation) is a structured communication framework that promotes clarity, reduces errors, and enhances teamwork during handoffs and care transitions."
+  },
+  {
+    category: "Safe Transitions",
+    q: "Evidence shows that a majority of preventable adverse events after hospitalization are related to:",
+    options: [
+      "A. Inadequate surgical technique",
+      "B. Poor handoff communication and lack of continuity of care",
+      "C. Incorrect medication dosing during the hospital stay",
+      "D. Failure to obtain informed consent"
+    ],
+    answer: 1,
+    explanation: "Research consistently shows that poor handoff communication and lack of continuity of care within the discharge process are responsible for half or more of preventable adverse events post-hospitalization."
+  },
+  {
+    category: "Safe Transitions",
+    q: "When considering discharge or transitional care planning, the case manager should be familiar with all of the following EXCEPT:",
+    options: [
+      "A. The client's admission diagnosis",
+      "B. The client's treatment plan",
+      "C. Other disciplines consulting on the client's case",
+      "D. The client's initial stage of hospitalization only"
+    ],
+    answer: 3,
+    explanation: "Case managers must have knowledge spanning the entire episode of care, not just the initial stage. This includes the admission diagnosis, ongoing treatment plan, all consulting disciplines, and changes that occur throughout the hospitalization."
+  },
+  {
+    category: "Safe Transitions",
+    q: "Which of the following is the BEST indicator that a patient is ready for a safe discharge from an acute care hospital?",
+    options: [
+      "A. The patient's insurance has authorized the maximum number of inpatient days",
+      "B. The patient has met clinical milestones and a post-discharge support plan is in place",
+      "C. The patient's family requests an early discharge",
+      "D. The bed is needed for an incoming emergency admission"
+    ],
+    answer: 1,
+    explanation: "Safe discharge readiness is determined by clinical criteria (meeting treatment milestones) AND having appropriate post-discharge support in place, including follow-up care, medications, and any needed home services."
+  },
+  {
+    category: "Safe Transitions",
+    q: "The Joint Commission lists seven foundations for transitions of care. Which of the following is one of these foundations?",
+    options: [
+      "A. Minimizing the number of providers involved in care",
+      "B. Early identification of at-risk patients",
+      "C. Limiting patient access to their medical records",
+      "D. Reducing the length of stay regardless of clinical status"
+    ],
+    answer: 1,
+    explanation: "The Joint Commission's foundations for transitions of care include leadership support, early identification of at-risk patients, thorough psychosocial assessment, involvement of a multidisciplinary team, and patient/family engagement."
+  },
+  {
+    category: "Safe Transitions",
+    q: "Medication reconciliation during discharge is important PRIMARILY because it:",
+    options: [
+      "A. Reduces pharmacy costs",
+      "B. Prevents adverse drug events and ensures continuity of medication therapy",
+      "C. Satisfies insurance documentation requirements",
+      "D. Allows the physician to bill for additional services"
+    ],
+    answer: 1,
+    explanation: "Medication reconciliation at discharge is a critical patient safety step that ensures all medications are accurately communicated, reducing the risk of adverse drug events, omissions, duplications, and harmful interactions during the transition."
+  },
+  {
+    category: "Safe Transitions",
+    q: "A patient is being discharged after a hip replacement. The case manager discovers the patient lives alone in a second-floor apartment with no elevator. The BEST next step is to:",
+    options: [
+      "A. Discharge the patient home as planned since surgery was successful",
+      "B. Assess for short-term rehabilitation placement and home modification needs",
+      "C. Delay discharge indefinitely until the patient finds a new apartment",
+      "D. Recommend the patient move in with family members permanently"
+    ],
+    answer: 1,
+    explanation: "The case manager must evaluate the home environment and address barriers to safe recovery. Short-term rehab placement while coordinating home modifications or adaptive equipment is the most appropriate and practical intervention."
+  },
+  {
+    category: "Safe Transitions",
+    q: "Teach-back methodology during discharge education is used to:",
+    options: [
+      "A. Test the patient's intelligence level",
+      "B. Confirm patient understanding by having them explain instructions in their own words",
+      "C. Transfer legal responsibility to the patient",
+      "D. Document that education was provided for billing purposes"
+    ],
+    answer: 1,
+    explanation: "Teach-back is an evidence-based communication technique where patients explain in their own words what they've been told. It confirms understanding, identifies gaps in knowledge, and improves adherence to post-discharge instructions."
+  },
+  {
+    category: "Safe Transitions",
+    q: "Which factor MOST significantly influences social determinants of health in case management planning?",
+    options: [
+      "A. Laboratory values",
+      "B. Insurance billing codes",
+      "C. Housing stability",
+      "D. Imaging results"
+    ],
+    answer: 2,
+    explanation: "Housing stability directly affects medication adherence, recovery, nutrition access, and overall health outcomes. Social determinants include housing, income, transportation, education, and food security. These are critical considerations in discharge planning."
+  },
+  {
+    category: "Safe Transitions",
+    q: "A case manager identifies that a patient scheduled for discharge has no reliable transportation to follow-up appointments. The MOST appropriate action is to:",
+    options: [
+      "A. Discharge the patient and hope they can figure it out",
+      "B. Delay discharge until the patient purchases a vehicle",
+      "C. Coordinate community transportation resources and document the plan",
+      "D. Cancel all follow-up appointments"
+    ],
+    answer: 2,
+    explanation: "Addressing transportation barriers is a key component of discharge planning. Case managers should identify and coordinate community resources such as medical transport services, volunteer driver programs, or public transit options."
+  },
+
+  // ===== CATEGORY: CMS/Regulatory Compliance =====
+  {
+    category: "CMS/Regulatory Compliance",
+    q: "Under CMS Conditions of Participation, hospitals must include in the discharge plan a list of available providers for patients needing post-acute services. This list must include:",
+    options: [
+      "A. Only the hospital's preferred providers",
+      "B. Medicare-participating HHAs, SNFs, IRFs, or LTCHs serving the patient's area",
+      "C. Only the least expensive providers available",
+      "D. Providers chosen by the patient's insurance company exclusively"
+    ],
+    answer: 1,
+    explanation: "Per 42 CFR 482.43, hospitals must provide a list of Medicare-participating home health agencies, skilled nursing facilities, inpatient rehabilitation facilities, or long-term care hospitals that serve the patient's geographic area."
+  },
+  {
+    category: "CMS/Regulatory Compliance",
+    q: "According to CMS discharge planning regulations, hospitals must inform patients of their:",
+    options: [
+      "A. Obligation to use the hospital's affiliated providers",
+      "B. Freedom to choose among participating Medicare providers of post-discharge services",
+      "C. Requirement to pay out-of-pocket for all post-discharge care",
+      "D. Inability to appeal any discharge planning decision"
+    ],
+    answer: 1,
+    explanation: "CMS requires hospitals to inform patients of their freedom to choose among participating Medicare providers and suppliers. The hospital must respect patient preferences and goals of care, and cannot limit qualified providers available to the patient."
+  },
+  {
+    category: "CMS/Regulatory Compliance",
+    q: "The CMS/Medicare Conditions of Participation include guidelines for which of the following in the discharge planning process?",
+    options: [
+      "A. Patient choice in the discharge care provider",
+      "B. Patient complaint review process only",
+      "C. Teach-back methodology only",
+      "D. Standardized patient plan of care only"
+    ],
+    answer: 0,
+    explanation: "The CMS Conditions of Participation specifically address patient choice in selecting post-acute care providers. Hospitals must present a list of available providers and cannot limit or steer patients to specific providers."
+  },
+  {
+    category: "CMS/Regulatory Compliance",
+    q: "Under CMS regulations, a hospital must disclose in the discharge plan any financial interest it has in which of the following?",
+    options: [
+      "A. The patient's primary care physician's practice",
+      "B. Any HHA or SNF to which the patient is referred",
+      "C. The patient's pharmacy benefits manager",
+      "D. The patient's employer-sponsored insurance plan"
+    ],
+    answer: 1,
+    explanation: "CMS requires that discharge plans identify any home health agency or skilled nursing facility to which the patient is referred where the hospital has a disclosable financial interest, ensuring transparency."
+  },
+  {
+    category: "CMS/Regulatory Compliance",
+    q: "For a traditional Medicare beneficiary to qualify for skilled nursing facility (SNF) coverage, the patient must have:",
+    options: [
+      "A. A 1-day observation stay",
+      "B. A consecutive 3-day inpatient hospital stay",
+      "C. A 5-day inpatient hospital stay",
+      "D. Any emergency department visit regardless of length"
+    ],
+    answer: 1,
+    explanation: "Traditional Medicare requires a consecutive 3-day qualifying inpatient hospital stay (not including observation time) before SNF coverage begins. The transfer to the SNF must occur within 30 days of hospital discharge."
+  },
+  {
+    category: "CMS/Regulatory Compliance",
+    q: "The discharge planning Conditions of Participation were updated partially in response to which federal law?",
+    options: [
+      "A. The Affordable Care Act",
+      "B. HIPAA",
+      "C. The IMPACT Act of 2014",
+      "D. The Social Security Act of 1935"
+    ],
+    answer: 2,
+    explanation: "The IMPACT (Improving Medicare Post-Acute Care Transformation) Act of 2014 was designed to improve Medicare's post-acute care services and reporting, which led to significant updates in hospital discharge planning conditions of participation."
+  },
+  {
+    category: "CMS/Regulatory Compliance",
+    q: "The Hospital Readmission Reduction Program (HRRP) penalizes hospitals for:",
+    options: [
+      "A. Discharging patients too slowly",
+      "B. Excessive unplanned readmissions within 30 days for certain conditions",
+      "C. Accepting too many Medicare patients",
+      "D. Hiring too many case managers"
+    ],
+    answer: 1,
+    explanation: "The HRRP reduces Medicare payments to hospitals with excess readmissions for certain conditions including heart failure, pneumonia, and hip/knee replacement. This incentivizes hospitals to improve discharge planning and care transitions."
+  },
+  {
+    category: "CMS/Regulatory Compliance",
+    q: "Under CMS regulations, when a hospital is unable to fulfill a patient's preference for a particular post-acute provider, the hospital must:",
+    options: [
+      "A. Discharge the patient without any post-acute services",
+      "B. Document the reason the patient's preference could not be fulfilled",
+      "C. Override the patient's preference without discussion",
+      "D. Keep the patient hospitalized indefinitely"
+    ],
+    answer: 1,
+    explanation: "If the hospital cannot arrange services with the patient's preferred provider (e.g., no bed available at the preferred SNF), it must document why the preference could not be fulfilled and arrange alternative appropriate services."
+  },
+  {
+    category: "CMS/Regulatory Compliance",
+    q: "According to CMS, hospital discharge planning processes must apply to:",
+    options: [
+      "A. Only Medicare beneficiaries",
+      "B. Only patients admitted through the emergency department",
+      "C. All patients regardless of payer source",
+      "D. Only patients with lengths of stay greater than 5 days"
+    ],
+    answer: 2,
+    explanation: "The CMS discharge planning regulations apply to all hospital patients, not just Medicare beneficiaries. The 'all patients' language in the regulations was specifically chosen to distinguish it from earlier proposals that applied only to Medicare patients."
+  },
+  {
+    category: "CMS/Regulatory Compliance",
+    q: "Which quality data must a hospital include at minimum when providing a list of post-acute care providers to patients?",
+    options: [
+      "A. Provider revenue reports",
+      "B. CMS Compare data on quality and resource use",
+      "C. Patient satisfaction survey raw data",
+      "D. Staff-to-patient ratios only"
+    ],
+    answer: 1,
+    explanation: "Hospitals must include at minimum the CMS Compare data on quality and resource use in the provider list. They may also include other data such as readmission rates or outcomes by diagnosis, and can designate preferred value-based providers."
+  },
+  {
+    category: "CMS/Regulatory Compliance",
+    q: "A hospital must disclose ownership interests in which situation related to discharge planning?",
+    options: [
+      "A. When the hospital refers a patient to any outpatient clinic",
+      "B. When referring to an HHA or SNF in which the hospital has a financial interest",
+      "C. When the patient chooses a provider not recommended by the physician",
+      "D. When the patient is enrolled in Medicaid"
+    ],
+    answer: 1,
+    explanation: "Federal regulations require hospitals to disclose any financial interest they have in a home health agency or skilled nursing facility to which they refer patients, ensuring patients can make informed choices."
+  },
+  {
+    category: "CMS/Regulatory Compliance",
+    q: "Utilization review in the acute care setting is covered under the CMS Conditions of Participation, which requires hospitals to have a UR plan that addresses:",
+    options: [
+      "A. Only the discharge planning process",
+      "B. Medical necessity of admissions, duration of stays, and professional services",
+      "C. Patient satisfaction scores only",
+      "D. Staff scheduling and overtime policies"
+    ],
+    answer: 1,
+    explanation: "The CMS Conditions of Participation require hospitals to maintain a utilization review plan describing the scope and frequency of reviews for medical necessity of admissions, duration of stays, and professional services furnished."
+  },
+
+  // ===== CATEGORY: EMTALA =====
+  {
+    category: "EMTALA",
+    q: "EMTALA was enacted in 1986 primarily to ensure:",
+    options: [
+      "A. Hospitals meet fire safety standards",
+      "B. Public access to emergency services regardless of ability to pay",
+      "C. All physicians carry malpractice insurance",
+      "D. Hospitals maintain a minimum nurse-to-patient ratio"
+    ],
+    answer: 1,
+    explanation: "The Emergency Medical Treatment and Labor Act (EMTALA) was enacted to ensure public access to emergency services regardless of ability to pay, preventing 'patient dumping' by hospitals."
+  },
+  {
+    category: "EMTALA",
+    q: "Under EMTALA, hospitals have three main obligations. These include all of the following EXCEPT:",
+    options: [
+      "A. Provide a medical screening examination (MSE)",
+      "B. Provide stabilizing treatment for emergency medical conditions",
+      "C. Guarantee free long-term follow-up care",
+      "D. Provide an appropriate transfer if the hospital cannot stabilize the patient"
+    ],
+    answer: 2,
+    explanation: "EMTALA's three obligations are: (1) provide a medical screening examination, (2) provide stabilizing treatment for emergency medical conditions, and (3) provide an appropriate transfer if the hospital lacks capability. EMTALA does not cover long-term follow-up care."
+  },
+  {
+    category: "EMTALA",
+    q: "Under EMTALA, a patient is considered stable for transfer when:",
+    options: [
+      "A. The patient's insurance authorizes the transfer",
+      "B. The treating physician determines no material deterioration will occur during transfer",
+      "C. The receiving hospital agrees to accept the patient",
+      "D. The patient has been in the ED for more than 4 hours"
+    ],
+    answer: 1,
+    explanation: "Under EMTALA, a patient is considered stable for transfer when the treating physician determines, within reasonable clinical confidence, that no material deterioration of the patient's condition is likely to result from or occur during the transfer."
+  },
+  {
+    category: "EMTALA",
+    q: "EMTALA applies to which type of facility?",
+    options: [
+      "A. All outpatient clinics",
+      "B. Medicare-participating hospitals that offer emergency services",
+      "C. Only trauma centers",
+      "D. Private physician offices"
+    ],
+    answer: 1,
+    explanation: "EMTALA applies specifically to Medicare-participating hospitals that offer emergency services. This includes their dedicated emergency departments and, in some cases, hospital-based departments that meet the definition of a dedicated ED."
+  },
+  {
+    category: "EMTALA",
+    q: "Under EMTALA, when does the hospital's obligation END for a patient presenting to the emergency department?",
+    options: [
+      "A. When the patient's insurance is verified",
+      "B. When the patient is admitted as an inpatient or stabilized",
+      "C. After 24 hours of emergency care",
+      "D. When the physician's shift ends"
+    ],
+    answer: 1,
+    explanation: "A hospital's EMTALA obligations end once the patient is either admitted as an inpatient or stabilized. After that point, the hospital may still have non-EMTALA duties, but the specific EMTALA requirements no longer apply."
+  },
+  {
+    category: "EMTALA",
+    q: "A hospital with specialized capabilities receives a transfer request for an unstable patient from another hospital. Under EMTALA, the hospital:",
+    options: [
+      "A. May refuse the transfer based on the patient's insurance status",
+      "B. Is obligated to accept the transfer if it has the capability and capacity",
+      "C. Can require payment before accepting the transfer",
+      "D. Must redirect the patient to a public hospital"
+    ],
+    answer: 1,
+    explanation: "Under EMTALA, hospitals with specialized capabilities are obligated to accept transfers from hospitals that lack the capability to treat unstable emergency medical conditions, as long as they have the capacity to do so."
+  },
+  {
+    category: "EMTALA",
+    q: "CMS defines a 'dedicated emergency department' as an area of the hospital that meets any one of three tests. Which is NOT one of those tests?",
+    options: [
+      "A. Licensed by the state as an emergency department",
+      "B. Holds itself out to the public as providing emergency care",
+      "C. Has more than 50 beds available for emergency patients",
+      "D. At least one-third of outpatient visits in the preceding year were for emergency conditions"
+    ],
+    answer: 2,
+    explanation: "CMS defines a dedicated emergency department as one that is (1) licensed by the state as an ED, (2) holds itself out to the public as providing emergency care, or (3) had at least one-third of its outpatient visits for emergency conditions in the preceding year. Bed count is not a criterion."
+  },
+  {
+    category: "EMTALA",
+    q: "Under EMTALA, if a medical screening examination reveals no emergency medical condition, then:",
+    options: [
+      "A. The patient must still be admitted for observation",
+      "B. EMTALA obligations end and the patient may be transferred or discharged",
+      "C. The hospital must provide 24 hours of monitoring",
+      "D. A second physician must confirm the findings"
+    ],
+    answer: 1,
+    explanation: "If the medical screening examination determines that no emergency medical condition exists, the hospital's EMTALA obligations are satisfied. The patient may then be transferred, discharged, or treated according to standard medical practice."
+  },
+  {
+    category: "EMTALA",
+    q: "CMS has cautioned that simply administering chemical or physical restraints to a psychiatric patient before transfer:",
+    options: [
+      "A. Always constitutes adequate stabilization under EMTALA",
+      "B. May not mean the patient is truly stabilized, as the underlying condition may persist",
+      "C. Is prohibited under EMTALA in all circumstances",
+      "D. Satisfies both EMTALA and state involuntary commitment laws"
+    ],
+    answer: 1,
+    explanation: "CMS has warned that restraints may temporarily remove the immediate emergency but the underlying psychiatric condition may persist. Practitioners should carefully evaluate whether a psychiatric patient is truly stable before transfer or discharge."
+  },
+  {
+    category: "EMTALA",
+    q: "Who is responsible for determining whether a patient has an emergency medical condition and whether it is stabilized under EMTALA?",
+    options: [
+      "A. The hospital administrator",
+      "B. The treating physician or qualified medical professional",
+      "C. The patient's insurance company",
+      "D. The case manager"
+    ],
+    answer: 1,
+    explanation: "It is the treating physician's responsibility to determine whether an individual has an emergency medical condition, whether that condition is stabilized or resolved, and whether the patient's condition is stabilized for purposes of transfer or discharge."
+  },
+  {
+    category: "EMTALA",
+    q: "Hospitals are expected to provide discharged patients with resources that are:",
+    options: [
+      "A. The most expensive available to maximize quality",
+      "B. Geographically accessible and appropriate for follow-up care",
+      "C. Only within the hospital's own network",
+      "D. Limited to written materials in English only"
+    ],
+    answer: 1,
+    explanation: "CMS has interpreted EMTALA to require that hospitals provide patients with resources for follow-up care that are geographically accessible and clinically appropriate, in order to prevent relapse or deterioration of the medical condition."
+  },
+  {
+    category: "EMTALA",
+    q: "If a hospital has reason to believe it received a patient transferred in an unstable condition from another hospital in violation of EMTALA, it must report the event to CMS within:",
+    options: [
+      "A. 24 hours",
+      "B. 72 hours",
+      "C. 7 days",
+      "D. 30 days"
+    ],
+    answer: 1,
+    explanation: "If a hospital has reason to believe it received a patient who was transferred in an unstable emergency medical condition from another hospital in violation of EMTALA, it must report the event to CMS or the relevant state contractor within 72 hours."
+  },
+
+  // ===== CATEGORY: Post-Hospital Needs Assessment =====
+  {
+    category: "Post-Hospital Needs Assessment",
+    q: "Older patients with multiple comorbidities are at higher risk for requiring more in-depth discharge planning because they:",
+    options: [
+      "A. Tend to have higher insurance coverage",
+      "B. Are at higher risk for prolonged inpatient stays and have greater care needs",
+      "C. Always require skilled nursing facility placement",
+      "D. Are exempt from Medicare readmission penalties"
+    ],
+    answer: 1,
+    explanation: "Older patients with multiple comorbidities are at higher risk for prolonged inpatient stays and require more in-depth discharge planning to meet their complex care needs, including medication management, functional limitations, and support services."
+  },
+  {
+    category: "Post-Hospital Needs Assessment",
+    q: "A comprehensive discharge planning assessment should include all of the following EXCEPT:",
+    options: [
+      "A. Patient's capacity for self-care",
+      "B. Need for home care services",
+      "C. Patient's financial investment portfolio",
+      "D. Post-hospital service availability in the patient's area"
+    ],
+    answer: 2,
+    explanation: "Discharge planning assessments should evaluate the patient's self-care capacity, need for home care services, availability of post-hospital services, and psychosocial factors. A patient's investment portfolio is not relevant to clinical discharge planning."
+  },
+  {
+    category: "Post-Hospital Needs Assessment",
+    q: "The case management assessment should include the discharge planning evaluation and determine the need for home care services based upon the patient's:",
+    options: [
+      "A. Insurance premium level",
+      "B. Capacity for self-care",
+      "C. Employment status",
+      "D. Number of prior hospitalizations only"
+    ],
+    answer: 1,
+    explanation: "The case management assessment must evaluate the patient's capacity for self-care to determine the appropriate level of home care services needed, ensuring the discharge plan matches the patient's functional abilities."
+  },
+  {
+    category: "Post-Hospital Needs Assessment",
+    q: "Which of the following patients would MOST likely need a formal discharge plan with referrals to post-acute agencies?",
+    options: [
+      "A. A 25-year-old with a simple wrist fracture being discharged with a cast",
+      "B. A 78-year-old newly diagnosed with dementia who lives alone",
+      "C. A 30-year-old having outpatient blood work",
+      "D. A teenager being discharged after a minor laceration repair"
+    ],
+    answer: 1,
+    explanation: "An elderly patient newly diagnosed with dementia who lives alone has complex post-discharge needs including safety assessment, potential home health services, caregiver support, cognitive support, and close follow-up, requiring a comprehensive formal discharge plan."
+  },
+  {
+    category: "Post-Hospital Needs Assessment",
+    q: "When assessing a patient for post-discharge needs, the case manager should evaluate the home environment for all of the following EXCEPT:",
+    options: [
+      "A. Accessibility and safety modifications needed",
+      "B. Availability of a caregiver at home",
+      "C. The home's real estate value",
+      "D. Medical equipment needs such as hospital bed or oxygen"
+    ],
+    answer: 2,
+    explanation: "Home environment assessment focuses on safety, accessibility, caregiver availability, and equipment needs. The real estate value of the home is irrelevant to clinical discharge planning."
+  },
+  {
+    category: "Post-Hospital Needs Assessment",
+    q: "A patient being discharged after a stroke has difficulty swallowing. Which post-discharge service is MOST critical to arrange?",
+    options: [
+      "A. Financial counseling",
+      "B. Speech therapy for swallowing assessment and rehabilitation",
+      "C. Occupational therapy for handwriting practice",
+      "D. Social work for career planning"
+    ],
+    answer: 1,
+    explanation: "Dysphagia (difficulty swallowing) after stroke is a serious safety concern that can lead to aspiration pneumonia and malnutrition. Speech-language pathology services for swallowing evaluation and rehabilitation are a critical post-discharge need."
+  },
+  {
+    category: "Post-Hospital Needs Assessment",
+    q: "Support groups sponsored by professional organizations generally serve two basic purposes: to educate about the specific disease and to:",
+    options: [
+      "A. Allow caregivers respite time",
+      "B. Provide financial assistance as needed",
+      "C. Raise funds for the particular disease",
+      "D. Offer emotional support to individuals"
+    ],
+    answer: 3,
+    explanation: "Professional support groups serve to educate about specific conditions and to offer emotional support to individuals and their families. While respite and fundraising may be secondary benefits, education and emotional support are the primary purposes."
+  },
+  {
+    category: "Post-Hospital Needs Assessment",
+    q: "A case manager is assessing post-hospital needs for a patient with heart failure. Which of the following is the MOST important assessment finding for discharge planning?",
+    options: [
+      "A. The patient's blood type",
+      "B. The patient's ability to manage daily weight monitoring and medication adherence",
+      "C. The patient's favorite leisure activities",
+      "D. The number of visitors the patient had during hospitalization"
+    ],
+    answer: 1,
+    explanation: "For heart failure patients, the ability to perform daily self-management tasks such as weight monitoring, medication adherence, sodium restriction, and recognizing symptoms of worsening failure are critical factors in successful discharge planning."
+  },
+  {
+    category: "Post-Hospital Needs Assessment",
+    q: "Medicare home health care coverage requires that the patient meets which TWO key criteria?",
+    options: [
+      "A. Be homebound and have a skilled care need",
+      "B. Be over 65 and have a chronic illness",
+      "C. Have supplemental insurance and a physician referral",
+      "D. Live alone and require daily nursing visits"
+    ],
+    answer: 0,
+    explanation: "Medicare home health coverage requires that the patient be homebound (medical condition limits ability to leave home) and have a skilled care need under the supervision of an RN, physical therapist, or speech therapist."
+  },
+  {
+    category: "Post-Hospital Needs Assessment",
+    q: "When anticipating post-discharge complications for a chronically ill client, the nurse case manager should:",
+    options: [
+      "A. Wait until complications arise before planning",
+      "B. Begin planning for potential complications while the client is still hospitalized",
+      "C. Assume the outpatient team will handle all complications",
+      "D. Focus only on the primary diagnosis"
+    ],
+    answer: 1,
+    explanation: "Effective case management requires proactive anticipation of potential post-discharge complications while the client is still under care, allowing time to arrange additional services, provide education, and prepare contingency plans."
+  },
+
+  // ===== CATEGORY: Case Management Concepts =====
+  {
+    category: "Case Management Concepts",
+    q: "The goal of case management in a cross-cultural environment is to:",
+    options: [
+      "A. Assist the client in accepting the medical system",
+      "B. Maintain standard American medical practice",
+      "C. Achieve a treatment plan that addresses the client's culture",
+      "D. Differentiate culture and medical practice"
+    ],
+    answer: 2,
+    explanation: "Culturally competent case management aims to achieve treatment plans that respect and incorporate the client's cultural beliefs, values, and practices, leading to better engagement and outcomes."
+  },
+  {
+    category: "Case Management Concepts",
+    q: "Case managers can increase the chances of successful collaboration with providers of services when they:",
+    options: [
+      "A. Determine and arrange the discharge plan as early as possible",
+      "B. Select the resources for discharge needs unilaterally",
+      "C. Quote benefit coverage for services",
+      "D. Discuss and negotiate the discharge plan using mutual input"
+    ],
+    answer: 3,
+    explanation: "Successful collaboration is built on mutual input, discussion, and negotiation. Unilateral decision-making by the case manager without provider input undermines teamwork and can result in unrealistic or incomplete discharge plans."
+  },
+  {
+    category: "Case Management Concepts",
+    q: "For a multidisciplinary team in discharge planning, documentation is the most effective and efficient way of:",
+    options: [
+      "A. Communicating to the patient",
+      "B. Ensuring that consistent information is given",
+      "C. Ensuring that members of all disciplines know what is happening",
+      "D. Communicating evaluation results"
+    ],
+    answer: 2,
+    explanation: "In a multidisciplinary discharge planning context, documentation serves as the primary mechanism for ensuring all team members across disciplines are informed about the patient's status, plan, and progress."
+  },
+  {
+    category: "Case Management Concepts",
+    q: "The six core components of case management practice as defined by CMSA are:",
+    options: [
+      "A. Screening, assessment, planning, implementation, evaluation, and outcomes",
+      "B. Assessment, planning, implementation, coordination, monitoring, and evaluation",
+      "C. Intake, assessment, intervention, monitoring, advocacy, and discharge",
+      "D. Identification, communication, resource management, evaluation, advocacy, and follow-up"
+    ],
+    answer: 1,
+    explanation: "CMSA defines the six core components as assessment, planning, implementation, coordination, monitoring, and evaluation. These represent the cyclical process of managing a client's care from beginning to end."
+  },
+  {
+    category: "Case Management Concepts",
+    q: "A component of quality management that compares outcomes across providers' practices is called a:",
+    options: [
+      "A. Pathway",
+      "B. Case study",
+      "C. Benchmark",
+      "D. Strategic initiative"
+    ],
+    answer: 2,
+    explanation: "Benchmarking is a quality management tool that compares outcomes, processes, and practices across different providers or organizations to identify best practices and areas for improvement."
+  },
+  {
+    category: "Case Management Concepts",
+    q: "The case manager's PRIMARY function is:",
+    options: [
+      "A. Care coordination",
+      "B. Cost containment",
+      "C. Outcomes management",
+      "D. Patient education"
+    ],
+    answer: 0,
+    explanation: "While all four are case management functions, the primary role is care coordination — linking clients with appropriate providers and resources throughout the continuum of health and human services to achieve safe, effective, and equitable care."
+  },
+  {
+    category: "Case Management Concepts",
+    q: "A CCM calls a client's doctor about a pharmacy discrepancy found in the hospital discharge summary. This is an example of which phase in the case management process?",
+    options: [
+      "A. Planning",
+      "B. Assessing",
+      "C. Evaluation",
+      "D. Following up"
+    ],
+    answer: 3,
+    explanation: "Following up involves checking on the status of previously initiated actions. Calling to verify that a fax about a medication discrepancy was received is a follow-up activity, not planning, assessing, or evaluating."
+  },
+  {
+    category: "Case Management Concepts",
+    q: "The relationship between spirituality and recovery from illness:",
+    options: [
+      "A. Is not supported by research",
+      "B. Should be addressed in therapy only",
+      "C. Should be encouraged and facilitated",
+      "D. Is not relevant to case management"
+    ],
+    answer: 2,
+    explanation: "Research supports the positive relationship between spirituality and recovery. Case managers should encourage and facilitate spiritual support as part of holistic care, as it can positively affect coping, resilience, and health outcomes."
+  },
+  {
+    category: "Case Management Concepts",
+    q: "Appropriate documentation found in a medical record includes:",
+    options: [
+      "A. Personal opinions about the patient's lifestyle",
+      "B. Speculation about the patient's home life",
+      "C. Notes critical of other healthcare providers",
+      "D. Objective documentation of family behavior"
+    ],
+    answer: 3,
+    explanation: "Medical record documentation should be objective, factual, and clinically relevant. Documentation of family behavior should be objective observations rather than personal opinions, speculation, or criticism."
+  },
+  {
+    category: "Case Management Concepts",
+    q: "Case management organizations are frequently challenged to manage caseloads for effective, quality practice. A major consideration is:",
+    options: [
+      "A. Nurse to physician ratio",
+      "B. The case management model being used",
+      "C. Client cooperation levels",
+      "D. Case management certification status"
+    ],
+    answer: 1,
+    explanation: "The case management model used by the organization is a major consideration in managing caseloads effectively. Different models (e.g., telephonic, field-based, disease management) have different capacity and quality implications."
+  },
+  {
+    category: "Case Management Concepts",
+    q: "Care coordination for the chronically ill client relies heavily upon all of the following EXCEPT:",
+    options: [
+      "A. Collaboration among interdisciplinary and multidisciplinary care teams",
+      "B. Identifying barriers to access to care",
+      "C. Anticipation of possible post-discharge complications",
+      "D. Maintaining the same treatment plan throughout care without changes"
+    ],
+    answer: 3,
+    explanation: "Care plans for chronically ill clients must evolve and adapt throughout stages and transitions of care. Maintaining an unchanged treatment plan is inappropriate as the patient's condition, needs, and circumstances change over time."
+  },
+  {
+    category: "Case Management Concepts",
+    q: "The ethical principle of nonmaleficence in case management means:",
+    options: [
+      "A. Treating all patients equally",
+      "B. Doing no harm to the patient",
+      "C. Respecting cultural diversity",
+      "D. Maintaining patient confidentiality"
+    ],
+    answer: 1,
+    explanation: "Nonmaleficence is the ethical principle of 'do no harm.' In case management, this means ensuring that actions taken in care planning and coordination do not cause harm or put the patient at risk."
+  },
+  {
+    category: "Case Management Concepts",
+    q: "Medicare Part B benefits include which of the following?",
+    options: [
+      "A. Inpatient hospital stay, physician and surgeon, outpatient services, and emergency room",
+      "B. Physician and surgeon, outpatient services, home health, and physical therapy",
+      "C. Inpatient hospital stay, skilled nursing facility, home health care, and hospice",
+      "D. Physician and surgeon, skilled nursing facility, and outpatient services"
+    ],
+    answer: 1,
+    explanation: "Medicare Part B covers physician and surgeon services, outpatient services, home health services, and physical therapy. Part A covers inpatient hospital stays, skilled nursing facility care, home health care, and hospice care."
+  },
+  {
+    category: "Case Management Concepts",
+    q: "The type of insurance plan that offers the MOST flexibility in provider choice is the:",
+    options: [
+      "A. Point-of-Service Plan (POS)",
+      "B. Health Maintenance Organization (HMO)",
+      "C. Indemnity (Fee-for-Service) plan",
+      "D. Preferred Provider Organization (PPO)"
+    ],
+    answer: 2,
+    explanation: "Indemnity (fee-for-service) plans offer the most flexibility because they do not restrict which providers the insured can use. The insured person is reimbursed by the company after the provider has billed."
+  },
+
+  // ===== CATEGORY: Rehabilitation & Transitions =====
+  {
+    category: "Rehabilitation & Transitions",
+    q: "According to the Rehabilitation Act of 1973, tasks that must be performed on the job even if the method differs between employees with and without disabilities are called:",
+    options: [
+      "A. Physical job demands",
+      "B. Essential job functions",
+      "C. Reasonable accommodations",
+      "D. Worker traits"
+    ],
+    answer: 1,
+    explanation: "Essential job functions are the fundamental duties of a position that an employee must be able to perform, with or without reasonable accommodation. The method of performing these functions may differ for employees with disabilities."
+  },
+  {
+    category: "Rehabilitation & Transitions",
+    q: "The main purpose of client involvement in developing a rehabilitation plan is to:",
+    options: [
+      "A. Reduce the case manager's workload",
+      "B. Promote client ownership, motivation, and adherence to the plan",
+      "C. Satisfy regulatory documentation requirements",
+      "D. Allow the client to override medical recommendations"
+    ],
+    answer: 1,
+    explanation: "Client involvement in rehabilitation planning promotes ownership, intrinsic motivation, and adherence to the plan. When clients participate in setting goals and choosing interventions, they are more committed to the recovery process."
+  },
+  {
+    category: "Rehabilitation & Transitions",
+    q: "Raising the height of a desk to provide access for an individual using a wheelchair is an example of a:",
+    options: [
+      "A. Job modification",
+      "B. Job accommodation",
+      "C. Job restructuring",
+      "D. Building modification"
+    ],
+    answer: 1,
+    explanation: "A job accommodation is focused on providing access for an individual employee. Adjusting desk height for wheelchair access, providing voice recognition software, or braille keyboards are all examples of job accommodations under the ADA."
+  },
+  {
+    category: "Rehabilitation & Transitions",
+    q: "A patient is being transitioned from acute rehabilitation to outpatient therapy. The case manager's PRIORITY is to ensure:",
+    options: [
+      "A. The patient's billing is complete",
+      "B. Continuity of the rehabilitation plan and seamless service coordination",
+      "C. The outpatient facility is the closest to the patient's home",
+      "D. The patient no longer requires any skilled services"
+    ],
+    answer: 1,
+    explanation: "During rehabilitation transitions, the case manager's priority is ensuring continuity of the treatment plan and coordination of services, so therapeutic gains are maintained and the patient continues to progress toward functional goals."
+  },
+  {
+    category: "Rehabilitation & Transitions",
+    q: "Which of the following psychiatric disabilities is NOT protected by the Americans with Disabilities Act?",
+    options: [
+      "A. Manic depression (bipolar disorder)",
+      "B. Pyromania",
+      "C. Major depression",
+      "D. Generalized anxiety disorder"
+    ],
+    answer: 1,
+    explanation: "The ADA prohibits workplace discrimination against individuals with psychiatric disabilities, but it does not protect conditions classified as behavioral (criminal) disorders, such as pyromania and kleptomania."
+  },
+  {
+    category: "Rehabilitation & Transitions",
+    q: "Cost-benefit analysis reports in case management include:",
+    options: [
+      "A. Prescriptions filled but not taken by the patient",
+      "B. Alternative treatment plans and their projected outcomes",
+      "C. Only the costs of the current hospitalization",
+      "D. Staff performance evaluations"
+    ],
+    answer: 1,
+    explanation: "Cost-benefit analysis in case management evaluates alternative treatment plans and their projected outcomes, comparing the costs of interventions against expected benefits to determine the most effective and efficient approach."
+  },
+  {
+    category: "Rehabilitation & Transitions",
+    q: "When a patient chooses to leave the hospital against medical advice (AMA), the nurse's legal responsibility is to:",
+    options: [
+      "A. Physically prevent the patient from leaving",
+      "B. Immediately call hospital security",
+      "C. Explain the risks and ensure the patient signs a release form",
+      "D. Discharge the patient without documentation"
+    ],
+    answer: 2,
+    explanation: "When a competent patient wishes to leave AMA, the healthcare team must explain the risks of leaving, ensure informed decision-making, and have the patient sign an AMA release form documenting their understanding of the risks."
+  },
+  {
+    category: "Rehabilitation & Transitions",
+    q: "A self-concept is BEST described as:",
+    options: [
+      "A. A composite view of self",
+      "B. Belief in one's ability to succeed",
+      "C. Being focused on oneself",
+      "D. How one values oneself"
+    ],
+    answer: 0,
+    explanation: "Self-concept is a composite or overall view of oneself, encompassing all the beliefs, perceptions, and feelings one has about who they are. It differs from self-efficacy (belief in ability) and self-esteem (value placed on self)."
+  }
+];
+
+// ============ APP STATE ============
+let selectedCategories = new Set();
+let currentQuiz = [];
+let currentIndex = 0;
+let score = 0;
+let streak = 0;
+let bestStreak = 0;
+let answers = [];
+let answered = false;
+
+// ============ INIT ============
+function init() {
+  const cats = {};
+  questions.forEach(q => {
+    cats[q.category] = (cats[q.category] || 0) + 1;
+  });
+  const icons = {
+    "Safe Transitions": "🔄",
+    "CMS/Regulatory Compliance": "📋",
+    "EMTALA": "🏥",
+    "Post-Hospital Needs Assessment": "🏠",
+    "Case Management Concepts": "📊",
+    "Rehabilitation & Transitions": "🔧"
+  };
+  const grid = document.getElementById('category-grid');
+  grid.innerHTML = '';
+  Object.entries(cats).forEach(([name, count]) => {
+    const card = document.createElement('div');
+    card.className = 'cat-card selected';
+    card.innerHTML = `
+      <div class="cat-icon">${icons[name] || '📝'}</div>
+      <div class="cat-name">${name}</div>
+      <div class="cat-count">${count} questions</div>
+    `;
+    selectedCategories.add(name);
+    card.onclick = () => {
+      if (selectedCategories.has(name)) {
+        selectedCategories.delete(name);
+        card.classList.remove('selected');
+      } else {
+        selectedCategories.add(name);
+        card.classList.add('selected');
+      }
+    };
+    grid.appendChild(card);
+  });
+  updateHeaderStats();
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ============ START QUIZ ============
+function startQuiz(subset) {
+  let pool;
+  if (subset) {
+    pool = subset;
+  } else {
+    pool = questions.filter(q => selectedCategories.has(q.category));
+    if (pool.length === 0) {
+      alert('Please select at least one category!');
+      return;
+    }
+  }
+
+  const doShuffle = document.getElementById('shuffle-toggle').checked;
+  currentQuiz = doShuffle ? shuffle(pool) : [...pool];
+
+  const limit = parseInt(document.getElementById('q-count').value);
+  if (limit > 0 && currentQuiz.length > limit) {
+    currentQuiz = currentQuiz.slice(0, limit);
+  }
+
+  currentIndex = 0;
+  score = 0;
+  streak = 0;
+  bestStreak = 0;
+  answers = [];
+  answered = false;
+
+  showScreen('quiz');
+  renderQuestion();
+  updateHeaderStats();
+}
+
+// ============ RENDER QUESTION ============
+function renderQuestion() {
+  answered = false;
+  const q = currentQuiz[currentIndex];
+  document.getElementById('q-counter').textContent = `${currentIndex + 1} / ${currentQuiz.length}`;
+  document.getElementById('q-cat-tag').textContent = q.category;
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('progress-bar').style.width = `${((currentIndex) / currentQuiz.length) * 100}%`;
+  document.getElementById('next-btn').style.display = 'none';
+  document.getElementById('explanation').classList.remove('show');
+
+  const letters = ['A', 'B', 'C', 'D'];
+  const list = document.getElementById('options-list');
+  list.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    const text = opt.replace(/^[A-D]\.\s*/, '');
+    btn.innerHTML = `
+      <span class="option-letter">${letters[i]}</span>
+      <span>${text}</span>
+      <span class="key-hint">${letters[i]}</span>
+    `;
+    btn.onclick = () => selectAnswer(i);
+    list.appendChild(btn);
+  });
+}
+
+// ============ SELECT ANSWER ============
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+
+  const q = currentQuiz[currentIndex];
+  const btns = document.querySelectorAll('.option-btn');
+  const isCorrect = idx === q.answer;
+
+  btns.forEach((btn, i) => {
+    btn.classList.add('disabled');
+    if (i === q.answer) btn.classList.add('correct');
+    if (i === idx && !isCorrect) btn.classList.add('wrong');
+  });
+
+  if (isCorrect) {
+    score++;
+    streak++;
+    if (streak > bestStreak) bestStreak = streak;
+  } else {
+    streak = 0;
+  }
+
+  answers.push({ question: q, selected: idx, correct: isCorrect });
+
+  document.getElementById('explanation-text').textContent = q.explanation;
+  document.getElementById('explanation').classList.add('show');
+  document.getElementById('next-btn').style.display = 'inline-flex';
+  updateHeaderStats();
+}
+
+// ============ NEXT QUESTION ============
+function nextQuestion() {
+  currentIndex++;
+  if (currentIndex >= currentQuiz.length) {
+    showResults();
+    return;
+  }
+  renderQuestion();
+}
+
+// ============ KEYBOARD SHORTCUTS ============
+document.addEventListener('keydown', (e) => {
+  if (document.getElementById('quiz').style.display === 'none' &&
+      document.getElementById('quiz').style.display !== 'block') return;
+  const quizVisible = document.getElementById('quiz').style.display === 'block';
+  if (!quizVisible) return;
+
+  if (!answered) {
+    const keyMap = { 'a': 0, 'b': 1, 'c': 2, 'd': 3, '1': 0, '2': 1, '3': 2, '4': 3 };
+    if (keyMap[e.key.toLowerCase()] !== undefined) {
+      selectAnswer(keyMap[e.key.toLowerCase()]);
+    }
+  } else {
+    if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      nextQuestion();
+    }
+  }
+});
+
+// ============ RESULTS ============
+function showResults() {
+  const pct = Math.round((score / currentQuiz.length) * 100);
+  let emoji, title, sub;
+  if (pct >= 90) { emoji = '🏆'; title = 'Outstanding!'; sub = 'You really know your stuff!'; }
+  else if (pct >= 80) { emoji = '🌟'; title = 'Great Job!'; sub = 'You\'re well prepared!'; }
+  else if (pct >= 70) { emoji = '👍'; title = 'Good Work!'; sub = 'Almost at the passing threshold—keep going!'; }
+  else if (pct >= 60) { emoji = '💪'; title = 'Getting There!'; sub = 'A little more review and you\'ll ace it!'; }
+  else { emoji = '📚'; title = 'Keep Studying!'; sub = 'Review the explanations and try again!'; }
+
+  document.getElementById('results-emoji').textContent = emoji;
+  document.getElementById('results-title').textContent = title;
+  document.getElementById('results-sub').textContent = sub;
+  document.getElementById('score-pct').innerHTML = `${pct}<small>%</small>`;
+  document.getElementById('stat-correct').textContent = score;
+  document.getElementById('stat-wrong').textContent = currentQuiz.length - score;
+  document.getElementById('stat-streak').textContent = bestStreak;
+
+  const ring = document.getElementById('ring-fill');
+  const circumference = 2 * Math.PI * 72;
+  ring.className = 'ring-fill ' + (pct >= 70 ? 'pass' : 'fail');
+  setTimeout(() => {
+    ring.style.strokeDashoffset = circumference - (circumference * pct / 100);
+  }, 100);
+
+  document.getElementById('progress-bar').style.width = '100%';
+  showScreen('results');
+}
+
+function endQuiz() {
+  if (answers.length > 0) {
+    showResults();
+  } else {
+    goHome();
+  }
+}
+
+// ============ REVIEW ============
+function showReview() {
+  showScreen('review');
+  filterReview('all', document.querySelector('.filter-btn'));
+}
+
+function filterReview(filter, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const list = document.getElementById('review-list');
+  list.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+
+  answers.forEach((a, i) => {
+    if (filter === 'wrong' && a.correct) return;
+    if (filter === 'correct' && !a.correct) return;
+
+    const div = document.createElement('div');
+    div.className = 'review-item';
+    const selectedText = a.question.options[a.selected].replace(/^[A-D]\.\s*/, '');
+    const correctText = a.question.options[a.question.answer].replace(/^[A-D]\.\s*/, '');
+
+    let answerHtml = '';
+    if (a.correct) {
+      answerHtml = `<span class="review-answer user-correct">✓ ${letters[a.selected]}. ${selectedText}</span>`;
+    } else {
+      answerHtml = `<span class="review-answer user-wrong">✗ Your answer: ${letters[a.selected]}. ${selectedText}</span>
+                    <span class="review-answer actual-correct">✓ Correct: ${letters[a.question.answer]}. ${correctText}</span>`;
+    }
+
+    div.innerHTML = `
+      <div class="review-q-text">${i + 1}. ${a.question.q}</div>
+      <div>${answerHtml}</div>
+      <div class="review-explain">${a.question.explanation}</div>
+    `;
+    list.appendChild(div);
+  });
+
+  if (list.children.length === 0) {
+    list.innerHTML = `<div style="text-align:center;color:var(--text-muted);padding:3rem">No questions match this filter.</div>`;
+  }
+}
+
+// ============ RETRY MISSED ============
+function retryMissed() {
+  const missed = answers.filter(a => !a.correct).map(a => a.question);
+  if (missed.length === 0) {
+    alert('You got everything right! Nothing to retry.');
+    return;
+  }
+  startQuiz(missed);
+}
+
+// ============ NAVIGATION ============
+function showScreen(name) {
+  ['landing', 'quiz', 'results', 'review'].forEach(s => {
+    document.getElementById(s).style.display = s === name ? 'block' : 'none';
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goHome() {
+  showScreen('landing');
+  document.getElementById('progress-bar').style.width = '0%';
+  document.getElementById('ring-fill').style.strokeDashoffset = 452.4;
+  updateHeaderStats();
+}
+
+function updateHeaderStats() {
+  document.getElementById('hdr-score').textContent = score;
+  document.getElementById('hdr-total').textContent = currentQuiz.length || 0;
+  document.getElementById('hdr-streak').textContent = streak;
+}
+
+// ============ BOOT ============
+init();
+showScreen('landing');
+</script>
+</body>
+</html>
