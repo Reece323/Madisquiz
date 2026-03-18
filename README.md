@@ -1,32 +1,53 @@
-# ⚔️ MadiQuiz — Discharge Planning Quest
+# 📋 MadiQuiz — CCMC Discharge Planning Study Hub
 
-An RPG-style practice quiz game for the CCMC Discharge Planning certification exam.
+A practice quiz app for the CCMC Discharge Planning certification exam, built with love.
 
-🔗 **Play Now:** [https://reece323.github.io/Madisquiz/](https://reece323.github.io/Madisquiz/)
+🔗 **Live Site:** [https://reece323.github.io/Madisquiz/](https://reece323.github.io/Madisquiz/)
 
-## Game Features
+## Features
 
-- **120 ABCD practice questions** across 6 boss realms
-- RPG mechanics: XP, leveling, combo streaks, boss health bars
-- Difficulty modes: Normal (5 lives), Hard (3 lives), Insane (1 life)
-- Combo system: chain correct answers for bonus XP
-- 8 unlockable titles from Novice Planner to Grand Champion
-- Progress saves between sessions (XP and level persist)
-- Keyboard shortcuts (A/B/C/D to answer, Enter for next)
-- Battle log review with missed-question filter
-- Retry missed questions to drill weak areas
+- **203 ABCD practice questions** across 10 categories
+- Instant feedback with detailed explanations for every question
+- Category filtering to target weak areas
+- Question count selector in **20-question increments** (20, 40, 60... up to 200, or All)
+- Shuffle mode toggle
+- Keyboard shortcuts (A/B/C/D to answer, Enter/Space for next)
+- XP system with streak bonuses
+- Score tracking with best streak counter
+- Review mode with missed-question filter
+- Retry missed questions to drill problem areas
+- Fully self-contained single HTML file — works offline
+- Modern video-game inspired UI
 
-## Boss Realms
+## Categories
 
-| Realm | Boss | Questions |
-|-------|------|-----------|
-| Safe Transitions | Transition Titan | 20 |
-| CMS/Regulatory | Regulation Golem | 20 |
-| EMTALA | EMTALA Enforcer | 20 |
-| Post-Hospital Needs | Needs Assessor | 20 |
-| Case Management | Concept Keeper | 20 |
-| Rehab & Transitions | Rehab Warden | 20 |
+| Category | Questions |
+|----------|-----------|
+| 🔄 Safe Transitions | 26 |
+| 📋 CMS/Regulatory Compliance | 22 |
+| 🏥 EMTALA | 21 |
+| 🏠 Post-Hospital Needs | 22 |
+| ⚖️ Ethical & Legal Standards | 22 |
+| 🧠 Psychosocial & Support Systems | 20 |
+| 📊 Case Management Concepts | 23 |
+| 🔧 Rehabilitation & Return to Work | 15 |
+| 📈 Quality & Outcomes | 16 |
+| 💳 Reimbursement & Insurance | 16 |
+
+## How to Use
+
+1. Visit the [live site](https://reece323.github.io/Madisquiz/)
+2. Select categories to study
+3. Choose question count (20, 40, 60... or All)
+4. Click **START PRACTICE** and go!
+
+## Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| A / B / C / D | Select answer |
+| Enter / Space / → | Next question |
 
 ## Disclaimer
 
-Personal study tool, not affiliated with CCMC. For practice and educational purposes only.
+This is a personal study tool and is **not affiliated with CCMC** (Commission for Case Manager Certification). Questions are for practice and educational purposes only.
