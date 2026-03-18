@@ -135,10 +135,10 @@ body::before{content:'';position:fixed;inset:0;opacity:.03;background-image:url(
 .expl-txt{font-size:.85rem;color:var(--text2);line-height:1.7}
 
 /* Confidence rating */
-.conf{display:flex;align-items:center;gap:8px;margin-top:.75rem;padding:.6rem .75rem;background:var(--cream2);border-radius:var(--rs);animation:fadeUp .3s ease}
-.conf-label{font-size:.72rem;color:var(--text3);font-weight:600;white-space:nowrap}
-.conf-btns{display:flex;gap:4px;flex:1}
-.conf-btn{flex:1;padding:6px;border:1.5px solid var(--cream3);background:var(--linen);border-radius:var(--rs);font-size:.7rem;font-weight:600;color:var(--text3);cursor:pointer;transition:all .2s;text-align:center}
+.conf{display:flex;flex-direction:column;gap:6px;margin-top:.75rem;padding:.7rem .85rem;background:var(--cream2);border-radius:var(--rs);animation:fadeUp .3s ease}
+.conf-label{font-size:.75rem;color:var(--text3);font-weight:600}
+.conf-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%}
+.conf-btn{padding:10px 4px;border:1.5px solid var(--cream3);background:var(--linen);border-radius:var(--rs);font-size:.78rem;font-weight:600;color:var(--text3);cursor:pointer;transition:all .2s;text-align:center;line-height:1.3}
 .conf-btn:active{transform:scale(.95)}
 .conf-btn.sel-conf{border-color:var(--sage);background:var(--sage-pale);color:var(--sage-dark)}
 
@@ -200,12 +200,35 @@ body::before{content:'';position:fixed;inset:0;opacity:.03;background-image:url(
 
 /* Small phones */
 @media(max-width:380px){.cg{gap:.5rem}.cn{font-size:.72rem}.hero h1{font-size:1.5rem}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+/* Dark mode toggle btn */
+.theme-btn{background:none;border:1.5px solid var(--cream3);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:all .2s;flex-shrink:0}
+.theme-btn:active{transform:scale(.9)}
+
+/* ====== DARK MODE ====== */
+body.dark{
+  --cream:#1C2118;--cream2:#242D1F;--cream3:#333D2B;--linen:#212A1C;
+  --sage:#8FA97E;--sage-light:#A3BC92;--sage-dark:#B5CDA5;--sage-pale:rgba(143,169,126,0.1);--sage-glow:rgba(143,169,126,0.15);
+  --olive:#8FA97E;--olive-dark:#A3BC92;--olive-pale:rgba(143,169,126,0.1);
+  --bark:#C4B49A;--bark-light:#D4C5AD;--bark-pale:rgba(196,180,154,0.08);
+  --rose:#D4A097;--rose-pale:rgba(212,160,151,0.1);--rose-light:#E0B5AD;
+  --text:#E8E4DA;--text2:#C4BEA8;--text3:#8A846E;--text4:#5C5745;
+  --green-ok:#8FB882;--green-ok-bg:rgba(143,184,130,0.12);--green-ok-b:rgba(143,184,130,0.3);
+  --red-no:#D4928A;--red-no-bg:rgba(212,146,138,0.12);--red-no-b:rgba(212,146,138,0.3);
+  --gold:#D4B85A;
+  --shadow:0 2px 12px rgba(0,0,0,0.2);--shadow-lg:0 8px 30px rgba(0,0,0,0.3);
+}
+body.dark{background:var(--cream);color:var(--text)}
+body.dark .hdr{background:rgba(28,33,24,0.92);border-bottom-color:var(--cream3)}
+body.dark .logo-txt{color:var(--sage-dark)}
+body.dark .theme-btn{border-color:var(--cream3)}
+body.dark body::before{opacity:.015}
 </style>
 </head>
 <body>
 <header class="hdr"><div class="hi">
 <div class="logo"><span class="logo-leaf">🌿</span><div class="logo-txt">Madi<span>Quiz</span></div></div>
 <div class="hdr-r">
+<button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle dark mode">🌙</button>
 <div class="hdr-pill"><span class="streak-flame">🌸</span><span class="n" id="hk">0</span></div>
 <div class="hdr-pill">✓ <span class="n" id="hs">0</span>/<span class="n" id="ht">0</span></div>
 <div class="timer-pill" id="timer">0:00</div>
@@ -643,6 +666,20 @@ function sw(id){document.querySelectorAll('.sc').forEach(s=>s.classList.remove('
 function hm(){stopTimer();document.getElementById('timer').textContent='0:00';sw('SL');document.getElementById('pb').style.width='0%';document.getElementById('rf').style.strokeDashoffset=389.6;uh();updateLifetime();showQuote()}
 function sr(){sw('SR')}
 function uh(){document.getElementById('hs').textContent=sc;document.getElementById('ht').textContent=qz.length||0;document.getElementById('hk').textContent=sk}
+// Theme toggle
+function toggleTheme(){
+  const dark=document.body.classList.toggle('dark');
+  document.getElementById('theme-btn').textContent=dark?'☀️':'🌙';
+  document.querySelector('meta[name="theme-color"]').content=dark?'#1C2118':'#FAF6F0';
+  try{localStorage.setItem('mq-theme',dark?'dark':'light')}catch(e){}
+}
+function loadTheme(){
+  try{
+    const t=localStorage.getItem('mq-theme');
+    if(t==='dark'){document.body.classList.add('dark');document.getElementById('theme-btn').textContent='☀️';document.querySelector('meta[name="theme-color"]').content='#1C2118'}
+  }catch(e){}
+}
+loadTheme();
 init();
 </script>
 </body>
