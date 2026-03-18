@@ -2,94 +2,341 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MadiQuiz — CCMC Discharge Planning Study Hub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#FAF6F0">
+<title>MadiQuiz — Study Garden</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#080b12;--surface:rgba(14,20,32,0.85);--s2:rgba(20,28,44,0.9);--s3:#1a2540;--brd:rgba(56,189,248,0.12);--brdg:rgba(56,189,248,0.25);--txt:#e8edf5;--dim:#8a9bb5;--mut:#556680;--acc:#38bdf8;--ac2:#818cf8;--ac3:#a78bfa;--ok:#34d399;--okbg:rgba(52,211,153,0.07);--okb:rgba(52,211,153,0.35);--no:#f87171;--nobg:rgba(248,113,113,0.07);--nob:rgba(248,113,113,0.35);--gold:#fbbf24;--xp:#c084fc;--fd:'Orbitron',sans-serif;--fb:'Exo 2',sans-serif;--fm:'JetBrains Mono',monospace;--r:12px;--rs:8px}
-body{font-family:var(--fb);background:var(--bg);color:var(--txt);min-height:100vh;line-height:1.6;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 10%,rgba(56,189,248,0.06) 0%,transparent 55%),radial-gradient(ellipse at 85% 85%,rgba(129,140,248,0.05) 0%,transparent 50%),radial-gradient(ellipse at 50% 50%,rgba(167,139,250,0.03) 0%,transparent 60%);pointer-events:none;z-index:0}
-body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:9999;opacity:.35}
-.hdr{position:sticky;top:0;z-index:100;background:rgba(8,11,18,0.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--brd);padding:0 1.5rem}
-.hi{max-width:920px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:58px}
-.logo{display:flex;align-items:center;gap:10px}.li{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--acc),var(--ac2));display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:12px;font-weight:800;color:#fff;letter-spacing:1px;box-shadow:0 0 18px rgba(56,189,248,0.25)}.lt{font-family:var(--fd);font-size:.9rem;letter-spacing:2px}.lt span{background:linear-gradient(135deg,var(--acc),var(--ac2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hs{display:flex;gap:1.2rem;font-size:.75rem;color:var(--dim);font-family:var(--fm);align-items:center}.hs .v{color:var(--acc);font-weight:600}.xb{width:80px;height:5px;background:var(--s3);border-radius:50px;overflow:hidden;margin-top:1px}.xf{height:100%;background:linear-gradient(90deg,var(--xp),var(--ac2));border-radius:50px;transition:width .6s;width:0%}
-.mn{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:2rem 1.5rem 4rem}
-.sc{display:none;animation:si .4s ease}.sc.on{display:block}@keyframes si{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-.lh{text-align:center;padding:3rem 0 1.5rem}.badge{display:inline-flex;align-items:center;gap:7px;background:var(--s2);border:1px solid var(--brdg);border-radius:50px;padding:5px 16px;font-size:.65rem;color:var(--acc);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-family:var(--fd);margin-bottom:1.5rem}.badge::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 8px var(--acc);animation:pu 2s infinite}@keyframes pu{0%,100%{opacity:1}50%{opacity:.3}}
-h1{font-family:var(--fd);font-size:clamp(1.5rem,4.5vw,2.5rem);line-height:1.2;margin-bottom:1rem;letter-spacing:1px}h1 em{font-style:normal;background:linear-gradient(135deg,var(--acc),var(--ac2),var(--ac3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.sub{font-size:.92rem;color:var(--dim);max-width:520px;margin:0 auto 2rem;line-height:1.7}
-.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:.7rem;margin-bottom:1.25rem;text-align:left}
-.cc{background:var(--surface);border:1px solid var(--brd);border-radius:var(--r);padding:.9rem 1rem;cursor:pointer;transition:all .22s;position:relative;overflow:hidden}.cc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--acc),var(--ac2));opacity:0;transition:opacity .22s}.cc:hover{border-color:var(--brdg);transform:translateY(-2px);box-shadow:0 4px 20px rgba(56,189,248,0.06)}.cc:hover::after{opacity:1}.cc.sel{border-color:var(--acc);background:rgba(56,189,248,0.06)}.cc.sel::after{opacity:1}
-.ci{font-size:1.2rem;margin-bottom:.3rem}.cn{font-weight:600;font-size:.82rem;margin-bottom:2px;letter-spacing:.2px}.ct{font-size:.7rem;color:var(--mut);font-family:var(--fm)}.ck{position:absolute;top:7px;right:9px;width:18px;height:18px;border-radius:5px;border:1.5px solid var(--brd);display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent;transition:all .2s}.cc.sel .ck{background:var(--acc);border-color:var(--acc);color:var(--bg)}
-.cr{display:flex;align-items:center;justify-content:center;gap:1.2rem;flex-wrap:wrap;margin-bottom:1.25rem}.cl{display:flex;align-items:center;gap:7px;font-size:.8rem;color:var(--dim);cursor:pointer;user-select:none}.cl input{display:none}.tg{width:36px;height:18px;border-radius:50px;background:var(--s3);border:1px solid var(--brd);position:relative;transition:all .2s}.tg::after{content:'';position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:var(--dim);transition:all .2s}.cl input:checked+.tg{background:var(--acc);border-color:var(--acc)}.cl input:checked+.tg::after{left:20px;background:var(--bg)}
-.si{background:var(--s2);border:1px solid var(--brd);color:var(--txt);border-radius:var(--rs);padding:6px 12px;font-family:var(--fb);font-size:.8rem;cursor:pointer}.si option{background:var(--surface)}.qi{font-family:var(--fm);font-size:.75rem;color:var(--acc);min-width:90px;text-align:center}
-.btn{display:inline-flex;align-items:center;gap:8px;border:none;border-radius:var(--r);padding:12px 28px;font-size:.88rem;font-weight:700;font-family:var(--fb);cursor:pointer;transition:all .2s;letter-spacing:.3px}.bg{background:linear-gradient(135deg,var(--acc),var(--ac2));color:#080b12;box-shadow:0 0 18px rgba(56,189,248,0.2)}.bg:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(56,189,248,0.3)}.bs{background:var(--s2);color:var(--txt);border:1px solid var(--brd)}.bs:hover{border-color:var(--dim);background:var(--s3)}.br{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap}
-.sar{display:flex;justify-content:flex-end;margin-bottom:.4rem;gap:.4rem}.sab{background:none;border:none;color:var(--acc);font-size:.75rem;font-weight:600;cursor:pointer;font-family:var(--fb);padding:3px 8px;border-radius:var(--rs);transition:all .2s}.sab:hover{background:rgba(56,189,248,0.08)}
-.pw{height:5px;background:var(--surface);border-radius:50px;margin-bottom:1.5rem;overflow:hidden;box-shadow:inset 0 0 6px rgba(0,0,0,.3)}.pb{height:100%;background:linear-gradient(90deg,var(--acc),var(--ac2),var(--ac3));border-radius:50px;transition:width .5s;width:0%;box-shadow:0 0 10px rgba(56,189,248,.3)}
-.qm{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.1rem}.qn{font-family:var(--fm);font-size:.78rem;color:var(--mut)}.qt{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--acc);background:rgba(56,189,248,0.08);padding:4px 11px;border-radius:50px;border:1px solid var(--brdg);font-family:var(--fd)}
-.qc{background:var(--surface);border:1px solid var(--brd);border-radius:16px;padding:1.6rem;margin-bottom:1.1rem;animation:si .35s ease;backdrop-filter:blur(10px)}.qx{font-size:1.02rem;font-weight:500;line-height:1.7;margin-bottom:1.4rem}
-.ol{display:flex;flex-direction:column;gap:.6rem}.op{display:flex;align-items:flex-start;gap:11px;background:var(--s2);border:1.5px solid var(--brd);border-radius:var(--r);padding:.85rem 1rem;cursor:pointer;transition:all .2s;text-align:left;font-size:.9rem;line-height:1.55;color:var(--txt);font-family:var(--fb);width:100%}.op:hover:not(.dis){border-color:var(--acc);background:rgba(56,189,248,.05)}.ol2{display:flex;align-items:center;justify-content:center;width:28px;height:28px;min-width:28px;border-radius:7px;background:var(--s3);font-family:var(--fd);font-weight:700;font-size:.68rem;color:var(--dim);transition:all .2s;letter-spacing:1px}.op:hover:not(.dis) .ol2{background:var(--acc);color:var(--bg)}.op.ok{border-color:var(--okb)!important;background:var(--okbg)!important}.op.ok .ol2{background:var(--ok);color:var(--bg)}.op.no{border-color:var(--nob)!important;background:var(--nobg)!important}.op.no .ol2{background:var(--no);color:var(--bg)}.op.dis{cursor:default;opacity:.55}.op.ok.dis,.op.no.dis{opacity:1}.ok2{margin-left:auto;font-family:var(--fm);font-size:.62rem;color:var(--mut);opacity:.4}
-.ex{background:var(--s2);border:1px solid var(--brd);border-left:3px solid var(--ok);border-radius:var(--r);padding:1rem 1.2rem;margin-top:1rem;display:none;animation:si .3s ease}.ex.sh{display:block}.el{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--ok);margin-bottom:5px;font-family:var(--fd)}.et{font-size:.85rem;color:var(--dim);line-height:1.7}
-.xpp{position:fixed;top:75px;right:24px;background:var(--surface);border:1px solid var(--xp);border-radius:var(--r);padding:8px 18px;font-family:var(--fd);font-size:.82rem;color:var(--xp);z-index:200;animation:xp .7s ease forwards;pointer-events:none;box-shadow:0 0 18px rgba(192,132,252,.2)}@keyframes xp{0%{opacity:0;transform:translateY(10px) scale(.9)}30%{opacity:1;transform:translateY(-5px) scale(1.05)}100%{opacity:0;transform:translateY(-30px) scale(.95)}}
-.qnv{display:flex;justify-content:space-between;align-items:center;margin-top:1.1rem}
-.rc{background:var(--surface);border:1px solid var(--brd);border-radius:20px;padding:2.5rem 2rem;text-align:center;animation:si .5s ease;position:relative;overflow:hidden}.rc::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(56,189,248,.04) 0%,transparent 60%);pointer-events:none}.re{font-size:3rem;margin-bottom:.6rem}.rt{font-family:var(--fd);font-size:1.4rem;margin-bottom:.3rem;letter-spacing:1px}.rs2{color:var(--dim);margin-bottom:1.5rem;font-size:.9rem}
-.rw{display:flex;justify-content:center;margin-bottom:1.5rem}.rg{width:140px;height:140px;position:relative}.rg svg{transform:rotate(-90deg);width:100%;height:100%}.rg circle{fill:none;stroke-width:7;cx:70;cy:70;r:63}.rbg{stroke:var(--s3)}.rfg{stroke:var(--acc);stroke-linecap:round;stroke-dasharray:395.8;stroke-dashoffset:395.8;transition:stroke-dashoffset 1.5s cubic-bezier(.22,1,.36,1)}.rfg.pass{stroke:var(--ok)}.rfg.fail{stroke:var(--no)}.rn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--fd);font-size:1.8rem;font-weight:800;letter-spacing:1px}.rn small{font-size:.75rem;color:var(--mut);font-weight:400}
-.sr{display:flex;justify-content:center;gap:1.75rem;margin-bottom:1.75rem;flex-wrap:wrap}.st{text-align:center}.sv{font-family:var(--fd);font-size:1.2rem;font-weight:800;letter-spacing:1px}.sv.g{color:var(--ok)}.sv.r{color:var(--no)}.sv.y{color:var(--gold)}.sv.p{color:var(--xp)}.sl{font-size:.65rem;color:var(--mut);text-transform:uppercase;letter-spacing:.8px;margin-top:2px;font-family:var(--fd)}
-.rvh{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.1rem;flex-wrap:wrap;gap:.6rem}.rvh h2{font-family:var(--fd);font-size:1.1rem;letter-spacing:1px}.rvf{display:flex;gap:.35rem}.fb{background:var(--s2);border:1px solid var(--brd);color:var(--dim);border-radius:50px;padding:4px 13px;font-size:.7rem;font-weight:600;cursor:pointer;font-family:var(--fb);transition:all .2s}.fb.on,.fb:hover{border-color:var(--acc);color:var(--acc);background:rgba(56,189,248,.06)}
-.ri{background:var(--surface);border:1px solid var(--brd);border-radius:var(--r);padding:1.1rem;margin-bottom:.65rem}.rq{font-weight:500;margin-bottom:.65rem;line-height:1.6;font-size:.88rem}.ra{font-size:.8rem;padding:4px 9px;border-radius:var(--rs);display:inline-block;margin-right:5px;margin-bottom:4px}.ra.uc{background:var(--okbg);border:1px solid var(--okb);color:var(--ok)}.ra.uw{background:var(--nobg);border:1px solid var(--nob);color:var(--no)}.ra.ac{background:var(--okbg);border:1px solid var(--okb);color:var(--ok)}.rvx{margin-top:.5rem;font-size:.8rem;color:var(--dim);line-height:1.6;padding-left:.7rem;border-left:2px solid var(--brd)}
-.ftr{text-align:center;padding:2rem 1rem;font-size:.7rem;color:var(--mut);border-top:1px solid var(--brd);font-family:var(--fm);letter-spacing:.5px}
-@media(max-width:640px){.qc{padding:1.1rem}.rc{padding:1.5rem 1rem}.hs{display:none}.cg{grid-template-columns:repeat(2,1fr)}.sr{gap:1rem}}
-@media(max-width:400px){.cg{grid-template-columns:1fr}}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --cream:#FAF6F0;--cream2:#F5EFE6;--cream3:#EDE6D8;--linen:#FFF9F2;
+  --sage:#7A8B6F;--sage-light:#94A785;--sage-dark:#5C6B52;--sage-pale:rgba(122,139,111,0.08);--sage-glow:rgba(122,139,111,0.15);
+  --olive:#6B7F4E;--olive-dark:#4A5A35;--olive-pale:rgba(107,127,78,0.1);
+  --bark:#8B7355;--bark-light:#A8916E;--bark-pale:rgba(139,115,85,0.08);
+  --rose:#C4867A;--rose-pale:rgba(196,134,122,0.1);--rose-light:#D4A097;
+  --berry:#9B6B7A;--lavender:#8B7BA8;
+  --text:#3D3629;--text2:#6B5E4F;--text3:#9B8E7E;--text4:#BDB0A0;
+  --green-ok:#6B8F5E;--green-ok-bg:rgba(107,143,94,0.1);--green-ok-b:rgba(107,143,94,0.3);
+  --red-no:#C17A6E;--red-no-bg:rgba(193,122,110,0.1);--red-no-b:rgba(193,122,110,0.3);
+  --gold:#C4A44E;
+  --font-display:'Playfair Display',Georgia,serif;--font-body:'Nunito',sans-serif;--font-hand:'Caveat',cursive;
+  --r:16px;--rs:10px;
+  --shadow:0 2px 12px rgba(61,54,41,0.06);--shadow-lg:0 8px 30px rgba(61,54,41,0.1);
+  --safe-top:env(safe-area-inset-top);--safe-bottom:env(safe-area-inset-bottom);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--cream);color:var(--text);min-height:100vh;min-height:100dvh;line-height:1.65;overflow-x:hidden;font-size:16px;padding-bottom:var(--safe-bottom)}
+
+/* Subtle botanical texture */
+body::before{content:'';position:fixed;inset:0;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5c0 10-8 18-8 25s3 10 8 10 8-3 8-10S30 15 30 5z' fill='%237A8B6F' fill-opacity='.4'/%3E%3C/svg%3E");pointer-events:none;z-index:0}
+
+/* ====== HEADER ====== */
+.hdr{position:sticky;top:0;z-index:100;background:rgba(250,246,240,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--cream3);padding:0 1rem;padding-top:var(--safe-top)}
+.hi{max-width:600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:8px}
+.logo-leaf{font-size:1.4rem}
+.logo-txt{font-family:var(--font-display);font-size:1.05rem;font-weight:600;color:var(--sage-dark);letter-spacing:-.3px}
+.logo-txt span{color:var(--sage)}
+.hdr-r{display:flex;align-items:center;gap:12px}
+.hdr-pill{display:flex;align-items:center;gap:5px;background:var(--sage-pale);border:1px solid rgba(122,139,111,0.15);border-radius:50px;padding:4px 12px;font-size:.75rem;color:var(--sage-dark);font-weight:600}
+.hdr-pill .n{font-family:var(--font-hand);font-size:1rem;font-weight:700}
+.streak-flame{font-size:.85rem}
+.timer-pill{font-family:var(--font-hand);font-size:1rem;color:var(--bark);font-weight:600;min-width:50px;text-align:right}
+
+/* ====== MAIN ====== */
+.mn{position:relative;z-index:1;max-width:600px;margin:0 auto;padding:1.25rem 1rem 2rem}
+.sc{display:none;animation:fadeUp .4s ease}.sc.on{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* ====== LANDING ====== */
+.hero{text-align:center;padding:1.5rem 0 1rem}
+.hero-flower{font-size:2.8rem;margin-bottom:.5rem;display:block;animation:sway 4s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+.hero h1{font-family:var(--font-display);font-size:1.75rem;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:.5rem}
+.hero h1 em{font-style:italic;color:var(--sage)}
+.hero-sub{font-size:.9rem;color:var(--text2);max-width:340px;margin:0 auto .75rem;line-height:1.7}
+.hero-stats{display:flex;justify-content:center;gap:1.5rem;margin-bottom:1.25rem}
+.hero-stat{text-align:center}
+.hero-stat .n{font-family:var(--font-hand);font-size:1.8rem;font-weight:700;color:var(--sage-dark);line-height:1}
+.hero-stat .l{font-size:.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;font-weight:600;margin-top:2px}
+
+/* Quote of the day */
+.qotd{background:var(--linen);border:1px solid var(--cream3);border-radius:var(--r);padding:1rem 1.25rem;margin-bottom:1.25rem;text-align:center;position:relative}
+.qotd::before{content:'❝';position:absolute;top:-6px;left:12px;font-size:1.5rem;color:var(--sage-light);opacity:.5}
+.qotd p{font-family:var(--font-display);font-style:italic;font-size:.88rem;color:var(--text2);line-height:1.6}
+.qotd cite{display:block;font-size:.72rem;color:var(--text3);margin-top:4px;font-style:normal;font-weight:600}
+
+/* Category Cards */
+.cat-section-label{font-family:var(--font-hand);font-size:1.2rem;color:var(--sage);margin-bottom:.5rem;padding-left:.25rem}
+.sel-row{display:flex;justify-content:flex-end;margin-bottom:.4rem;gap:.35rem}
+.sel-btn{background:none;border:none;color:var(--sage);font-size:.75rem;font-weight:700;cursor:pointer;padding:3px 8px;border-radius:var(--rs);transition:background .2s}.sel-btn:hover{background:var(--sage-pale)}
+.cg{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-bottom:1.25rem}
+.cc{background:var(--linen);border:1.5px solid var(--cream3);border-radius:var(--r);padding:.85rem .9rem;cursor:pointer;transition:all .25s;position:relative;-webkit-user-select:none;user-select:none}
+.cc:active{transform:scale(.97)}
+.cc.sel{border-color:var(--sage);background:var(--sage-pale)}
+.cc.sel .ck{background:var(--sage);border-color:var(--sage);color:#fff}
+.ci{font-size:1.15rem;margin-bottom:.25rem}
+.cn{font-weight:700;font-size:.78rem;color:var(--text);line-height:1.3;margin-bottom:2px}
+.ct{font-size:.68rem;color:var(--text3);font-weight:600}
+.ck{position:absolute;top:7px;right:8px;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--cream3);display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent;transition:all .2s}
+
+/* Controls */
+.ctrl{display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.25rem}
+.ctrl-row{display:flex;align-items:center;justify-content:space-between;background:var(--linen);border:1px solid var(--cream3);border-radius:var(--r);padding:.75rem 1rem}
+.ctrl-label{font-size:.85rem;font-weight:600;color:var(--text2)}
+.ctrl-right{display:flex;align-items:center;gap:8px}
+.tog-wrap{width:44px;height:26px;border-radius:50px;background:var(--cream3);position:relative;cursor:pointer;transition:background .2s}
+.tog-wrap.on{background:var(--sage)}
+.tog-knob{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.12);transition:left .2s}
+.tog-wrap.on .tog-knob{left:21px}
+.sel-nice{background:var(--cream);border:1.5px solid var(--cream3);color:var(--text);border-radius:var(--rs);padding:6px 12px;font-family:var(--font-body);font-size:.85rem;font-weight:600;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%239B8E7E' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px}
+.sel-nice option{background:var(--cream)}
+.q-count-pill{font-family:var(--font-hand);font-size:1.05rem;color:var(--sage-dark);font-weight:600}
+
+/* Buttons */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:var(--r);padding:14px 28px;font-size:.92rem;font-weight:700;font-family:var(--font-body);cursor:pointer;transition:all .2s;letter-spacing:.2px;width:100%;-webkit-user-select:none;user-select:none}
+.btn:active{transform:scale(.97)}
+.btn-go{background:var(--sage);color:#fff;box-shadow:0 4px 16px rgba(122,139,111,0.25)}
+.btn-go:hover{background:var(--sage-dark);box-shadow:0 6px 24px rgba(122,139,111,0.3)}
+.btn-sec{background:var(--linen);color:var(--text2);border:1.5px solid var(--cream3)}
+.btn-sec:hover{border-color:var(--sage-light);background:var(--sage-pale)}
+.btn-sm{padding:10px 20px;font-size:.82rem;width:auto}
+.btn-row{display:flex;gap:.6rem;flex-wrap:wrap}
+.btn-row .btn{flex:1;min-width:0}
+
+/* ====== QUIZ ====== */
+.prog-wrap{height:6px;background:var(--cream3);border-radius:50px;margin-bottom:1.25rem;overflow:hidden}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--sage-light),var(--sage));border-radius:50px;transition:width .5s cubic-bezier(.22,1,.36,1);width:0%}
+.q-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem}
+.q-num{font-family:var(--font-hand);font-size:1.1rem;color:var(--text3);font-weight:600}
+.q-tag{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--sage-dark);background:var(--sage-pale);padding:4px 10px;border-radius:50px;border:1px solid rgba(122,139,111,0.15)}
+
+.q-card{background:var(--linen);border:1.5px solid var(--cream3);border-radius:20px;padding:1.5rem 1.25rem;margin-bottom:1rem;animation:fadeUp .35s ease;box-shadow:var(--shadow)}
+.q-text{font-size:.95rem;font-weight:600;line-height:1.7;margin-bottom:1.25rem;color:var(--text)}
+
+.opts{display:flex;flex-direction:column;gap:.55rem}
+.opt{display:flex;align-items:flex-start;gap:11px;background:var(--cream);border:1.5px solid var(--cream3);border-radius:14px;padding:.9rem 1rem;cursor:pointer;transition:all .2s;text-align:left;font-size:.88rem;line-height:1.55;color:var(--text);font-family:var(--font-body);width:100%;-webkit-user-select:none;user-select:none}
+.opt:active:not(.dis){transform:scale(.98)}
+.opt.hover-ok{border-color:var(--sage);background:var(--sage-pale)}
+.opt-ltr{display:flex;align-items:center;justify-content:center;width:30px;height:30px;min-width:30px;border-radius:50%;background:var(--cream2);font-family:var(--font-display);font-weight:600;font-size:.82rem;color:var(--text2);transition:all .2s}
+.opt.hover-ok .opt-ltr{background:var(--sage);color:#fff}
+.opt.ok{border-color:var(--green-ok-b)!important;background:var(--green-ok-bg)!important}
+.opt.ok .opt-ltr{background:var(--green-ok);color:#fff}
+.opt.no{border-color:var(--red-no-b)!important;background:var(--red-no-bg)!important}
+.opt.no .opt-ltr{background:var(--red-no);color:#fff}
+.opt.dis{cursor:default;opacity:.5}.opt.ok.dis,.opt.no.dis{opacity:1}
+
+.expl{background:var(--cream);border:1.5px solid var(--cream3);border-left:4px solid var(--green-ok);border-radius:14px;padding:1rem 1.15rem;margin-top:1rem;display:none;animation:fadeUp .3s ease}
+.expl.sh{display:block}
+.expl-lbl{display:flex;align-items:center;gap:5px;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--green-ok);margin-bottom:5px}
+.expl-txt{font-size:.85rem;color:var(--text2);line-height:1.7}
+
+/* Confidence rating */
+.conf{display:flex;align-items:center;gap:8px;margin-top:.75rem;padding:.6rem .75rem;background:var(--cream2);border-radius:var(--rs);animation:fadeUp .3s ease}
+.conf-label{font-size:.72rem;color:var(--text3);font-weight:600;white-space:nowrap}
+.conf-btns{display:flex;gap:4px;flex:1}
+.conf-btn{flex:1;padding:6px;border:1.5px solid var(--cream3);background:var(--linen);border-radius:var(--rs);font-size:.7rem;font-weight:600;color:var(--text3);cursor:pointer;transition:all .2s;text-align:center}
+.conf-btn:active{transform:scale(.95)}
+.conf-btn.sel-conf{border-color:var(--sage);background:var(--sage-pale);color:var(--sage-dark)}
+
+.q-nav{display:flex;gap:.6rem;margin-top:1rem}
+.q-nav .btn{flex:1}
+
+/* Correct animation */
+.sparkle{position:fixed;pointer-events:none;z-index:200;font-size:1.5rem;animation:sparkleUp .8s ease forwards}
+@keyframes sparkleUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-60px) scale(.5)}}
+
+/* ====== RESULTS ====== */
+.res-card{background:var(--linen);border:1.5px solid var(--cream3);border-radius:24px;padding:2rem 1.5rem;text-align:center;animation:fadeUp .5s ease;box-shadow:var(--shadow-lg)}
+.res-wreath{font-size:3rem;margin-bottom:.5rem;display:block}
+.res-title{font-family:var(--font-display);font-size:1.5rem;font-weight:600;color:var(--text);margin-bottom:.25rem}
+.res-sub{color:var(--text2);margin-bottom:1.25rem;font-size:.88rem}
+.ring-wrap{display:flex;justify-content:center;margin-bottom:1.25rem}
+.ring{width:140px;height:140px;position:relative}
+.ring svg{transform:rotate(-90deg);width:100%;height:100%}
+.ring circle{fill:none;stroke-width:8;cx:70;cy:70;r:62}
+.ring-bg{stroke:var(--cream3)}
+.ring-fg{stroke:var(--sage);stroke-linecap:round;stroke-dasharray:389.6;stroke-dashoffset:389.6;transition:stroke-dashoffset 1.5s cubic-bezier(.22,1,.36,1)}
+.ring-fg.pass{stroke:var(--green-ok)}.ring-fg.fail{stroke:var(--red-no)}
+.ring-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.ring-pct{font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--text);display:block;line-height:1}
+.ring-pct small{font-size:.85rem;color:var(--text3);font-weight:400}
+.ring-label{font-size:.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:700}
+
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-bottom:1.5rem}
+.stat{text-align:center;background:var(--cream);border-radius:var(--r);padding:.6rem .25rem}
+.stat-v{font-family:var(--font-hand);font-size:1.4rem;font-weight:700;line-height:1}
+.stat-v.g{color:var(--green-ok)}.stat-v.r{color:var(--red-no)}.stat-v.y{color:var(--gold)}.stat-v.p{color:var(--sage)}
+.stat-l{font-size:.55rem;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;font-weight:700;margin-top:3px}
+
+/* ====== REVIEW ====== */
+.rev-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
+.rev-hdr h2{font-family:var(--font-display);font-size:1.2rem}
+.rev-filters{display:flex;gap:.35rem}
+.fb{background:var(--linen);border:1.5px solid var(--cream3);color:var(--text3);border-radius:50px;padding:5px 14px;font-size:.72rem;font-weight:700;cursor:pointer;font-family:var(--font-body);transition:all .2s}
+.fb:active{transform:scale(.95)}
+.fb.on{border-color:var(--sage);color:var(--sage-dark);background:var(--sage-pale)}
+.ri{background:var(--linen);border:1.5px solid var(--cream3);border-radius:var(--r);padding:1rem;margin-bottom:.6rem}
+.rq{font-weight:600;margin-bottom:.6rem;line-height:1.6;font-size:.85rem}
+.ra{font-size:.78rem;padding:4px 9px;border-radius:var(--rs);display:inline-block;margin-right:5px;margin-bottom:4px;font-weight:600}
+.ra.uc{background:var(--green-ok-bg);border:1px solid var(--green-ok-b);color:var(--green-ok)}
+.ra.uw{background:var(--red-no-bg);border:1px solid var(--red-no-b);color:var(--red-no)}
+.ra.ac{background:var(--green-ok-bg);border:1px solid var(--green-ok-b);color:var(--green-ok)}
+.rvx{margin-top:.5rem;font-size:.78rem;color:var(--text2);line-height:1.65;padding-left:.7rem;border-left:2px solid var(--cream3)}
+
+/* FOOTER */
+.ftr{text-align:center;padding:2rem 1rem;padding-bottom:calc(2rem + var(--safe-bottom));font-size:.7rem;color:var(--text4);border-top:1px solid var(--cream3)}
+.ftr .heart{color:var(--rose)}
+
+/* Touch states for mobile */
+@media(hover:hover){.opt:hover:not(.dis){border-color:var(--sage);background:var(--sage-pale)}.opt:hover:not(.dis) .opt-ltr{background:var(--sage);color:#fff}}
+@media(hover:none){.opt:active:not(.dis){border-color:var(--sage);background:var(--sage-pale)}.opt:active:not(.dis) .opt-ltr{background:var(--sage);color:#fff}}
+
+/* iPhone notch safe areas */
+@supports(padding:max(0px)){.hdr{padding-left:max(1rem,env(safe-area-inset-left));padding-right:max(1rem,env(safe-area-inset-right))}.mn{padding-left:max(1rem,env(safe-area-inset-left));padding-right:max(1rem,env(safe-area-inset-right))}}
+
+/* Small phones */
+@media(max-width:380px){.cg{gap:.5rem}.cn{font-size:.72rem}.hero h1{font-size:1.5rem}.stats-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
 <header class="hdr"><div class="hi">
-<div class="logo"><div class="li">MQ</div><div class="lt">MADI<span>QUIZ</span></div></div>
-<div class="hs">
-<div>Score <span class="v" id="hs1">0</span>/<span class="v" id="ht1">0</span></div>
-<div>Streak <span class="v" id="hk1">0</span></div>
-<div><div style="font-size:.6rem;color:var(--xp);margin-bottom:1px">XP <span id="hxp">0</span></div><div class="xb"><div class="xf" id="xf"></div></div></div>
+<div class="logo"><span class="logo-leaf">🌿</span><div class="logo-txt">Madi<span>Quiz</span></div></div>
+<div class="hdr-r">
+<div class="hdr-pill"><span class="streak-flame">🌸</span><span class="n" id="hk">0</span></div>
+<div class="hdr-pill">✓ <span class="n" id="hs">0</span>/<span class="n" id="ht">0</span></div>
+<div class="timer-pill" id="timer">0:00</div>
 </div></div></header>
+
 <div class="mn">
+
+<!-- ===== LANDING ===== -->
 <section id="SL" class="sc on">
-<div class="lh"><div class="badge">Practice — 2025 Exam Blueprint</div>
-<h1>CCMC <em>Discharge Planning</em><br>Study Hub</h1>
-<p class="sub">200+ ABCD practice questions across 10 categories. Master safe transitions, CMS/EMTALA regulations, ethics, psychosocial support, reimbursement, and more.</p></div>
-<div class="sar"><button class="sab" onclick="ta(1)">Select All</button><button class="sab" onclick="ta(0)">Deselect All</button></div>
+<div class="hero">
+<span class="hero-flower">🌻</span>
+<h1>Your <em>Study Garden</em></h1>
+<p class="hero-sub">203 practice questions to help you bloom on exam day. Pick your topics, set your pace, and grow your knowledge.</p>
+<div class="hero-stats">
+<div class="hero-stat"><div class="n" id="lifetime-correct">0</div><div class="l">Lifetime ✓</div></div>
+<div class="hero-stat"><div class="n" id="lifetime-quizzes">0</div><div class="l">Quizzes</div></div>
+<div class="hero-stat"><div class="n" id="lifetime-best">0%</div><div class="l">Best Score</div></div>
+</div>
+</div>
+
+<div class="qotd" id="qotd"></div>
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem">
+<div class="cat-section-label">Pick your topics 🌱</div>
+<div class="sel-row"><button class="sel-btn" onclick="ta(1)">All</button><button class="sel-btn" onclick="ta(0)">None</button></div>
+</div>
 <div class="cg" id="cg"></div>
-<div class="cr">
-<label class="cl"><input type="checkbox" id="sh" checked><span class="tg"></span> Shuffle</label>
-<select class="si" id="qc"></select>
-<div class="qi" id="qi">0 Qs</div>
+
+<div class="ctrl">
+<div class="ctrl-row">
+<div class="ctrl-label">Shuffle questions</div>
+<div class="tog-wrap on" id="shuf-tog" onclick="this.classList.toggle('on')"><div class="tog-knob"></div></div>
 </div>
-<div class="br"><button class="btn bg" onclick="go()">START PRACTICE →</button></div>
+<div class="ctrl-row">
+<div class="ctrl-label">How many?</div>
+<div class="ctrl-right">
+<select class="sel-nice" id="qc" onchange="uc()"></select>
+<div class="q-count-pill" id="qi">0</div>
+</div>
+</div>
+</div>
+<button class="btn btn-go" onclick="go()">Begin Practice 🌿</button>
 </section>
+
+<!-- ===== QUIZ ===== -->
 <section id="SQ" class="sc">
-<div class="pw"><div class="pb" id="pb"></div></div>
-<div class="qm"><span class="qn" id="qn">1/50</span><span class="qt" id="qtg">Cat</span></div>
-<div class="qc"><div class="qx" id="qx"></div><div class="ol" id="ol"></div>
-<div class="ex" id="ex"><div class="el">Explanation</div><div class="et" id="ext"></div></div></div>
-<div class="qnv"><button class="btn bs" onclick="eq()">✕ End</button><button class="btn bg" id="nb" onclick="nx()" style="display:none">Next →</button></div>
-</section>
-<section id="SR" class="sc">
-<div class="rc"><div class="re" id="re">🏆</div><h2 class="rt" id="rtt">Great!</h2><p class="rs2" id="rs">Results</p>
-<div class="rw"><div class="rg"><svg viewBox="0 0 140 140"><circle class="rbg"/><circle class="rfg" id="rf"/></svg><div class="rn" id="rp">0<small>%</small></div></div></div>
-<div class="sr"><div class="st"><div class="sv g" id="s1">0</div><div class="sl">Correct</div></div><div class="st"><div class="sv r" id="s2">0</div><div class="sl">Wrong</div></div><div class="st"><div class="sv y" id="s3">0</div><div class="sl">Best Streak</div></div><div class="st"><div class="sv p" id="s4">0</div><div class="sl">XP</div></div></div>
-<div class="br"><button class="btn bs" onclick="rv()">Review</button><button class="btn bs" onclick="rm()">Retry Missed</button><button class="btn bg" onclick="hm()">New Quiz →</button></div>
-</div></section>
-<section id="SV" class="sc">
-<div class="rvh"><h2>Review</h2><div class="rvf"><button class="fb on" onclick="fl('a',this)">All</button><button class="fb" onclick="fl('w',this)">Missed</button><button class="fb" onclick="fl('c',this)">Correct</button></div></div>
-<div id="rl"></div>
-<div style="margin-top:1rem;text-align:center"><button class="btn bs" onclick="sr()">← Results</button><button class="btn bg" onclick="hm()" style="margin-left:.5rem">New Quiz →</button></div>
-</section>
+<div class="prog-wrap"><div class="prog-bar" id="pb"></div></div>
+<div class="q-meta"><span class="q-num" id="qn">1 of 50</span><span class="q-tag" id="qtg">Category</span></div>
+<div class="q-card">
+<div class="q-text" id="qx"></div>
+<div class="opts" id="ol"></div>
+<div class="expl" id="ex"><div class="expl-lbl">🌿 Why this answer</div><div class="expl-txt" id="ext"></div></div>
+<div class="conf" id="conf" style="display:none">
+<div class="conf-label">How sure were you?</div>
+<div class="conf-btns">
+<button class="conf-btn" onclick="rate(1)">Guessed 🤞</button>
+<button class="conf-btn" onclick="rate(2)">Somewhat 🤔</button>
+<button class="conf-btn" onclick="rate(3)">Confident 💚</button>
 </div>
-<footer class="ftr">MadiQuiz — CCMC Discharge Planning Exam Prep · Not affiliated with CCMC · Built with ♥</footer>
+</div>
+</div>
+<div class="q-nav">
+<button class="btn btn-sec btn-sm" onclick="eq()">End</button>
+<button class="btn btn-go btn-sm" id="nb" onclick="nx()" style="display:none">Next →</button>
+</div>
+</section>
+
+<!-- ===== RESULTS ===== -->
+<section id="SR" class="sc">
+<div class="res-card">
+<span class="res-wreath" id="re">🏆</span>
+<h2 class="res-title" id="rtt">Beautiful Work!</h2>
+<p class="res-sub" id="rs">You're growing every day</p>
+<div class="ring-wrap"><div class="ring">
+<svg viewBox="0 0 140 140"><circle class="ring-bg"/><circle class="ring-fg" id="rf"/></svg>
+<div class="ring-num"><span class="ring-pct" id="rp">0<small>%</small></span><span class="ring-label">Score</span></div>
+</div></div>
+<div class="stats-grid">
+<div class="stat"><div class="stat-v g" id="s1">0</div><div class="stat-l">Correct</div></div>
+<div class="stat"><div class="stat-v r" id="s2">0</div><div class="stat-l">Missed</div></div>
+<div class="stat"><div class="stat-v y" id="s3">0</div><div class="stat-l">Streak</div></div>
+<div class="stat"><div class="stat-v p" id="s4">0:00</div><div class="stat-l">Time</div></div>
+</div>
+<div class="btn-row">
+<button class="btn btn-sec btn-sm" onclick="rv()">Review</button>
+<button class="btn btn-sec btn-sm" onclick="rm()">Retry Missed</button>
+</div>
+<button class="btn btn-go" onclick="hm()" style="margin-top:.6rem">Back to Garden 🌻</button>
+</div>
+</section>
+
+<!-- ===== REVIEW ===== -->
+<section id="SV" class="sc">
+<div class="rev-hdr">
+<h2>Review 🌿</h2>
+<div class="rev-filters">
+<button class="fb on" onclick="fl('a',this)">All</button>
+<button class="fb" onclick="fl('w',this)">Missed</button>
+<button class="fb" onclick="fl('c',this)">Correct</button>
+</div>
+</div>
+<div id="rl"></div>
+<div class="btn-row" style="margin-top:1rem">
+<button class="btn btn-sec btn-sm" onclick="sr()">← Results</button>
+<button class="btn btn-go btn-sm" onclick="hm()">Garden →</button>
+</div>
+</section>
+
+</div>
+
+<footer class="ftr">Made with <span class="heart">♥</span> for Madi · Not affiliated with CCMC<br>You've got this! 🌸</footer>
+
 <script>
+// ===== MOTIVATIONAL QUOTES =====
+const QUOTES=[
+["Believe you can and you're halfway there.","Theodore Roosevelt"],
+["The expert in anything was once a beginner.","Helen Hayes"],
+["You don't have to be great to start, but you have to start to be great.","Zig Ziglar"],
+["She believed she could, so she did.","R.S. Grey"],
+["A little progress each day adds up to big results.","Satya Nani"],
+["You are braver than you believe, stronger than you seem, and smarter than you think.","A.A. Milne"],
+["The secret of getting ahead is getting started.","Mark Twain"],
+["Bloom where you are planted.","Mary Engelbreit"],
+["Study hard, do good, and the good life will follow.","Condoleezza Rice"],
+["Success is the sum of small efforts, repeated day in and day out.","Robert Collier"],
+["Every flower must grow through dirt.","Laurie Jean Sennott"],
+["You're doing amazing, sweetie.","Kris Jenner"],
+];
+
+// ===== QUESTION BANK (203 Qs) =====
 const Q=[
-// ===== SAFE TRANSITIONS (25) =====
 {c:"Safe Transitions",q:"What is the PRIMARY goal of discharge planning in case management?",o:["Free hospital beds for incoming patients","Ensure a safe transition to the next level of care","Reduce documentation time for staff","Transfer liability to the outpatient setting"],a:1,e:"Discharge planning ensures continuity of care, patient safety, medication reconciliation, education, and resource coordination."},
 {c:"Safe Transitions",q:"A case manager coordinating transfer of a chronically ill patient can usually claim cost savings when the patient:",o:["Transfers to a payor pre-approved facility","Transfers from higher to lower intensity of care","Transfers to a facility closer to home","Transfers within the same PPO network"],a:1,e:"Savings occur when moving from higher to lower intensity settings, reducing daily care costs while meeting clinical needs."},
 {c:"Safe Transitions",q:"Which communication tool is MOST effective in promoting safe care transitions?",o:["Independent decision-making by each provider","Withholding information for confidentiality","Structured tools like SBAR","Informal hallway updates only"],a:2,e:"SBAR (Situation, Background, Assessment, Recommendation) promotes clarity and reduces errors during handoffs."},
@@ -110,8 +357,13 @@ const Q=[
 {c:"Safe Transitions",q:"The 'golden hour' in discharge planning refers to:",o:["The first hour after surgery","The first 48-72 hours post-discharge when complications are most likely","Time allowed for insurance authorization","First hour of the ED visit"],a:1,e:"The period immediately after discharge (48-72 hours) has the highest risk for complications and readmission."},
 {c:"Safe Transitions",q:"Which is the MOST critical element of a safe discharge plan?",o:["Patient receiving a paper copy of discharge summary","Coordination between inpatient and outpatient providers","Verification of patient parking availability","Confirmation of patient meal preferences at home"],a:1,e:"Coordination between inpatient and outpatient providers ensures continuity and prevents gaps in care."},
 {c:"Safe Transitions",q:"A patient being discharged after a COPD exacerbation should receive education on all EXCEPT:",o:["Inhaler technique and medication schedule","When to call the doctor or go to the ER","How to perform their own blood transfusion","Smoking cessation resources"],a:2,e:"COPD discharge education covers medications, warning signs, and lifestyle modifications. Blood transfusion is not relevant."},
-// ===== CMS/REGULATORY (22) =====
-{c:"CMS/Regulatory Compliance",q:"CMS requires hospital discharge plans to include a list of:",o:["Only hospital preferred providers","Medicare-participating HHAs, SNFs, IRFs, or LTCHs in the patient's area","Only the cheapest providers","Providers chosen exclusively by the insurance company"],a:1,e:"Per 42 CFR 482.43, hospitals must provide a list of Medicare-participating providers serving the patient's area."},
+{c:"Safe Transitions",q:"Which model specifically targets reducing readmissions within 30 days?",o:["The medical home model","The transitional care model (TCM)","The fee-for-service model","The capitation model"],a:1,e:"The TCM was designed to reduce readmissions through nurse-led interventions during the vulnerable post-discharge period."},
+{c:"Safe Transitions",q:"A discharge summary should include all EXCEPT:",o:["Diagnosis and procedures performed","Discharge medications and follow-up plan","Patient's personal social media information","Pending test results and follow-up needs"],a:2,e:"Discharge summaries include clinical information—not personal social media."},
+{c:"Safe Transitions",q:"The Coleman Care Transitions Intervention focuses on:",o:["Increasing hospital length of stay","Empowering patients with self-management skills across settings","Reducing nursing staff","Eliminating follow-up visits"],a:1,e:"Coleman's model empowers patients with skills to manage their care across transitions."},
+{c:"Safe Transitions",q:"Polypharmacy is a concern during discharge because:",o:["It means the patient takes too few medications","Multiple medications increase risk of interactions and errors","It only affects elderly patients","It reduces healthcare costs"],a:1,e:"Polypharmacy increases risks of drug interactions, adverse effects, and errors during transitions."},
+{c:"Safe Transitions",q:"Discharge planning for limited English proficiency requires:",o:["Instructions only in English","Professional interpreter services and translated materials","Asking the patient's child to translate","Skipping education entirely"],a:1,e:"Professional interpreters and translated materials ensure safe transitions for LEP patients."},
+{c:"Safe Transitions",q:"Long-term acute care hospitals (LTCHs) serve patients who:",o:["Need only social support","Require extended hospital-level care for complex conditions","Are ready for independent living","Need only outpatient follow-up"],a:1,e:"LTCHs provide extended hospital-level care for complex conditions requiring prolonged hospitalization."},
+{c:"CMS/Regulatory Compliance",q:"CMS requires hospital discharge plans to include a list of:",o:["Only hospital preferred providers","Medicare-participating HHAs, SNFs, IRFs, or LTCHs in the patient's area","Only the cheapest providers","Providers chosen exclusively by insurance"],a:1,e:"Per 42 CFR 482.43, hospitals must provide a list of Medicare-participating providers serving the patient's area."},
 {c:"CMS/Regulatory Compliance",q:"CMS requires hospitals to inform patients of their:",o:["Obligation to use affiliated providers","Freedom to choose among participating Medicare providers","Requirement to pay out-of-pocket for all post-discharge care","Inability to appeal discharge decisions"],a:1,e:"CMS mandates informing patients of their freedom to choose and respecting their goals and preferences."},
 {c:"CMS/Regulatory Compliance",q:"CMS Conditions of Participation specifically address:",o:["Patient choice in discharge care provider","Patient complaint review only","Teach-back only","Standardized care plans only"],a:0,e:"CMS CoPs specifically address patient choice in selecting post-acute providers."},
 {c:"CMS/Regulatory Compliance",q:"Hospitals must disclose financial interests in:",o:["The patient's PCP practice","Any HHA or SNF to which the patient is referred","Patient's PBM","Patient's employer plan"],a:1,e:"Hospitals must disclose financial interests in referred HHAs or SNFs for transparency."},
@@ -126,14 +378,19 @@ const Q=[
 {c:"CMS/Regulatory Compliance",q:"For managed care patients, hospitals must:",o:["Only use hospital network providers","Make patients aware they need to verify in-network providers with their MCO","Refuse to discuss options","Require MCO to make all decisions"],a:1,e:"Hospitals must alert managed care patients to verify in-network providers with their MCO."},
 {c:"CMS/Regulatory Compliance",q:"The BFCC-QIO is responsible for:",o:["Setting hospital menus","Auditing short-stay claims for billing appropriateness","Managing parking","Scheduling physician visits"],a:1,e:"The BFCC-QIO audits short-stay claims for billing appropriateness under Medicare rules."},
 {c:"CMS/Regulatory Compliance",q:"CMS states hospitals must not _____ the qualified providers available to patients:",o:["List","Specify or otherwise limit","Recommend","Describe"],a:1,e:"Hospitals must not specify or limit qualified post-discharge providers available to patients."},
-{c:"CMS/Regulatory Compliance",q:"Under CMS, when is discharge planning required to begin?",o:["Only when the patient requests it","Upon or shortly after admission based on the patient's needs","The day before planned discharge","Only for patients staying more than 7 days"],a:1,e:"CMS expects discharge planning to begin early in the hospitalization, upon or shortly after admission, based on identified needs."},
-// ===== EMTALA (20) =====
+{c:"CMS/Regulatory Compliance",q:"Discharge planning is required to begin:",o:["Only when the patient requests it","Upon or shortly after admission based on patient needs","The day before planned discharge","Only for stays over 7 days"],a:1,e:"CMS expects discharge planning to begin early, upon or shortly after admission."},
+{c:"CMS/Regulatory Compliance",q:"Discharge planning evaluations must be completed by:",o:["Only physicians","An RN, social worker, or other qualified person","Only the case manager","The patient's family"],a:1,e:"CMS specifies evaluations by an RN, social worker, or appropriately qualified personnel."},
+{c:"CMS/Regulatory Compliance",q:"The discharge plan must be reassessed:",o:["Only at discharge","On an ongoing basis throughout hospitalization","Only if the patient requests it","Only for Medicare patients"],a:1,e:"CMS requires ongoing reassessment to reflect changing patient needs."},
+{c:"CMS/Regulatory Compliance",q:"Discharge planning must consider the patient's:",o:["Goals of care and treatment preferences","Favorite TV shows","Political beliefs","Religious denomination for room assignment"],a:0,e:"CMS emphasizes honoring patient goals of care and treatment preferences."},
+{c:"CMS/Regulatory Compliance",q:"A 'patient choice letter' documents that:",o:["The patient wrote to their family","The patient was offered a list of post-acute providers","A complaint was filed","A physician recommendation was made"],a:1,e:"The patient choice letter documents that available providers were presented and freedom to choose was given."},
+{c:"CMS/Regulatory Compliance",q:"The ACA established penalties for hospitals with:",o:["Too many employees","Hospital-acquired conditions and excess readmissions","Too many outpatient visits","Low parking occupancy"],a:1,e:"The ACA penalizes for HACs and excess readmissions to incentivize quality improvement."},
+{c:"CMS/Regulatory Compliance",q:"A hospital's discharge planning program must be overseen by:",o:["A volunteer coordinator","A multidisciplinary committee or team","A single physician only","The marketing department"],a:1,e:"CMS requires oversight by a multidisciplinary committee or team."},
 {c:"EMTALA",q:"EMTALA was enacted in 1986 primarily to ensure:",o:["Hospitals meet fire safety standards","Public access to emergency services regardless of ability to pay","All physicians carry malpractice insurance","Minimum nurse-to-patient ratios"],a:1,e:"EMTALA prevents 'patient dumping' by ensuring emergency access regardless of ability to pay."},
 {c:"EMTALA",q:"Hospitals have three EMTALA obligations. These include all EXCEPT:",o:["Provide a medical screening examination","Provide stabilizing treatment","Guarantee free long-term follow-up care","Provide an appropriate transfer if unable to stabilize"],a:2,e:"EMTALA covers MSE, stabilizing treatment, and appropriate transfer—not long-term follow-up."},
 {c:"EMTALA",q:"Under EMTALA, a patient is stable for transfer when:",o:["Insurance authorizes the transfer","The physician determines no material deterioration will occur","The receiving hospital agrees","Patient has been in ED 4+ hours"],a:1,e:"Stability requires physician determination that no material deterioration will occur during transfer."},
 {c:"EMTALA",q:"EMTALA applies to:",o:["All outpatient clinics","Medicare-participating hospitals with emergency services","Only trauma centers","Private physician offices"],a:1,e:"EMTALA applies to Medicare-participating hospitals offering emergency services."},
 {c:"EMTALA",q:"EMTALA obligations END when:",o:["Insurance is verified","Patient is admitted as inpatient or stabilized","After 24 hours of care","Physician's shift ends"],a:1,e:"EMTALA obligations end upon inpatient admission or stabilization."},
-{c:"EMTALA",q:"A hospital with specialized capabilities receiving a transfer request for an unstable patient:",o:["May refuse based on insurance","Must accept if it has capability and capacity","Can require payment first","Must redirect to a public hospital"],a:1,e:"Specialized hospitals must accept transfers for unstable patients when they have capability and capacity."},
+{c:"EMTALA",q:"A hospital with specialized capabilities receiving a transfer request for an unstable patient:",o:["May refuse based on insurance","Must accept if it has capability and capacity","Can require payment first","Must redirect to a public hospital"],a:1,e:"Specialized hospitals must accept transfers when they have capability and capacity."},
 {c:"EMTALA",q:"CMS defines a 'dedicated ED' by all these tests EXCEPT:",o:["State-licensed as an ED","Holds itself out as providing emergency care","Has more than 50 emergency beds","One-third+ of outpatient visits for emergency conditions"],a:2,e:"Tests are state licensure, public representation, and one-third emergency visit threshold. Bed count is not a criterion."},
 {c:"EMTALA",q:"If an MSE reveals no emergency condition:",o:["Patient must be admitted for observation","EMTALA obligations end; patient may be discharged","Hospital must provide 24 hours monitoring","Second physician must confirm"],a:1,e:"No EMC found means EMTALA obligations are satisfied."},
 {c:"EMTALA",q:"Administering restraints to a psychiatric patient before transfer:",o:["Always constitutes adequate stabilization","May not mean the patient is truly stabilized","Is prohibited under EMTALA","Satisfies both EMTALA and state laws"],a:1,e:"CMS warns restraints may remove immediate emergency but the underlying condition may persist."},
@@ -144,220 +401,248 @@ const Q=[
 {c:"EMTALA",q:"A competent patient may leave AMA under EMTALA if:",o:["The hospital has no further obligation","The patient signs AMA form after being informed of risks","The physician approves departure","Insurance authorizes it"],a:1,e:"Competent patients may leave after being informed of risks and signing documentation."},
 {c:"EMTALA",q:"EMTALA penalties may be sought by:",o:["Patient's attorney only","HHS Office of Inspector General through civil monetary penalties","Local police","Patient's insurance company"],a:1,e:"HHS-OIG may seek civil monetary penalties against hospitals violating EMTALA."},
 {c:"EMTALA",q:"EMTALA does NOT generally apply to:",o:["Chest pain","Prescheduled appointments or tests ordered by a physician","Active labor","Psychiatric emergencies"],a:1,e:"EMTALA generally doesn't apply to prescheduled visits if properly documented."},
-{c:"EMTALA",q:"EMTALA is also known as the:",o:["Patient Protection Act","Patient dumping statute","Emergency Physician Act","Hospital Safety Act"],a:1,e:"EMTALA is commonly referred to as the 'patient dumping statute' because it prevents hospitals from turning away emergency patients."},
-// ===== POST-HOSPITAL NEEDS (22) =====
+{c:"EMTALA",q:"EMTALA is also known as the:",o:["Patient Protection Act","Patient dumping statute","Emergency Physician Act","Hospital Safety Act"],a:1,e:"EMTALA is commonly called the 'patient dumping statute.'"},
+{c:"EMTALA",q:"The MSE under EMTALA must be:",o:["Performed only by a physician","Appropriate to determine if an EMC exists","Identical for every patient","Done only after insurance verification"],a:1,e:"The MSE must be appropriate to determine if an EMC exists, varying by presenting symptoms."},
+{c:"EMTALA",q:"EMTALA's stabilization requirement means:",o:["Cure the underlying condition","Provide treatment so no material deterioration is likely","Keep the patient 48+ hours","Transfer to the nearest trauma center"],a:1,e:"Stabilization means preventing material deterioration, not necessarily resolving the underlying condition."},
+{c:"EMTALA",q:"An unstable patient may be transferred only when:",o:["Insurance denies coverage","Medical benefits of transfer outweigh the risks","The bed is needed","The administrator approves"],a:1,e:"Transfer of unstable patients requires physician certification that benefits outweigh risks."},
+{c:"EMTALA",q:"Hospitals must maintain an on-call physician list to provide:",o:["Elective surgical services","Stabilizing treatment for emergency conditions","Cosmetic procedures","Annual physicals"],a:1,e:"On-call lists ensure stabilizing treatment availability for emergency conditions."},
 {c:"Post-Hospital Needs",q:"Elderly patients with comorbidities need more intensive discharge planning because they:",o:["Have higher insurance coverage","Face higher risk for prolonged stays and greater care needs","Always require SNF placement","Are exempt from readmission penalties"],a:1,e:"Multiple comorbidities increase risk for prolonged stays and complex care needs."},
-{c:"Post-Hospital Needs",q:"A comprehensive discharge assessment includes all EXCEPT:",o:["Capacity for self-care","Home care service needs","Financial investment portfolio","Post-hospital service availability"],a:2,e:"Investment portfolios are irrelevant. Assessments focus on self-care, service needs, and availability."},
+{c:"Post-Hospital Needs",q:"A comprehensive discharge assessment includes all EXCEPT:",o:["Capacity for self-care","Home care service needs","Financial investment portfolio","Post-hospital service availability"],a:2,e:"Assessments focus on self-care, service needs, and availability—not investment portfolios."},
 {c:"Post-Hospital Needs",q:"Home care service needs are determined based on:",o:["Insurance premium level","Capacity for self-care","Employment status","Prior hospitalizations only"],a:1,e:"Self-care capacity determines appropriate home care service levels."},
-{c:"Post-Hospital Needs",q:"Which patient MOST likely needs formal discharge planning with referrals?",o:["25-year-old with wrist fracture","78-year-old with new dementia, lives alone","30-year-old having outpatient labs","Teenager after minor laceration"],a:1,e:"Elderly patient with new dementia living alone needs comprehensive planning including safety and caregiver support."},
-{c:"Post-Hospital Needs",q:"Home environment assessment covers all EXCEPT:",o:["Accessibility and safety modifications","Caregiver availability","Home's real estate value","Medical equipment needs"],a:2,e:"Home assessments focus on safety, accessibility, caregivers, and equipment—not property value."},
-{c:"Post-Hospital Needs",q:"A stroke patient with dysphagia needs which service MOST critically?",o:["Financial counseling","Speech therapy for swallowing assessment","OT for handwriting","Social work for career planning"],a:1,e:"Dysphagia requires speech-language pathology for swallowing evaluation to prevent aspiration."},
-{c:"Post-Hospital Needs",q:"Support groups serve two purposes: disease education and:",o:["Caregiver respite","Financial assistance","Fundraising","Emotional support to individuals"],a:3,e:"Primary purposes are education about conditions and emotional support."},
-{c:"Post-Hospital Needs",q:"For a heart failure patient, the MOST important discharge assessment finding is:",o:["Blood type","Ability to manage daily weights and medication adherence","Favorite leisure activities","Number of visitors"],a:1,e:"Self-management of daily weights, medications, and symptom recognition are critical for HF patients."},
+{c:"Post-Hospital Needs",q:"Which patient MOST likely needs formal discharge planning with referrals?",o:["25-year-old with wrist fracture","78-year-old with new dementia, lives alone","30-year-old having outpatient labs","Teenager after minor laceration"],a:1,e:"Elderly patient with new dementia living alone needs comprehensive planning."},
+{c:"Post-Hospital Needs",q:"Home environment assessment covers all EXCEPT:",o:["Accessibility and safety modifications","Caregiver availability","Home's real estate value","Medical equipment needs"],a:2,e:"Home assessments focus on safety, accessibility, caregivers, and equipment."},
+{c:"Post-Hospital Needs",q:"A stroke patient with dysphagia needs which service MOST critically?",o:["Financial counseling","Speech therapy for swallowing assessment","OT for handwriting","Social work for career planning"],a:1,e:"Dysphagia requires speech-language pathology to prevent aspiration."},
+{c:"Post-Hospital Needs",q:"Support groups serve two purposes: disease education and:",o:["Caregiver respite","Financial assistance","Fundraising","Emotional support to individuals"],a:3,e:"Primary purposes are education and emotional support."},
+{c:"Post-Hospital Needs",q:"For a heart failure patient, the MOST important discharge assessment is:",o:["Blood type","Ability to manage daily weights and medication adherence","Favorite leisure activities","Number of visitors"],a:1,e:"Self-management of daily weights, medications, and symptom recognition are critical for HF."},
 {c:"Post-Hospital Needs",q:"Medicare home health coverage requires:",o:["Homebound status and a skilled care need","Age 65+ with chronic illness","Supplemental insurance and physician referral","Living alone and daily nursing visits"],a:0,e:"Medicare home health requires homebound status and skilled care under RN, PT, or ST supervision."},
-{c:"Post-Hospital Needs",q:"When anticipating post-discharge complications, the case manager should:",o:["Wait until complications arise","Begin planning while the client is still hospitalized","Assume outpatient team handles everything","Focus only on primary diagnosis"],a:1,e:"Proactive planning during hospitalization allows time to arrange services and prepare contingency plans."},
-{c:"Post-Hospital Needs",q:"A patient reports financial hardship preventing medication adherence. The case manager should FIRST:",o:["Document noncompliance","Refer to medication assistance programs","Discharge the patient","Notify insurance fraud department"],a:1,e:"Addressing financial barriers through assistance programs improves adherence."},
-{c:"Post-Hospital Needs",q:"For a patient needing home oxygen, the case manager's PRIORITY is to:",o:["Tell patient to buy equipment online","Verify insurance coverage and arrange delivery before discharge","Wait until patient calls after discharge","Ask family to figure it out"],a:1,e:"Ensuring DME is authorized and delivered before discharge is essential for safety."},
+{c:"Post-Hospital Needs",q:"When anticipating post-discharge complications, the case manager should:",o:["Wait until complications arise","Begin planning while the client is still hospitalized","Assume outpatient team handles everything","Focus only on primary diagnosis"],a:1,e:"Proactive planning allows time to arrange services and contingency plans."},
+{c:"Post-Hospital Needs",q:"A patient with financial hardship preventing medication adherence should FIRST be:",o:["Documented as noncompliant","Referred to medication assistance programs","Discharged immediately","Reported to insurance fraud"],a:1,e:"Addressing financial barriers through assistance programs improves adherence."},
+{c:"Post-Hospital Needs",q:"For a patient needing home oxygen, the case manager's PRIORITY is to:",o:["Tell patient to buy online","Verify insurance and arrange delivery before discharge","Wait until patient calls post-discharge","Ask family to figure it out"],a:1,e:"DME must be authorized and delivered before discharge for safety."},
 {c:"Post-Hospital Needs",q:"Caregiver burden assessment matters because:",o:["It reduces hospital liability","Overwhelmed caregivers may not provide safe home care","It satisfies insurance documentation","It's only relevant for pediatrics"],a:1,e:"Caregiver burnout directly impacts quality and safety of home care."},
-{c:"Post-Hospital Needs",q:"Essential diabetes discharge education includes all EXCEPT:",o:["Blood glucose monitoring","Insulin administration technique","Hospital billing procedures","Signs of hypoglycemia"],a:2,e:"Diabetes education covers monitoring, medication, diet, and symptom recognition—not billing."},
-{c:"Post-Hospital Needs",q:"A patient with a new colostomy needs discharge planning that includes:",o:["Only a prescription for supplies","Wound/ostomy nurse education, supply arrangements, and follow-up scheduling","A brochure about the surgery","Nothing beyond the surgeon's instructions"],a:1,e:"New ostomy patients need hands-on education, supply arrangements, and scheduled follow-up with a wound/ostomy nurse."},
-{c:"Post-Hospital Needs",q:"Fall risk assessment before discharge is MOST important for:",o:["A 20-year-old athlete","An 82-year-old on multiple medications returning to a home with stairs","A 35-year-old with no mobility issues","A child being discharged after tonsillectomy"],a:1,e:"Elderly patients on multiple medications with environmental hazards (stairs) are at highest fall risk and need thorough assessment."},
-// ===== ETHICAL & LEGAL (20) =====
-{c:"Ethical & Legal Standards",q:"Nonmaleficence means:",o:["Treating all patients equally","Doing no harm","Respecting cultural diversity","Maintaining confidentiality"],a:1,e:"Nonmaleficence is 'do no harm'—ensuring case management actions don't harm patients."},
-{c:"Ethical & Legal Standards",q:"A patient refuses rehab despite understanding risks. The primary ethical principle is:",o:["Beneficence","Justice","Autonomy","Nonmaleficence"],a:2,e:"Autonomy is the patient's right to make informed decisions, even those providers disagree with."},
+{c:"Post-Hospital Needs",q:"Essential diabetes discharge education includes all EXCEPT:",o:["Blood glucose monitoring","Insulin administration technique","Hospital billing procedures","Signs of hypoglycemia"],a:2,e:"Diabetes education covers monitoring, medication, diet, and symptom recognition."},
+{c:"Post-Hospital Needs",q:"A new colostomy patient's discharge plan should include:",o:["Only a prescription for supplies","WOC nurse education, supply arrangements, and follow-up scheduling","A brochure about surgery","Nothing beyond surgeon's instructions"],a:1,e:"New ostomy patients need hands-on education, supply arrangements, and WOC nurse follow-up."},
+{c:"Post-Hospital Needs",q:"Fall risk assessment before discharge is MOST important for:",o:["A 20-year-old athlete","An 82-year-old on multiple meds returning to a home with stairs","A 35-year-old with no mobility issues","A child after tonsillectomy"],a:1,e:"Elderly patients on multiple medications with stairs are at highest fall risk."},
+{c:"Post-Hospital Needs",q:"The initial home health visit should occur within:",o:["One week","48 hours of referral or hospital discharge","30 days","Whenever convenient"],a:1,e:"CMS guidelines specify the initial visit within 48 hours of referral or discharge."},
+{c:"Post-Hospital Needs",q:"A new tracheostomy patient requires education for:",o:["Only the patient","Both patient and caregiver on suctioning, cleaning, and emergencies","Only the home health nurse","Only written instructions"],a:1,e:"Tracheostomy care requires hands-on training for both patient and caregiver."},
+{c:"Post-Hospital Needs",q:"Medicare DME coverage requires:",o:["A physician's order and medical necessity","Patient verbal request only","No documentation","Hospital administrator approval"],a:0,e:"Medicare DME requires a physician's order documenting medical necessity."},
+{c:"Post-Hospital Needs",q:"Discharge readiness evaluation includes:",o:["Only whether the physician wrote the order","Physical, emotional, social readiness plus caregiver preparedness","Only insurance authorization status","Only bed availability at receiving facility"],a:1,e:"Readiness is multidimensional: physical, emotional, social, and caregiver preparedness."},
+{c:"Post-Hospital Needs",q:"Palliative care differs from hospice in that palliative care:",o:["Is only for dying patients","Can be provided alongside curative treatment at any illness stage","Is limited to 6 months","Doesn't involve symptom management"],a:1,e:"Palliative care focuses on quality of life at any illness stage, alongside curative treatment."},
+{c:"Post-Hospital Needs",q:"When discharging to a SNF, the case manager ensures:",o:["The patient has no say in selection","Complete transfer of records and care plan to the SNF","Only billing info transfers","No inter-facility communication"],a:1,e:"Complete record and care plan transfer is essential for safe SNF transitions."},
+{c:"Ethical & Legal Standards",q:"Nonmaleficence means:",o:["Treating all patients equally","Doing no harm","Respecting cultural diversity","Maintaining confidentiality"],a:1,e:"Nonmaleficence is 'do no harm.'"},
+{c:"Ethical & Legal Standards",q:"A patient refuses rehab despite understanding risks. The primary ethical principle is:",o:["Beneficence","Justice","Autonomy","Nonmaleficence"],a:2,e:"Autonomy is the patient's right to make informed decisions."},
 {c:"Ethical & Legal Standards",q:"HIPAA allows PHI disclosure without authorization for:",o:["Marketing","Treatment, payment, and healthcare operations","Social media posting","Employer updates without consent"],a:1,e:"HIPAA permits PHI disclosure for TPO without additional authorization."},
-{c:"Ethical & Legal Standards",q:"Advanced directives are documents that:",o:["Must be rewritten annually","Delineate health decisions if the patient becomes incapacitated","Remove patient autonomy","Can only be drafted by a physician"],a:1,e:"Advanced directives document healthcare wishes for when patients cannot make decisions."},
-{c:"Ethical & Legal Standards",q:"A managed care gag clause prevents providers from:",o:["Discussing covered treatment options","Discussing non-covered treatment options with patients","Filing insurance claims","Referring to specialists"],a:1,e:"Gag clauses prevent discussing treatment options not covered by the managed care plan."},
-{c:"Ethical & Legal Standards",q:"CCMC's Code requires case managers to:",o:["Prioritize payor interests","Place public interest above their own","Avoid interdisciplinary collaboration","Limit cost discussions with patients"],a:1,e:"CCMC's Code emphasizes public interest first, client dignity, objectivity, and integrity."},
-{c:"Ethical & Legal Standards",q:"The Patient Self-Determination Act requires hospitals to:",o:["Assign POA to every patient","Provide written information about rights to make healthcare decisions","Refuse treatment without advance directives","Require DNR orders"],a:1,e:"PSDA requires providing written information about healthcare decision-making rights."},
-{c:"Ethical & Legal Standards",q:"Accessing records of patients not under your care is:",o:["Acceptable if curious","A HIPAA violation that should be reported","Only problematic if shared externally","Permitted for education"],a:1,e:"Unauthorized record access violates HIPAA regardless of intent."},
-{c:"Ethical & Legal Standards",q:"When payor cost goals conflict with patient clinical needs, the case manager should:",o:["Always side with the payor","Discharge immediately to cut costs","Advocate for medically necessary care while balancing fiscal responsibility","Ignore payor concerns entirely"],a:2,e:"Ethical practice requires balancing fiscal responsibility with patient safety advocacy."},
-{c:"Ethical & Legal Standards",q:"Informed consent requires all EXCEPT:",o:["Explanation of the procedure","Discussion of risks and benefits","Patient signature guaranteeing a successful outcome","Disclosure of alternatives"],a:2,e:"Informed consent never guarantees outcomes. It requires explanation, risks, benefits, alternatives, and voluntary agreement."},
-{c:"Ethical & Legal Standards",q:"Beneficence refers to:",o:["Avoiding harm","Acting in the patient's best interest","Distributing resources fairly","Telling the truth"],a:1,e:"Beneficence means actively doing good and acting in the patient's best interest."},
-{c:"Ethical & Legal Standards",q:"Suspected elder abuse must be reported because of:",o:["Hospital policy only","Mandatory reporting laws","Patient preference","Insurance requirements"],a:1,e:"Healthcare professionals are mandatory reporters of suspected abuse by law."},
-{c:"Ethical & Legal Standards",q:"Risk management is a subdomain of:",o:["Psychosocial aspects","Healthcare management","Principles of practice","Case management concepts"],a:2,e:"Risk management falls under case management principles and practice/strategies."},
-{c:"Ethical & Legal Standards",q:"Justice in healthcare ethics refers to:",o:["Punishing noncompliant patients","Fair and equitable distribution of resources","Always choosing the cheapest option","Physician authority over patient decisions"],a:1,e:"Justice concerns fair and equitable distribution of healthcare resources."},
-{c:"Ethical & Legal Standards",q:"Confidentiality means:",o:["Sharing info with anyone who asks","Protecting PHI from unauthorized disclosure","Only keeping paper records secure","A suggestion, not a legal requirement"],a:1,e:"Confidentiality protects PHI from unauthorized disclosure, required ethically and legally under HIPAA."},
-{c:"Ethical & Legal Standards",q:"When a capable patient refuses life-sustaining treatment, the case manager should FIRST:",o:["Override the decision","Explore understanding, capacity, and goals of care","Begin discharge planning immediately","Contact family to change their mind"],a:1,e:"First assess understanding, capacity, and goals, ensuring the decision is informed and voluntary."},
-{c:"Ethical & Legal Standards",q:"Veracity in ethical practice means:",o:["Keeping secrets from the patient","Being truthful and honest with the patient","Always agreeing with the physician","Avoiding difficult conversations"],a:1,e:"Veracity is the ethical obligation to be truthful and honest in all communications with patients."},
-{c:"Ethical & Legal Standards",q:"A case manager discovers a conflict of interest in a referral. The FIRST action should be to:",o:["Ignore it if the provider is qualified","Disclose the conflict and ensure the patient's interests are protected","Report to the media","Refuse to participate in any referrals"],a:1,e:"Ethical practice requires disclosure of conflicts and prioritization of patient interests."},
-// ===== PSYCHOSOCIAL (18) =====
-{c:"Psychosocial & Support Systems",q:"A composite view of self is called:",o:["Self-concept","Self-efficacy","Self-centered","Self-esteem"],a:0,e:"Self-concept is a composite view of oneself encompassing all beliefs and perceptions."},
-{c:"Psychosocial & Support Systems",q:"The relationship between spirituality and recovery:",o:["Is not research-supported","Should only be in therapy","Should be encouraged and facilitated","Is irrelevant to case management"],a:2,e:"Research supports spirituality's positive role in recovery. Case managers should encourage it as part of holistic care."},
-{c:"Psychosocial & Support Systems",q:"Erik Erikson emphasized:",o:["Behavioral conditioning","Classical conditioning","Social environment's impact on development throughout the lifespan","Cognitive development stages"],a:2,e:"Erikson's psychosocial development theory outlines social/environmental influence through eight life stages."},
+{c:"Ethical & Legal Standards",q:"Advanced directives are documents that:",o:["Must be rewritten annually","Delineate health decisions if incapacitated","Remove patient autonomy","Can only be drafted by a physician"],a:1,e:"Advanced directives document healthcare wishes for when patients cannot decide."},
+{c:"Ethical & Legal Standards",q:"A managed care gag clause prevents providers from:",o:["Discussing covered options","Discussing non-covered treatment options with patients","Filing insurance claims","Referring to specialists"],a:1,e:"Gag clauses prevent discussing non-covered treatment options."},
+{c:"Ethical & Legal Standards",q:"CCMC's Code requires case managers to:",o:["Prioritize payor interests","Place public interest above their own","Avoid collaboration","Limit cost discussions"],a:1,e:"CCMC's Code emphasizes public interest first."},
+{c:"Ethical & Legal Standards",q:"The Patient Self-Determination Act requires hospitals to:",o:["Assign POA to every patient","Provide written info about rights to make healthcare decisions","Refuse treatment without advance directives","Require DNR orders"],a:1,e:"PSDA requires providing written information about healthcare decision-making rights."},
+{c:"Ethical & Legal Standards",q:"Accessing records of patients not under your care is:",o:["Acceptable if curious","A HIPAA violation","Only problematic if shared","Permitted for education"],a:1,e:"Unauthorized record access violates HIPAA regardless of intent."},
+{c:"Ethical & Legal Standards",q:"When payor cost goals conflict with patient needs, the case manager should:",o:["Always side with the payor","Discharge immediately","Advocate for medically necessary care while balancing fiscal responsibility","Ignore payor concerns"],a:2,e:"Balance fiscal responsibility with patient safety advocacy."},
+{c:"Ethical & Legal Standards",q:"Informed consent requires all EXCEPT:",o:["Explanation of the procedure","Discussion of risks and benefits","Patient signature guaranteeing successful outcome","Disclosure of alternatives"],a:2,e:"Informed consent never guarantees outcomes."},
+{c:"Ethical & Legal Standards",q:"Beneficence refers to:",o:["Avoiding harm","Acting in the patient's best interest","Distributing resources fairly","Telling the truth"],a:1,e:"Beneficence means actively doing good for the patient."},
+{c:"Ethical & Legal Standards",q:"Suspected elder abuse must be reported because of:",o:["Hospital policy only","Mandatory reporting laws","Patient preference","Insurance requirements"],a:1,e:"Healthcare professionals are mandatory reporters by law."},
+{c:"Ethical & Legal Standards",q:"Risk management is a subdomain of:",o:["Psychosocial aspects","Healthcare management","Principles of practice","Case management concepts"],a:2,e:"Risk management falls under principles of practice."},
+{c:"Ethical & Legal Standards",q:"Justice in healthcare ethics refers to:",o:["Punishing noncompliant patients","Fair and equitable resource distribution","Always choosing the cheapest option","Physician authority over patients"],a:1,e:"Justice concerns fair and equitable distribution of resources."},
+{c:"Ethical & Legal Standards",q:"Confidentiality means:",o:["Sharing info with anyone who asks","Protecting PHI from unauthorized disclosure","Only keeping paper records secure","A suggestion, not a legal requirement"],a:1,e:"Confidentiality protects PHI, required ethically and legally under HIPAA."},
+{c:"Ethical & Legal Standards",q:"When a capable patient refuses life-sustaining treatment, the case manager should FIRST:",o:["Override the decision","Explore understanding, capacity, and goals of care","Begin discharge planning immediately","Contact family to change their mind"],a:1,e:"First assess understanding, capacity, and goals to ensure informed decision."},
+{c:"Ethical & Legal Standards",q:"Veracity means:",o:["Keeping secrets from the patient","Being truthful and honest with the patient","Always agreeing with the physician","Avoiding difficult conversations"],a:1,e:"Veracity is the ethical obligation of truthfulness."},
+{c:"Ethical & Legal Standards",q:"A case manager discovers a referral conflict of interest. The FIRST action is to:",o:["Ignore if the provider is qualified","Disclose the conflict and protect patient interests","Report to the media","Refuse all referrals"],a:1,e:"Ethical practice requires disclosure and prioritization of patient interests."},
+{c:"Ethical & Legal Standards",q:"HIPAA was enacted in:",o:["1965","1986","1996","2010"],a:2,e:"HIPAA was enacted in 1996 to protect patient privacy."},
+{c:"Ethical & Legal Standards",q:"A 'duty to warn' exception exists when:",o:["A patient misses an appointment","A patient poses a credible threat to an identifiable third party","A family member requests info","An insurance company demands records"],a:1,e:"Duty to warn overrides confidentiality when credible threat exists."},
+{c:"Ethical & Legal Standards",q:"Fidelity in case management means:",o:["Keeping promises and being faithful to commitments","Being financially conservative","Following only payor instructions","Avoiding patient contact"],a:0,e:"Fidelity means keeping promises and maintaining trust."},
+{c:"Ethical & Legal Standards",q:"When suspecting child abuse during discharge planning, the case manager must:",o:["Wait for the physician to report","Report as a mandatory reporter","Discuss only with parents","Document but take no action"],a:1,e:"Case managers are mandatory reporters regardless of other team actions."},
+{c:"Psychosocial & Support Systems",q:"A composite view of self is called:",o:["Self-concept","Self-efficacy","Self-centered","Self-esteem"],a:0,e:"Self-concept is a composite view of oneself."},
+{c:"Psychosocial & Support Systems",q:"The relationship between spirituality and recovery:",o:["Is not research-supported","Should only be in therapy","Should be encouraged and facilitated","Is irrelevant to case management"],a:2,e:"Research supports spirituality's positive role in recovery."},
+{c:"Psychosocial & Support Systems",q:"Erik Erikson emphasized:",o:["Behavioral conditioning","Classical conditioning","Social environment's impact on development throughout the lifespan","Cognitive development stages"],a:2,e:"Erikson's theory outlines social/environmental influence through eight life stages."},
 {c:"Psychosocial & Support Systems",q:"Coping with physical disability involves addressing:",o:["All crisis aspects simultaneously","Manageable components of the crisis","Only premorbid personality","Depression symptoms first"],a:1,e:"Breaking crisis into manageable components allows systematic coping."},
-{c:"Psychosocial & Support Systems",q:"In motivational interviewing, the contemplation stage means the individual:",o:["Acknowledges a problem exists","Has a plan of change","Is unaware of any problem","Has completed the change"],a:0,e:"In contemplation, the individual acknowledges the problem and considers change but hasn't committed."},
+{c:"Psychosocial & Support Systems",q:"In motivational interviewing, the contemplation stage means:",o:["Acknowledges a problem exists","Has a plan of change","Is unaware of any problem","Has completed the change"],a:0,e:"In contemplation, the individual acknowledges the problem and considers change."},
 {c:"Psychosocial & Support Systems",q:"Crisis intervention focuses on:",o:["Long-term psychotherapy","Immediate stabilization and connecting to resources","Medication management only","Financial planning"],a:1,e:"Crisis intervention provides immediate stabilization and resource connection."},
-{c:"Psychosocial & Support Systems",q:"Low health literacy affects discharge planning because patients may:",o:["Always refuse treatment","Not understand instructions, leading to poor outcomes","Be ineligible for home health","Never receive written materials"],a:1,e:"Low literacy increases risk of misunderstanding instructions and poor adherence."},
-{c:"Psychosocial & Support Systems",q:"Signs of caregiver burnout include all EXCEPT:",o:["Increased energy and enthusiasm","Social withdrawal","Physical exhaustion","Feelings of hopelessness"],a:0,e:"Burnout manifests as exhaustion, withdrawal, and hopelessness—not increased energy."},
-{c:"Psychosocial & Support Systems",q:"Cultural competence means:",o:["Treating all patients identically","Understanding and respecting cultural differences for appropriate care","Requiring mainstream health practices","Avoiding cultural discussions"],a:1,e:"Cultural competence integrates cultural understanding into care delivery."},
-{c:"Psychosocial & Support Systems",q:"Grief counseling after discharge is MOST important for:",o:["Routine colonoscopy recovery","A patient with a new amputation","A patient with a cold","Elective cosmetic surgery"],a:1,e:"Amputation involves significant loss requiring grief counseling and psychosocial support."},
-{c:"Psychosocial & Support Systems",q:"Maslow's hierarchy prioritizes which needs FIRST?",o:["Self-actualization","Social belonging","Safety and security","Physiological needs like food, water, shelter"],a:3,e:"Maslow prioritizes basic physiological needs before safety, belonging, esteem, and self-actualization."},
-{c:"Psychosocial & Support Systems",q:"Substance abuse screening during discharge is important because:",o:["Required for billing only","Untreated SUD increases readmission risk","Helps avoid legal liability only","Only relevant for patients under 30"],a:1,e:"Untreated substance use disorders increase complications, non-adherence, and readmission risk."},
-{c:"Psychosocial & Support Systems",q:"Motivational interviewing is BEST described as:",o:["Telling patients what they must do","A collaborative, person-centered approach to strengthen motivation for change","A punishment-based behavior modification","A technique used only by psychiatrists"],a:1,e:"MI is a collaborative, empathetic approach that helps patients explore and resolve ambivalence about behavior change."},
-{c:"Psychosocial & Support Systems",q:"The stages of grief according to Kübler-Ross include all EXCEPT:",o:["Denial","Anger","Optimization","Acceptance"],a:2,e:"Kübler-Ross identified denial, anger, bargaining, depression, and acceptance—not optimization."},
-// ===== CASE MANAGEMENT CONCEPTS (20) =====
-{c:"Case Management Concepts",q:"The goal of case management in a cross-cultural environment is to:",o:["Assist the client in accepting the medical system","Maintain standard American medical practice","Achieve a treatment plan addressing the client's culture","Differentiate culture and medical practice"],a:2,e:"Culturally competent case management achieves plans that incorporate the client's cultural beliefs."},
-{c:"Case Management Concepts",q:"Successful provider collaboration increases when case managers:",o:["Determine the plan independently","Select resources unilaterally","Quote benefit coverage","Discuss and negotiate using mutual input"],a:3,e:"Mutual input and negotiation build successful collaboration."},
-{c:"Case Management Concepts",q:"For multidisciplinary teams, documentation ensures:",o:["Patient communication","Consistent information","All disciplines know what is happening","Evaluation results only"],a:2,e:"Documentation is the primary mechanism for keeping all disciplines informed."},
-{c:"Case Management Concepts",q:"CMSA's six core components of case management are:",o:["Screening, assessment, planning, implementation, evaluation, outcomes","Assessment, planning, implementation, coordination, monitoring, evaluation","Intake, assessment, intervention, monitoring, advocacy, discharge","Identification, communication, resource management, evaluation, advocacy, follow-up"],a:1,e:"CMSA defines: assessment, planning, implementation, coordination, monitoring, evaluation."},
-{c:"Case Management Concepts",q:"A benchmark compares:",o:["Clinical pathways","Individual case studies","Outcomes across providers' practices","Strategic initiatives"],a:2,e:"Benchmarking compares outcomes across providers to identify best practices."},
-{c:"Case Management Concepts",q:"The case manager's PRIMARY function is:",o:["Care coordination","Cost containment","Outcomes management","Patient education"],a:0,e:"Care coordination is the primary function—linking clients with providers and resources."},
-{c:"Case Management Concepts",q:"A CCM calling a doctor about a pharmacy discrepancy in the discharge summary is:",o:["Planning","Assessing","Evaluation","Following up"],a:3,e:"Checking on previously initiated actions is following up."},
-{c:"Case Management Concepts",q:"Chronic illness care coordination relies on all EXCEPT:",o:["Interdisciplinary collaboration","Identifying barriers to care access","Anticipating post-discharge complications","Maintaining the same treatment plan without changes"],a:3,e:"Care plans must evolve as conditions change."},
-{c:"Case Management Concepts",q:"Medicare Part B covers:",o:["Inpatient hospital, physician, outpatient, ER","Physician, outpatient, home health, physical therapy","Inpatient hospital, SNF, home health, hospice","Physician, SNF, outpatient services"],a:1,e:"Part B covers physician, outpatient, home health, and PT. Part A covers inpatient, SNF, HH, hospice."},
-{c:"Case Management Concepts",q:"The most flexible insurance plan for provider choice is:",o:["POS","HMO","Indemnity (fee-for-service)","PPO"],a:2,e:"Indemnity plans offer maximum flexibility with no provider restrictions."},
-{c:"Case Management Concepts",q:"Capitation is a payment method where:",o:["Providers are paid per service","A fixed payment is made per member regardless of services","Risk is shared equally","Patients pay all costs out-of-pocket"],a:1,e:"Capitation provides fixed payment per member per period regardless of services rendered."},
-{c:"Case Management Concepts",q:"Documenting goals, objectives, and actions for client needs is:",o:["Assessment","Coordination","Planning","Monitoring"],a:2,e:"Planning is the phase for documenting goals, objectives, and action steps."},
-{c:"Case Management Concepts",q:"The four key case manager functions are planner, assessor, facilitator, and:",o:["Litigator","Educator","Researcher","Advocate"],a:3,e:"The four key functions are planner, assessor, facilitator, and advocate."},
-{c:"Case Management Concepts",q:"In the patient sovereignty model:",o:["Physician makes all decisions","Patient is in charge of their care decisions","Insurance companies direct care","Case managers override preferences"],a:1,e:"Patient sovereignty means the patient is the primary decision-maker about their care."},
-{c:"Case Management Concepts",q:"Caseload management is most influenced by:",o:["Nurse-to-physician ratio","The case management model used","Client cooperation","Certification status"],a:1,e:"The case management model has greatest impact on caseload capacity and quality."},
-// ===== REHAB & RETURN TO WORK (14) =====
-{c:"Rehabilitation & Return to Work",q:"Essential job functions under the Rehabilitation Act are:",o:["Physical demands only","Tasks that must be performed, method may differ for disabled employees","Reasonable accommodations","Worker traits"],a:1,e:"Essential job functions are fundamental duties that must be performed with or without accommodation."},
-{c:"Rehabilitation & Return to Work",q:"Client involvement in rehab planning promotes:",o:["Reduced CM workload","Ownership, motivation, and plan adherence","Regulatory compliance only","Overriding medical recommendations"],a:1,e:"Participation promotes ownership, motivation, and better adherence."},
+{c:"Psychosocial & Support Systems",q:"Low health literacy affects discharge planning because patients may:",o:["Always refuse treatment","Not understand instructions, leading to poor outcomes","Be ineligible for home health","Never receive written materials"],a:1,e:"Low literacy increases risk of misunderstanding and poor adherence."},
+{c:"Psychosocial & Support Systems",q:"Signs of caregiver burnout include all EXCEPT:",o:["Increased energy and enthusiasm","Social withdrawal","Physical exhaustion","Feelings of hopelessness"],a:0,e:"Burnout manifests as exhaustion, withdrawal, and hopelessness."},
+{c:"Psychosocial & Support Systems",q:"Cultural competence means:",o:["Treating all patients identically","Understanding and respecting cultural differences for appropriate care","Requiring mainstream practices","Avoiding cultural discussions"],a:1,e:"Cultural competence integrates understanding into care delivery."},
+{c:"Psychosocial & Support Systems",q:"Grief counseling after discharge is MOST important for:",o:["Routine colonoscopy recovery","A patient with a new amputation","A patient with a cold","Elective cosmetic surgery"],a:1,e:"Amputation involves significant loss requiring grief support."},
+{c:"Psychosocial & Support Systems",q:"Maslow's hierarchy prioritizes which needs FIRST?",o:["Self-actualization","Social belonging","Safety and security","Physiological needs like food, water, shelter"],a:3,e:"Basic physiological needs come before all others in Maslow's hierarchy."},
+{c:"Psychosocial & Support Systems",q:"Substance abuse screening during discharge is important because:",o:["Required for billing only","Untreated SUD increases readmission risk","Helps avoid legal liability only","Only relevant for patients under 30"],a:1,e:"Untreated SUD increases complications and readmission risk."},
+{c:"Psychosocial & Support Systems",q:"Motivational interviewing is BEST described as:",o:["Telling patients what to do","A collaborative, person-centered approach to strengthen motivation","Punishment-based behavior modification","A technique only for psychiatrists"],a:1,e:"MI is collaborative and empathetic, helping patients explore ambivalence about change."},
+{c:"Psychosocial & Support Systems",q:"Kübler-Ross stages of grief include all EXCEPT:",o:["Denial","Anger","Optimization","Acceptance"],a:2,e:"The stages are denial, anger, bargaining, depression, acceptance."},
+{c:"Psychosocial & Support Systems",q:"The biopsychosocial model considers:",o:["Only biological factors","Biological, psychological, and social factors together","Only social determinants","Only psychological factors"],a:1,e:"This model integrates biological, psychological, and social factors in understanding health."},
+{c:"Psychosocial & Support Systems",q:"Resilience refers to:",o:["Physical strength only","The ability to adapt and recover from adversity","Resistance to medications","Refusal to participate"],a:1,e:"Resilience is the capacity to adapt, cope, and recover from adversity."},
+{c:"Psychosocial & Support Systems",q:"Social isolation in elderly discharge patients:",o:["Reduces hospital costs","Increases risk of depression, readmission, and decline","Has no health impact","Only affects dementia patients"],a:1,e:"Social isolation increases depression, cognitive decline, readmission, and mortality risk."},
+{c:"Psychosocial & Support Systems",q:"Trauma-informed care means:",o:["Only treating physical trauma","Recognizing trauma's widespread impact and adapting care accordingly","Avoiding all past experience discussions","Referring all patients to psychiatry"],a:1,e:"Trauma-informed care integrates understanding of trauma into practices."},
+{c:"Psychosocial & Support Systems",q:"The transtheoretical model includes which stages?",o:["Denial, anger, bargaining, depression, acceptance","Precontemplation, contemplation, preparation, action, maintenance","Assessment, planning, implementation, evaluation","Forming, storming, norming, performing"],a:1,e:"Stages of Change: precontemplation, contemplation, preparation, action, maintenance."},
+{c:"Psychosocial & Support Systems",q:"A patient's health beliefs are influenced by:",o:["Only their physician's opinion","Perceived susceptibility, severity, benefits, and barriers","Their insurance type","Hospital marketing"],a:1,e:"The Health Belief Model considers susceptibility, severity, benefits, barriers, cues, and self-efficacy."},
+{c:"Case Management Concepts",q:"The goal of case management in a cross-cultural environment is to:",o:["Help the client accept the medical system","Maintain standard American practice","Achieve a treatment plan addressing the client's culture","Differentiate culture and medicine"],a:2,e:"Culturally competent plans incorporate the client's cultural beliefs and values."},
+{c:"Case Management Concepts",q:"Successful provider collaboration increases when case managers:",o:["Determine plans independently","Select resources unilaterally","Quote benefit coverage","Discuss and negotiate using mutual input"],a:3,e:"Mutual input and negotiation build successful collaboration."},
+{c:"Case Management Concepts",q:"For multidisciplinary teams, documentation ensures:",o:["Patient communication","Consistent information","All disciplines know what is happening","Evaluation results only"],a:2,e:"Documentation keeps all disciplines informed."},
+{c:"Case Management Concepts",q:"CMSA's six core components are:",o:["Screening, assessment, planning, implementation, evaluation, outcomes","Assessment, planning, implementation, coordination, monitoring, evaluation","Intake, assessment, intervention, monitoring, advocacy, discharge","Identification, communication, resource management, evaluation, advocacy, follow-up"],a:1,e:"CMSA: assessment, planning, implementation, coordination, monitoring, evaluation."},
+{c:"Case Management Concepts",q:"A benchmark compares:",o:["Clinical pathways","Individual case studies","Outcomes across providers' practices","Strategic initiatives"],a:2,e:"Benchmarking compares outcomes to identify best practices."},
+{c:"Case Management Concepts",q:"The case manager's PRIMARY function is:",o:["Care coordination","Cost containment","Outcomes management","Patient education"],a:0,e:"Care coordination is the primary function."},
+{c:"Case Management Concepts",q:"A CCM calling about a pharmacy discrepancy in the discharge summary is:",o:["Planning","Assessing","Evaluation","Following up"],a:3,e:"Checking on previously initiated actions is following up."},
+{c:"Case Management Concepts",q:"Chronic illness care relies on all EXCEPT:",o:["Interdisciplinary collaboration","Identifying barriers to care","Anticipating post-discharge complications","Maintaining the same plan without changes"],a:3,e:"Care plans must evolve as conditions change."},
+{c:"Case Management Concepts",q:"Medicare Part B covers:",o:["Inpatient hospital, physician, outpatient, ER","Physician, outpatient, home health, physical therapy","Inpatient hospital, SNF, home health, hospice","Physician, SNF, outpatient"],a:1,e:"Part B: physician, outpatient, home health, PT. Part A: inpatient, SNF, HH, hospice."},
+{c:"Case Management Concepts",q:"The most flexible insurance plan for provider choice is:",o:["POS","HMO","Indemnity (fee-for-service)","PPO"],a:2,e:"Indemnity plans have no provider restrictions."},
+{c:"Case Management Concepts",q:"Capitation provides:",o:["Payment per service","Fixed payment per member regardless of services","Equal risk sharing","Patient pays all costs"],a:1,e:"Capitation is fixed payment per member per period."},
+{c:"Case Management Concepts",q:"Documenting goals and actions for client needs is:",o:["Assessment","Coordination","Planning","Monitoring"],a:2,e:"Planning documents goals, objectives, and action steps."},
+{c:"Case Management Concepts",q:"The four key case manager functions include planner, assessor, facilitator, and:",o:["Litigator","Educator","Researcher","Advocate"],a:3,e:"The four functions are planner, assessor, facilitator, advocate."},
+{c:"Case Management Concepts",q:"In the patient sovereignty model:",o:["Physician makes all decisions","Patient is in charge of their care decisions","Insurance directs care","CMs override preferences"],a:1,e:"Patient sovereignty means the patient is the primary decision-maker."},
+{c:"Case Management Concepts",q:"Caseload management is most influenced by:",o:["Nurse-to-physician ratio","The case management model used","Client cooperation","Certification status"],a:1,e:"The model has the greatest impact on caseload capacity."},
+{c:"Case Management Concepts",q:"SMART goals are:",o:["Simple, Manageable, Achievable, Realistic, Timely","Specific, Measurable, Achievable, Relevant, Time-bound","Standard, Measured, Approved, Recorded, Tracked","Strategic, Managed, Assessed, Reviewed, Tested"],a:1,e:"SMART: Specific, Measurable, Achievable, Relevant, Time-bound."},
+{c:"Case Management Concepts",q:"Scope of practice is determined by:",o:["Personal preferences","Licensure, certification, and organizational policies","Patient's insurance plan","Bed availability"],a:1,e:"Scope is defined by licensure, certification, and organizational policies."},
+{c:"Case Management Concepts",q:"Shared decision-making means:",o:["Case manager decides all","Team and patient collaborate on decisions","Only physician decides","Insurance decides"],a:1,e:"Collaborative partnership incorporating evidence and patient values."},
+{c:"Case Management Concepts",q:"Telephonic case management is MOST appropriate for:",o:["Critically ill ICU patients","Stable patients needing monitoring who can self-manage","Patients requiring wound care","Patients who can't use a phone"],a:1,e:"Telephonic CM works for stable patients needing monitoring and education."},
+{c:"Case Management Concepts",q:"Disease management programs focus on:",o:["Acute emergencies","Helping patients with chronic conditions manage health over time","Surgical procedures","Diagnostic testing"],a:1,e:"Disease management supports chronic condition self-management."},
+{c:"Case Management Concepts",q:"UR can be conducted:",o:["Only before admission","Only after discharge","Prospectively, concurrently, and retrospectively","Only by insurance"],a:2,e:"UR occurs prospectively, concurrently, and retrospectively."},
+{c:"Case Management Concepts",q:"The ADA primarily protects disability rights in:",o:["Only housing","Employment and public access","Only education","Only transportation"],a:1,e:"The ADA prohibits disability discrimination in employment and ensures accessibility."},
+{c:"Case Management Concepts",q:"In utilization review, the CM evaluates:",o:["Whether to deny all claims","Whether services meet medical necessity criteria","Surgical performance","Premium rates"],a:1,e:"CMs evaluate clinical documentation against medical necessity criteria."},
+{c:"Rehabilitation & Return to Work",q:"Essential job functions are:",o:["Physical demands only","Tasks that must be performed, method may differ for disabled employees","Reasonable accommodations","Worker traits"],a:1,e:"Essential functions are fundamental duties performed with or without accommodation."},
+{c:"Rehabilitation & Return to Work",q:"Client involvement in rehab planning promotes:",o:["Reduced CM workload","Ownership, motivation, and adherence","Regulatory compliance only","Overriding medical recommendations"],a:1,e:"Participation promotes ownership and better adherence."},
 {c:"Rehabilitation & Return to Work",q:"Raising a desk for wheelchair access is a:",o:["Job modification","Job accommodation","Job restructuring","Building modification"],a:1,e:"Job accommodations provide access for individual employees."},
 {c:"Rehabilitation & Return to Work",q:"Which psychiatric disability is NOT ADA-protected?",o:["Bipolar disorder","Pyromania","Major depression","GAD"],a:1,e:"ADA doesn't protect behavioral/criminal disorders like pyromania."},
-{c:"Rehabilitation & Return to Work",q:"Cost-benefit analysis includes:",o:["Unfilled prescriptions","Alternative treatment plans and projected outcomes","Only current hospitalization costs","Staff evaluations"],a:1,e:"CBA evaluates alternative plans and projected outcomes for the most effective approach."},
-{c:"Rehabilitation & Return to Work",q:"A patient leaving AMA requires:",o:["Physical prevention","Security call","Explanation of risks and signed release form","Discharge without documentation"],a:2,e:"Explain risks, ensure informed decision-making, and obtain signed AMA documentation."},
-{c:"Rehabilitation & Return to Work",q:"A functional capacity evaluation determines:",o:["Psychological work readiness","Physical capability to return to work","Financial disability eligibility","Educational level"],a:1,e:"FCE evaluates physical capabilities to determine work readiness."},
-{c:"Rehabilitation & Return to Work",q:"Vocational rehabilitation primarily helps:",o:["Provide financial unemployment support","Individuals with disabilities achieve employment","Manage hospital discharge","Set insurance premiums"],a:1,e:"Vocational rehab helps people with disabilities prepare for, obtain, or maintain employment."},
-{c:"Rehabilitation & Return to Work",q:"A transitional work program's primary goal is to:",o:["Permanently reassign the employee","Gradually return injured worker to full duty through modified tasks","Terminate unable employees","Reduce employer premiums"],a:1,e:"Transitional work provides modified duties progressing toward full responsibilities during recovery."},
-{c:"Rehabilitation & Return to Work",q:"Ergonomic assessment in return-to-work planning evaluates:",o:["Employee personality traits","The physical workplace environment to prevent re-injury","Employee financial status","Co-worker relationships"],a:1,e:"Ergonomic assessments evaluate the physical workspace to identify modifications that prevent re-injury and support safe return to work."},
-// ===== QUALITY & OUTCOMES (14) =====
-{c:"Quality & Outcomes",q:"Case management effectiveness is BEST measured by:",o:["Benefits coverage extent","Measuring after case closure only","Insurer costs only","Client input and measurable outcomes"],a:3,e:"Effectiveness requires client input and objective measurable outcomes."},
-{c:"Quality & Outcomes",q:"The Pareto Principle (80/20 rule) in case management means:",o:["Resource allocation must be multidisciplinary","A small percentage of cases consume the majority of resources","All patients need equal resources","20% of CMs handle 80% of work"],a:1,e:"The 80/20 rule means a few high-complexity cases consume most resources."},
-{c:"Quality & Outcomes",q:"A clinical pathway is:",o:["A hospital hallway","Standardized, evidence-based multidisciplinary plan for a diagnosis","Patient walking route in rehab","Career track for case managers"],a:1,e:"Clinical pathways are standardized evidence-based plans for specific diagnoses."},
-{c:"Quality & Outcomes",q:"Quality indicators include all EXCEPT:",o:["Readmission rates","Patient satisfaction scores","Staff parking availability","Length of stay"],a:2,e:"Quality indicators include readmission rates, satisfaction, LOS, outcomes, and cost-effectiveness."},
-{c:"Quality & Outcomes",q:"Root cause analysis (RCA) identifies:",o:["Individual staff to blame","Underlying causes of adverse events to prevent recurrence","Revenue opportunities","Discharge acceleration methods"],a:1,e:"RCA systematically identifies underlying causes to implement preventive changes."},
-{c:"Quality & Outcomes",q:"Evidence-based practice means:",o:["Using only the most expensive treatments","Integrating best research with clinical expertise and patient values","Following only physician preferences","Ignoring patient preferences for data"],a:1,e:"EBP integrates research evidence, clinical expertise, and patient values."},
-{c:"Quality & Outcomes",q:"A PDSA cycle is used to:",o:["Plan discharge dates","Test and implement quality improvement changes","Schedule vacations","Document complaints only"],a:1,e:"PDSA is a structured QI methodology for testing and implementing changes."},
-{c:"Quality & Outcomes",q:"A sentinel event is:",o:["Any patient complaint","An unexpected occurrence involving death or serious harm","A scheduled quality review","A routine audit finding"],a:1,e:"Sentinel events are unexpected occurrences involving death or serious harm requiring immediate investigation."},
-{c:"Quality & Outcomes",q:"Hospital accreditation standards are set by:",o:["Local fire departments","The Joint Commission and CMS","Patient advocacy groups only","Individual physician practices"],a:1,e:"Joint Commission and CMS set accreditation standards hospitals must meet."},
-{c:"Quality & Outcomes",q:"Patient satisfaction surveys help discharge planning by:",o:["Determining physician salaries","Identifying areas where transitions can improve","Marketing only","Having no impact on reimbursement"],a:1,e:"Satisfaction data identifies improvement opportunities and impacts reimbursement through value-based programs."},
-// ===== REIMBURSEMENT (13) =====
-{c:"Reimbursement & Insurance",q:"Under DRG payment, hospitals receive:",o:["Payment per individual service","Fixed payment based on diagnosis regardless of LOS","Unlimited reimbursement","Payment only after full recovery"],a:1,e:"DRG provides a fixed amount based on diagnosis, incentivizing efficient care."},
-{c:"Reimbursement & Insurance",q:"Medicare Part A covers:",o:["Physician visits and outpatient","Inpatient hospital, SNF, home health, and hospice","Prescription drugs only","Dental and vision"],a:1,e:"Part A covers inpatient, SNF, home health, and hospice."},
-{c:"Reimbursement & Insurance",q:"A PPO differs from an HMO primarily because a PPO:",o:["Never covers out-of-network","Allows out-of-network providers at higher cost","Requires PCP referral for all specialists","Has lower premiums than all other plans"],a:1,e:"PPOs allow out-of-network use at higher cost, while HMOs typically require in-network providers."},
-{c:"Reimbursement & Insurance",q:"Prior authorization verifies:",o:["Patient transportation","Medical necessity before services are provided","Patient identity","Follow-up scheduling"],a:1,e:"Prior auth verifies medical necessity before services are rendered."},
-{c:"Reimbursement & Insurance",q:"Medicaid provides coverage for:",o:["All U.S. citizens","Low-income individuals and families","Only individuals over 65","Only veterans"],a:1,e:"Medicaid is a federal-state program for low-income individuals and families."},
-{c:"Reimbursement & Insurance",q:"A viatical settlement allows a terminally ill patient to:",o:["Continue paying premiums on their life insurance","Sell their life insurance policy for immediate cash","Transfer medical debt to family","Receive free government medications"],a:1,e:"Viatical settlements allow selling life insurance for immediate cash to cover expenses."},
-{c:"Reimbursement & Insurance",q:"Value-based purchasing ties reimbursement to:",o:["Bed count","Quality of care and patient outcomes","Geographic location only","Number of physicians on staff"],a:1,e:"VBP adjusts reimbursement based on quality metrics and outcomes."},
-{c:"Reimbursement & Insurance",q:"An observation stay differs from inpatient in that:",o:["Observation patients get no treatment","Observation is outpatient status, affecting Medicare post-acute coverage","Observation is always longer","There is no difference"],a:1,e:"Observation is outpatient status, potentially affecting SNF coverage eligibility."},
-{c:"Reimbursement & Insurance",q:"Bundled payments cover:",o:["Only surgeon's fee","All services for an episode of care across providers","Only pharmacy costs","Only room charges"],a:1,e:"Bundled payments provide a single payment for all episode-related services."},
-{c:"Reimbursement & Insurance",q:"COBRA allows former employees to:",o:["Get free healthcare for life","Continue group coverage for a limited time at their own expense","Auto-qualify for Medicaid","Receive early Medicare"],a:1,e:"COBRA continues employer coverage for 18-36 months with the former employee paying the full premium."},
-{c:"Reimbursement & Insurance",q:"Medicare Advantage (Part C) plans:",o:["Are identical to Original Medicare with no differences","Are offered by private companies approved by Medicare and often include extra benefits","Only cover prescription drugs","Are available only to veterans"],a:1,e:"Medicare Advantage plans are private alternatives to Original Medicare that often include additional benefits like dental, vision, and prescription drug coverage."},
-{c:"Reimbursement & Insurance",q:"The primary purpose of utilization management is to ensure services are:",o:["As expensive as possible","Medically necessary, in the appropriate setting, and meeting quality standards","Delayed until the patient can pay","Only provided in inpatient settings"],a:1,e:"Utilization management ensures services are medically necessary, provided in the most appropriate setting, and meet quality standards."},
-{c:"Reimbursement & Insurance",q:"Medicare Part D provides coverage for:",o:["Inpatient hospital stays","Outpatient prescription drugs","Dental services","Vision services"],a:1,e:"Medicare Part D specifically covers outpatient prescription drug costs through private insurance plans approved by Medicare."},
-{c:"Reimbursement & Insurance",q:"A case manager should understand that an ACO (Accountable Care Organization) is:",o:["A type of hospital","A group of providers who voluntarily coordinate care and share savings","A government agency","An insurance company"],a:1,e:"ACOs are groups of providers who coordinate care for Medicare patients and share in savings achieved through improved quality and efficiency."},
-{c:"Safe Transitions",q:"Which model specifically targets reducing readmissions within 30 days of discharge?",o:["The medical home model","The transitional care model (TCM)","The fee-for-service model","The capitation model"],a:1,e:"The Transitional Care Model (TCM) was specifically designed to reduce readmissions through nurse-led interventions during the vulnerable post-discharge period."},
-{c:"Safe Transitions",q:"A discharge summary should include all EXCEPT:",o:["Diagnosis and procedures performed","Discharge medications and follow-up plan","Patient's personal social media information","Pending test results and follow-up needs"],a:2,e:"Discharge summaries include clinical information like diagnoses, procedures, medications, pending results, and follow-up plans—not personal social media."},
-{c:"Safe Transitions",q:"The Coleman Care Transitions Intervention focuses on:",o:["Increasing hospital length of stay","Empowering patients with self-management skills across care settings","Reducing nursing staff","Eliminating follow-up visits"],a:1,e:"Coleman's model empowers patients with skills and tools to manage their care across transitions, including medication management and follow-up."},
-{c:"Safe Transitions",q:"Polypharmacy is a concern during discharge because:",o:["It means the patient takes too few medications","Multiple medications increase risk of drug interactions and errors","It only affects elderly patients","It reduces healthcare costs"],a:1,e:"Polypharmacy (multiple medications) increases risks of drug interactions, adverse effects, and medication errors, especially during transitions."},
-{c:"CMS/Regulatory Compliance",q:"CMS requires that discharge planning evaluations be completed by:",o:["Only physicians","A registered nurse, social worker, or other qualified person","Only the case manager","The patient's family"],a:1,e:"CMS specifies that discharge planning evaluations must be completed by an RN, social worker, or other appropriately qualified personnel."},
-{c:"CMS/Regulatory Compliance",q:"Under CMS, the discharge planning process must include reassessment of the plan:",o:["Only at the time of discharge","On an ongoing basis throughout the hospitalization","Only if the patient requests it","Only for Medicare patients"],a:1,e:"CMS requires ongoing reassessment of the discharge plan, not just a one-time evaluation, to reflect changing patient needs."},
-{c:"CMS/Regulatory Compliance",q:"The Conditions of Participation require that discharge planning must consider the patient's:",o:["Goals of care and treatment preferences","Favorite television shows","Political beliefs","Religious denomination for room assignment"],a:0,e:"CMS emphasizes honoring patient goals of care and treatment preferences as core to discharge planning."},
-{c:"CMS/Regulatory Compliance",q:"A 'patient choice letter' in discharge planning refers to:",o:["A letter the patient writes to their family","Documentation that the patient was offered a list of post-acute providers","A complaint letter from the patient","A physician's recommendation letter"],a:1,e:"The patient choice letter documents that the patient was presented with a list of available post-acute care providers and given freedom to choose."},
-{c:"EMTALA",q:"Under EMTALA, the medical screening examination must be:",o:["Performed only by a physician","Appropriate to determine if an emergency medical condition exists","Identical for every patient","Performed only after insurance verification"],a:1,e:"The MSE must be appropriate to determine if an EMC exists. It can vary in complexity based on presenting symptoms and can be performed by qualified personnel."},
-{c:"EMTALA",q:"EMTALA's stabilization requirement means the hospital must:",o:["Cure the patient's underlying condition","Provide treatment so no material deterioration is likely to occur","Keep the patient for a minimum of 48 hours","Transfer the patient to the nearest trauma center"],a:1,e:"Stabilization means providing treatment within the hospital's capability so the patient's condition won't materially deteriorate, not necessarily resolving the underlying condition."},
-{c:"EMTALA",q:"Under EMTALA, a hospital may transfer an unstable patient only when:",o:["The patient's insurance denies coverage","The medical benefits of transfer outweigh the risks","The bed is needed for another patient","The hospital administrator approves"],a:1,e:"An unstable patient may only be transferred when a physician certifies the medical benefits of transfer outweigh the risks, or the patient requests it."},
-{c:"Post-Hospital Needs",q:"The initial home health visit after hospital discharge should occur within:",o:["One week of discharge","48 hours of referral or hospital discharge","30 days of discharge","Whenever convenient for the nurse"],a:1,e:"CMS guidelines specify that the initial assessment visit should occur within 48 hours of the referral or hospital discharge to ensure timely care."},
-{c:"Post-Hospital Needs",q:"A patient being discharged with a new tracheostomy requires education for:",o:["Only the patient, not the caregiver","Both the patient and caregiver on suctioning, cleaning, and emergency management","Only the home health nurse","Only written instructions without demonstration"],a:1,e:"Tracheostomy care requires hands-on training for both patient and caregiver including suctioning technique, stoma care, and emergency management."},
-{c:"Post-Hospital Needs",q:"Durable medical equipment (DME) coverage under Medicare requires:",o:["A physician's order and medical necessity","Patient's verbal request only","No documentation","Hospital administrator approval"],a:0,e:"Medicare DME coverage requires a physician's order documenting medical necessity for the equipment."},
-{c:"Post-Hospital Needs",q:"When assessing a patient's readiness for discharge, the case manager evaluates:",o:["Only whether the physician has written the discharge order","Physical, emotional, and social readiness plus caregiver preparedness","Only insurance authorization status","Only whether a bed is available at the receiving facility"],a:1,e:"Discharge readiness is multidimensional, encompassing physical recovery, emotional preparedness, social support, and caregiver ability to manage care."},
-{c:"Ethical & Legal Standards",q:"The Health Insurance Portability and Accountability Act (HIPAA) was enacted in:",o:["1965","1986","1996","2010"],a:2,e:"HIPAA was enacted in 1996 to protect patient privacy and establish standards for electronic health information."},
-{c:"Ethical & Legal Standards",q:"A 'duty to warn' exception to confidentiality exists when:",o:["A patient misses an appointment","A patient poses a credible threat of harm to an identifiable third party","A family member requests information","An insurance company demands records"],a:1,e:"The duty to warn requires disclosure when a patient poses a credible threat of serious harm to an identifiable third party, overriding confidentiality."},
-{c:"Psychosocial & Support Systems",q:"The biopsychosocial model of health considers:",o:["Only biological factors","Biological, psychological, and social factors together","Only social determinants","Only psychological factors"],a:1,e:"The biopsychosocial model integrates biological, psychological, and social factors in understanding health and illness, guiding holistic case management."},
-{c:"Psychosocial & Support Systems",q:"Resilience in the context of case management refers to:",o:["Physical strength only","The ability to adapt and recover from adversity","Resistance to all medications","Refusal to participate in treatment"],a:1,e:"Resilience is the capacity to adapt, cope, and recover from adversity. Case managers can help build resilience through support systems and coping strategies."},
-{c:"Psychosocial & Support Systems",q:"Social isolation in elderly patients after discharge is a concern because it:",o:["Reduces hospital costs","Increases risk of depression, readmission, and functional decline","Has no impact on health outcomes","Only affects patients with dementia"],a:1,e:"Social isolation in elderly patients increases risks of depression, cognitive decline, readmission, and mortality, making it a critical discharge planning consideration."},
-{c:"Psychosocial & Support Systems",q:"Trauma-informed care in case management means:",o:["Only treating patients with physical trauma","Recognizing that many patients have experienced trauma and adapting care accordingly","Avoiding all discussion of past experiences","Referring all patients to psychiatry"],a:1,e:"Trauma-informed care recognizes the widespread impact of trauma and integrates this understanding into policies, procedures, and practices."},
-{c:"Case Management Concepts",q:"The acronym SMART in goal-setting stands for:",o:["Simple, Manageable, Achievable, Realistic, Timely","Specific, Measurable, Achievable, Relevant, Time-bound","Standard, Measured, Approved, Recorded, Tracked","Strategic, Managed, Assessed, Reviewed, Tested"],a:1,e:"SMART goals are Specific, Measurable, Achievable, Relevant, and Time-bound—a framework for effective care planning in case management."},
-{c:"Case Management Concepts",q:"A case manager's scope of practice is determined by:",o:["The case manager's personal preferences","Professional licensure, certification, and employing organization policies","The patient's insurance plan","Hospital bed availability"],a:1,e:"Scope of practice is defined by professional licensure, certification standards, and organizational policies, not personal preference."},
-{c:"Case Management Concepts",q:"Shared decision-making in case management means:",o:["The case manager makes all decisions","Healthcare team and patient collaborate on treatment decisions","Only the physician decides","The insurance company decides"],a:1,e:"Shared decision-making involves collaborative partnership between the healthcare team and patient, incorporating clinical evidence and patient values."},
-{c:"Case Management Concepts",q:"Telephonic case management is MOST appropriate for:",o:["Critically ill ICU patients","Stable patients requiring monitoring and education who can manage at home","Patients requiring hands-on wound care","Patients who cannot use a telephone"],a:1,e:"Telephonic case management works best for medically stable patients who need ongoing monitoring, education, and coordination but can self-manage."},
-{c:"Case Management Concepts",q:"Disease management programs PRIMARILY focus on:",o:["Treating acute emergencies","Helping patients with chronic conditions manage their health over time","Surgical procedures","Diagnostic testing"],a:1,e:"Disease management programs provide education, self-management support, and care coordination for patients with chronic conditions like diabetes, asthma, and heart failure."},
-{c:"Quality & Outcomes",q:"The term 'never events' refers to:",o:["Events that happen frequently","Serious, preventable adverse events that should never occur in healthcare","Routine quality metrics","Scheduled maintenance events"],a:1,e:"Never events are serious, preventable medical errors (like wrong-site surgery) that should never occur and are indicators of healthcare quality failures."},
-{c:"Quality & Outcomes",q:"Hospital Compare on Medicare.gov allows patients to:",o:["Schedule appointments","Compare quality measures, outcomes, and patient experience across hospitals","Pay medical bills","Apply for Medicare"],a:1,e:"Hospital Compare provides quality data including outcomes, patient experience, and safety measures to help patients make informed choices."},
-{c:"Quality & Outcomes",q:"Lean methodology in healthcare quality improvement focuses on:",o:["Adding more staff to every department","Eliminating waste and improving efficiency in processes","Increasing the number of hospital beds","Reducing patient education time"],a:1,e:"Lean methodology identifies and eliminates waste in processes, improving efficiency and value while maintaining quality."},
-{c:"Quality & Outcomes",q:"A key performance indicator (KPI) for discharge planning would be:",o:["Number of parking spots available","Average time from discharge order to actual departure","Color of discharge paperwork","Number of elevators in the building"],a:1,e:"Time from discharge order to departure is a measurable KPI that reflects discharge process efficiency and identifies bottlenecks."},
-{c:"Rehabilitation & Return to Work",q:"The ADA requires employers to provide reasonable accommodations UNLESS:",o:["The employee has any disability","It creates an undue hardship on the employer","The employee requests it in writing","The employee has been with the company for less than one year"],a:1,e:"The ADA requires reasonable accommodations unless they would impose an undue hardship on the employer's operations."},
-{c:"Rehabilitation & Return to Work",q:"Workers' compensation provides benefits for:",o:["Any illness regardless of cause","Work-related injuries and illnesses","Only injuries occurring at the workplace building","Only injuries to full-time employees"],a:1,e:"Workers' compensation covers injuries and illnesses that arise out of and in the course of employment."},
-{c:"Rehabilitation & Return to Work",q:"When a case manager coordinates return to work, the FIRST step is typically:",o:["Immediately placing the worker back at full duty","Obtaining a functional capacity evaluation and reviewing job requirements","Terminating the worker if they can't perform all duties","Ignoring the worker's physician restrictions"],a:1,e:"Return-to-work coordination begins with understanding the worker's functional abilities through an FCE and comparing them to essential job requirements."},
-{c:"Rehabilitation & Return to Work",q:"Assistive technology in rehabilitation includes:",o:["Only wheelchairs","Devices, software, and equipment that help individuals with disabilities perform tasks","Only hearing aids","Only prosthetic limbs"],a:1,e:"Assistive technology encompasses a broad range of devices and tools including communication aids, mobility equipment, software, and adaptive devices."},
-{c:"Safe Transitions",q:"Discharge planning for a patient with limited English proficiency requires:",o:["Providing instructions only in English","Using professional interpreter services and translated materials","Asking the patient's child to translate","Skipping patient education entirely"],a:1,e:"Patients with limited English proficiency need professional interpreter services and translated materials to ensure safe transitions."},
-{c:"Safe Transitions",q:"A patient is being discharged to a long-term acute care hospital (LTCH). LTCHs are designed for patients who:",o:["Need only social support","Require extended hospital-level care for complex medical conditions","Are ready for independent living","Need only outpatient follow-up"],a:1,e:"LTCHs provide extended hospital-level care for patients with complex conditions requiring prolonged hospitalization."},
-{c:"EMTALA",q:"Under EMTALA, hospitals must maintain a list of on-call physicians to provide:",o:["Elective surgical services","Stabilizing treatment for emergency conditions","Cosmetic procedures","Annual physical examinations"],a:1,e:"Hospitals must maintain an on-call physician list to ensure stabilizing treatment can be provided for emergency medical conditions."},
-{c:"Post-Hospital Needs",q:"Palliative care differs from hospice in that palliative care:",o:["Is only for dying patients","Can be provided alongside curative treatment at any stage of illness","Is limited to 6 months","Does not involve symptom management"],a:1,e:"Palliative care focuses on symptom management and quality of life at any illness stage, while hospice is for patients with a life expectancy of 6 months or less who have stopped curative treatment."},
-{c:"Post-Hospital Needs",q:"When a patient is discharged to a skilled nursing facility, the case manager ensures:",o:["The patient has no say in facility selection","A complete transfer of medical records and care plan to the SNF","Only the billing information is transferred","No communication occurs between facilities"],a:1,e:"Complete transfer of medical records, care plans, medication lists, and clinical information is essential for safe SNF transitions."},
-{c:"Ethical & Legal Standards",q:"The principle of fidelity in case management means:",o:["Keeping promises and being faithful to commitments","Being financially conservative","Following only the payor's instructions","Avoiding all patient contact"],a:0,e:"Fidelity means keeping promises, being faithful to commitments, and maintaining trust in the case manager-client relationship."},
-{c:"Ethical & Legal Standards",q:"When a case manager suspects child abuse during discharge planning, they must:",o:["Wait for the physician to report it","Report it themselves as a mandatory reporter","Discuss it only with the parents","Document it but take no action"],a:1,e:"Case managers are mandatory reporters and must report suspected child abuse regardless of other team members' actions."},
-{c:"Psychosocial & Support Systems",q:"The transtheoretical model of change includes which stages?",o:["Denial, anger, bargaining, depression, acceptance","Precontemplation, contemplation, preparation, action, maintenance","Assessment, planning, implementation, evaluation","Forming, storming, norming, performing"],a:1,e:"The transtheoretical model (Stages of Change) includes precontemplation, contemplation, preparation, action, and maintenance."},
-{c:"Psychosocial & Support Systems",q:"A patient's health belief model is influenced by:",o:["Only their physician's opinion","Perceived susceptibility, severity, benefits, and barriers","Their insurance plan type","Hospital marketing materials"],a:1,e:"The Health Belief Model considers perceived susceptibility to illness, severity, benefits of action, barriers, cues to action, and self-efficacy."},
-{c:"Case Management Concepts",q:"Utilization review can be conducted at which point(s)?",o:["Only before admission","Only after discharge","Prospectively, concurrently, and retrospectively","Only by the insurance company"],a:2,e:"UR occurs prospectively (before), concurrently (during), and retrospectively (after) to evaluate medical necessity and appropriateness."},
-{c:"Case Management Concepts",q:"The primary legislation that protects the rights of individuals with disabilities in employment is:",o:["HIPAA","EMTALA","The Americans with Disabilities Act (ADA)","The Affordable Care Act"],a:2,e:"The ADA prohibits disability-based employment discrimination and requires reasonable accommodations."},
-{c:"Case Management Concepts",q:"A case manager's role in utilization review includes:",o:["Denying all claims to save money","Evaluating whether services meet criteria for medical necessity","Performing surgical procedures","Setting insurance premium rates"],a:1,e:"Case managers in UR evaluate whether clinical documentation supports medical necessity criteria for the level of care provided."},
-{c:"Quality & Outcomes",q:"The Institute for Healthcare Improvement (IHI) Triple Aim includes:",o:["Profit, growth, and market share","Better health, better care, and lower per capita costs","More beds, more staff, and more equipment","Faster discharge, fewer nurses, and reduced supplies"],a:1,e:"IHI's Triple Aim targets improving population health, enhancing the patient care experience, and reducing per capita healthcare costs."},
-{c:"Quality & Outcomes",q:"Failure Mode and Effects Analysis (FMEA) is used to:",o:["Analyze equipment failures only","Proactively identify and prevent potential process failures before they occur","Review financial statements","Schedule staff shifts"],a:1,e:"FMEA is a proactive risk assessment tool that identifies potential failure modes in processes and prioritizes them for prevention."},
-{c:"Reimbursement & Insurance",q:"The prospective payment system (PPS) pays hospitals:",o:["Based on actual costs incurred","A predetermined rate based on classification of the patient","Only after itemized billing review","Whatever the hospital charges"],a:1,e:"PPS provides predetermined payment rates based on patient classification (such as DRGs), not actual costs incurred."},
-{c:"Reimbursement & Insurance",q:"A case rate payment model pays providers:",o:["Per individual service rendered","A fixed amount for treating a specific condition or performing a procedure","Only for preventive services","Based on the number of hospital beds"],a:1,e:"Case rate payment provides a single fixed payment for all services related to treating a specific condition or episode of care."},
-{c:"CMS/Regulatory Compliance",q:"The Affordable Care Act (ACA) established penalties for hospitals with:",o:["Too many employees","Hospital-acquired conditions and excess readmissions","Too many outpatient visits","Low parking lot occupancy"],a:1,e:"The ACA established penalty programs for hospital-acquired conditions (HACs) and excess readmissions to incentivize quality improvement."},
-{c:"CMS/Regulatory Compliance",q:"Under CMS, a hospital's discharge planning program must be overseen by a:",o:["Hospital volunteer coordinator","Multidisciplinary committee or team","Single physician only","The hospital's marketing department"],a:1,e:"CMS requires that the discharge planning program be supervised by a multidisciplinary committee or team to ensure comprehensive planning."},
-{c:"Rehabilitation & Return to Work",q:"The Family and Medical Leave Act (FMLA) provides eligible employees with:",o:["Paid leave for any reason","Up to 12 weeks of unpaid, job-protected leave for qualifying reasons","Permanent disability benefits","Early retirement options"],a:1,e:"FMLA provides eligible employees up to 12 weeks of unpaid, job-protected leave per year for qualifying medical and family reasons."},
+{c:"Rehabilitation & Return to Work",q:"Cost-benefit analysis includes:",o:["Unfilled prescriptions","Alternative treatment plans and projected outcomes","Only current costs","Staff evaluations"],a:1,e:"CBA evaluates alternatives and projected outcomes."},
+{c:"Rehabilitation & Return to Work",q:"A patient leaving AMA requires:",o:["Physical prevention","Security call","Explanation of risks and signed release form","Discharge without documentation"],a:2,e:"Explain risks and obtain signed AMA documentation."},
+{c:"Rehabilitation & Return to Work",q:"A functional capacity evaluation determines:",o:["Psychological readiness","Physical capability to return to work","Financial disability eligibility","Educational level"],a:1,e:"FCE evaluates physical capabilities for work readiness."},
+{c:"Rehabilitation & Return to Work",q:"Vocational rehabilitation primarily helps:",o:["Provide financial support","Individuals with disabilities achieve employment","Manage discharge","Set premiums"],a:1,e:"Vocational rehab helps people with disabilities prepare for employment."},
+{c:"Rehabilitation & Return to Work",q:"Transitional work programs gradually:",o:["Permanently reassign the employee","Return injured workers to full duty through modified tasks","Terminate unable employees","Reduce employer premiums"],a:1,e:"Modified duties progress toward full responsibilities during recovery."},
+{c:"Rehabilitation & Return to Work",q:"Ergonomic assessment evaluates:",o:["Employee personality","Physical workplace environment to prevent re-injury","Financial status","Co-worker relationships"],a:1,e:"Ergonomic assessments identify workspace modifications for safe return."},
+{c:"Rehabilitation & Return to Work",q:"The ADA requires reasonable accommodations UNLESS:",o:["The employee has any disability","It creates undue hardship on the employer","The employee requests in writing","They've been employed less than one year"],a:1,e:"Reasonable accommodations required unless creating undue employer hardship."},
+{c:"Rehabilitation & Return to Work",q:"Workers' compensation covers:",o:["Any illness regardless of cause","Work-related injuries and illnesses","Only injuries at the workplace building","Only full-time employee injuries"],a:1,e:"Workers' comp covers injuries and illnesses arising from employment."},
+{c:"Rehabilitation & Return to Work",q:"Return-to-work coordination FIRST requires:",o:["Immediate full duty placement","FCE and review of job requirements","Terminating the worker","Ignoring physician restrictions"],a:1,e:"Start by understanding functional abilities through FCE and comparing to job requirements."},
+{c:"Rehabilitation & Return to Work",q:"Assistive technology includes:",o:["Only wheelchairs","Devices, software, and equipment helping people with disabilities","Only hearing aids","Only prosthetics"],a:1,e:"Assistive technology encompasses communication aids, mobility equipment, software, and adaptive devices."},
+{c:"Rehabilitation & Return to Work",q:"FMLA provides eligible employees:",o:["Paid leave for any reason","Up to 12 weeks unpaid, job-protected leave for qualifying reasons","Permanent disability benefits","Early retirement"],a:1,e:"FMLA provides up to 12 weeks unpaid, job-protected leave per year."},
+{c:"Quality & Outcomes",q:"Case management effectiveness is BEST measured by:",o:["Benefits coverage extent","After case closure only","Insurer costs only","Client input and measurable outcomes"],a:3,e:"Effectiveness requires client input and measurable outcomes."},
+{c:"Quality & Outcomes",q:"The Pareto Principle means:",o:["Multidisciplinary allocation","A small percentage of cases consume most resources","Equal resources for all","20% of CMs handle 80% of work"],a:1,e:"80/20 rule: few high-complexity cases consume most resources."},
+{c:"Quality & Outcomes",q:"A clinical pathway is:",o:["A hospital hallway","Standardized evidence-based plan for a specific diagnosis","Patient walking route","Career track"],a:1,e:"Standardized evidence-based plans for specific diagnoses."},
+{c:"Quality & Outcomes",q:"Quality indicators include all EXCEPT:",o:["Readmission rates","Patient satisfaction","Staff parking availability","Length of stay"],a:2,e:"Quality indicators: readmission rates, satisfaction, LOS, outcomes, cost-effectiveness."},
+{c:"Quality & Outcomes",q:"Root cause analysis identifies:",o:["Staff to blame","Underlying causes of adverse events to prevent recurrence","Revenue opportunities","Discharge acceleration"],a:1,e:"RCA identifies underlying causes to implement preventive changes."},
+{c:"Quality & Outcomes",q:"Evidence-based practice means:",o:["Most expensive treatments","Integrating research with clinical expertise and patient values","Following only physician preferences","Ignoring patient preferences"],a:1,e:"EBP integrates research, expertise, and patient values."},
+{c:"Quality & Outcomes",q:"PDSA cycles are used to:",o:["Plan discharge dates","Test and implement quality improvement changes","Schedule vacations","Document complaints"],a:1,e:"PDSA is structured QI methodology."},
+{c:"Quality & Outcomes",q:"A sentinel event is:",o:["Any complaint","Unexpected occurrence involving death or serious harm","Scheduled review","Routine audit finding"],a:1,e:"Sentinel events involve death or serious harm requiring investigation."},
+{c:"Quality & Outcomes",q:"Hospital accreditation standards are set by:",o:["Fire departments","The Joint Commission and CMS","Patient groups only","Individual practices"],a:1,e:"Joint Commission and CMS set accreditation standards."},
+{c:"Quality & Outcomes",q:"Patient satisfaction surveys help by:",o:["Determining physician salaries","Identifying areas where transitions can improve","Marketing only","No reimbursement impact"],a:1,e:"Data identifies improvements and impacts value-based reimbursement."},
+{c:"Quality & Outcomes",q:"'Never events' are:",o:["Frequent events","Serious preventable events that should never occur","Routine metrics","Scheduled maintenance"],a:1,e:"Never events are serious preventable errors like wrong-site surgery."},
+{c:"Quality & Outcomes",q:"Hospital Compare allows patients to:",o:["Schedule appointments","Compare quality measures across hospitals","Pay bills","Apply for Medicare"],a:1,e:"Hospital Compare provides quality data for informed patient choices."},
+{c:"Quality & Outcomes",q:"Lean methodology focuses on:",o:["Adding staff","Eliminating waste and improving efficiency","Increasing beds","Reducing education"],a:1,e:"Lean identifies and eliminates process waste."},
+{c:"Quality & Outcomes",q:"A discharge planning KPI would be:",o:["Parking spots","Average time from discharge order to departure","Paperwork color","Number of elevators"],a:1,e:"Time from order to departure measures process efficiency."},
+{c:"Quality & Outcomes",q:"IHI Triple Aim includes:",o:["Profit, growth, market share","Better health, better care, lower per capita costs","More beds, staff, equipment","Faster discharge, fewer nurses"],a:1,e:"Triple Aim: population health, care experience, lower costs."},
+{c:"Quality & Outcomes",q:"FMEA is used to:",o:["Analyze equipment only","Proactively identify and prevent potential process failures","Review financials","Schedule shifts"],a:1,e:"FMEA proactively identifies failure modes for prevention."},
+{c:"Reimbursement & Insurance",q:"Under DRG payment, hospitals receive:",o:["Payment per service","Fixed payment based on diagnosis regardless of LOS","Unlimited reimbursement","Payment only after full recovery"],a:1,e:"DRG provides fixed payment based on diagnosis."},
+{c:"Reimbursement & Insurance",q:"Medicare Part A covers:",o:["Physician visits and outpatient","Inpatient hospital, SNF, home health, and hospice","Prescription drugs only","Dental and vision"],a:1,e:"Part A: inpatient, SNF, home health, hospice."},
+{c:"Reimbursement & Insurance",q:"A PPO differs from an HMO primarily because a PPO:",o:["Never covers out-of-network","Allows out-of-network providers at higher cost","Requires PCP referral for all specialists","Has lower premiums than all others"],a:1,e:"PPOs allow out-of-network use at higher cost."},
+{c:"Reimbursement & Insurance",q:"Prior authorization verifies:",o:["Patient transportation","Medical necessity before services are provided","Patient identity","Follow-up scheduling"],a:1,e:"Prior auth confirms medical necessity before services."},
+{c:"Reimbursement & Insurance",q:"Medicaid provides coverage for:",o:["All U.S. citizens","Low-income individuals and families","Only over 65","Only veterans"],a:1,e:"Medicaid is for low-income individuals and families."},
+{c:"Reimbursement & Insurance",q:"A viatical settlement allows a terminally ill patient to:",o:["Continue paying life insurance premiums","Sell their life insurance policy for immediate cash","Transfer debt to family","Receive free government medications"],a:1,e:"Sell life insurance for immediate cash to cover expenses."},
+{c:"Reimbursement & Insurance",q:"Value-based purchasing ties reimbursement to:",o:["Bed count","Quality of care and patient outcomes","Geography only","Physician count"],a:1,e:"VBP adjusts reimbursement based on quality and outcomes."},
+{c:"Reimbursement & Insurance",q:"Observation differs from inpatient in that:",o:["No treatment is given","Observation is outpatient status, affecting post-acute coverage","Observation is always longer","No difference"],a:1,e:"Observation is outpatient, potentially affecting SNF eligibility."},
+{c:"Reimbursement & Insurance",q:"Bundled payments cover:",o:["Only surgeon's fee","All services for an episode across providers","Only pharmacy","Only room charges"],a:1,e:"Single payment for all episode-related services."},
+{c:"Reimbursement & Insurance",q:"COBRA allows former employees to:",o:["Get free healthcare for life","Continue group coverage for limited time at own expense","Auto-qualify for Medicaid","Get early Medicare"],a:1,e:"COBRA continues coverage 18-36 months at full premium."},
+{c:"Reimbursement & Insurance",q:"Medicare Advantage (Part C) plans:",o:["Are identical to Original Medicare","Are private plans with often extra benefits","Only cover drugs","Are only for veterans"],a:1,e:"Part C plans are private alternatives often with extra benefits."},
+{c:"Reimbursement & Insurance",q:"Utilization management ensures services are:",o:["As expensive as possible","Medically necessary, appropriate setting, meeting quality standards","Delayed until patient pays","Only inpatient"],a:1,e:"UM ensures medical necessity, appropriate setting, and quality."},
+{c:"Reimbursement & Insurance",q:"Medicare Part D covers:",o:["Inpatient stays","Outpatient prescription drugs","Dental","Vision"],a:1,e:"Part D covers outpatient prescription drug costs."},
+{c:"Reimbursement & Insurance",q:"An ACO is:",o:["A type of hospital","Providers who voluntarily coordinate care and share savings","A government agency","An insurance company"],a:1,e:"ACOs coordinate care for Medicare patients and share savings."},
+{c:"Reimbursement & Insurance",q:"PPS pays hospitals:",o:["Based on actual costs","A predetermined rate based on patient classification","Only after itemized review","Whatever the hospital charges"],a:1,e:"PPS provides predetermined rates based on classification like DRGs."},
+{c:"Reimbursement & Insurance",q:"A case rate pays providers:",o:["Per individual service","Fixed amount for treating a specific condition","Only for prevention","Based on bed count"],a:1,e:"Case rate: single fixed payment for treating a specific condition."},
 ];
 
-let sel=new Set(),qz=[],ci=0,sc=0,sk=0,bs=0,ans=[],aw=false,xp=0,sxp=0;
-const IC={"Safe Transitions":"🔄","CMS/Regulatory Compliance":"📋","EMTALA":"🏥","Post-Hospital Needs":"🏠","Case Management Concepts":"📊","Rehabilitation & Return to Work":"🔧","Ethical & Legal Standards":"⚖️","Psychosocial & Support Systems":"🧠","Quality & Outcomes":"📈","Reimbursement & Insurance":"💳"};
+// ===== STATE =====
+let sel=new Set(),qz=[],ci=0,sc=0,sk=0,bs=0,ans=[],aw=false,timerStart=0,timerInt=null;
+let lifetime={correct:0,quizzes:0,best:0};
+try{const d=localStorage.getItem('mq-life');if(d)lifetime=JSON.parse(d)}catch(e){}
+const IC={"Safe Transitions":"🌿","CMS/Regulatory Compliance":"📋","EMTALA":"🏥","Post-Hospital Needs":"🏡","Case Management Concepts":"📖","Rehabilitation & Return to Work":"🌱","Ethical & Legal Standards":"⚖️","Psychosocial & Support Systems":"💛","Quality & Outcomes":"🌻","Reimbursement & Insurance":"🍃"};
 
-function init(){const cs={};Q.forEach(q=>{cs[q.c]=(cs[q.c]||0)+1});const g=document.getElementById('cg');g.innerHTML='';
+function init(){
+const cs={};Q.forEach(q=>{cs[q.c]=(cs[q.c]||0)+1});
+const g=document.getElementById('cg');g.innerHTML='';
 Object.entries(cs).forEach(([n,c])=>{sel.add(n);const d=document.createElement('div');d.className='cc sel';
-d.innerHTML=`<div class="ck">✓</div><div class="ci">${IC[n]||'📝'}</div><div class="cn">${n}</div><div class="ct">${c} Qs</div>`;
+d.innerHTML=`<div class="ck">✓</div><div class="ci">${IC[n]||'📝'}</div><div class="cn">${n}</div><div class="ct">${c} questions</div>`;
 d.onclick=()=>{sel.has(n)?(sel.delete(n),d.classList.remove('sel')):(sel.add(n),d.classList.add('sel'));uc()};g.appendChild(d)});
 const s=document.getElementById('qc');s.innerHTML='';
-for(let i=20;i<=200;i+=20){const o=document.createElement('option');o.value=i;o.textContent=i+' Qs';s.appendChild(o)}
-const a=document.createElement('option');a.value=0;a.textContent='All Qs';a.selected=true;s.appendChild(a);s.onchange=uc;uc();uh()}
+for(let i=20;i<=200;i+=20){const o=document.createElement('option');o.value=i;o.textContent=i;s.appendChild(o)}
+const a=document.createElement('option');a.value=0;a.textContent='All';a.selected=true;s.appendChild(a);
+uc();updateLifetime();showQuote()}
+
 function ta(on){document.querySelectorAll('.cc').forEach(c=>{const n=c.querySelector('.cn').textContent;on?(sel.add(n),c.classList.add('sel')):(sel.delete(n),c.classList.remove('sel'))});uc()}
-function uc(){const p=Q.filter(q=>sel.has(q.c)),l=parseInt(document.getElementById('qc').value);document.getElementById('qi').textContent=(l>0?Math.min(l,p.length):p.length)+' Qs'}
+function uc(){const p=Q.filter(q=>sel.has(q.c)),l=parseInt(document.getElementById('qc').value);document.getElementById('qi').textContent=(l>0?Math.min(l,p.length):p.length)+' questions'}
 function sf(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
-function go(sub){let p=sub||Q.filter(q=>sel.has(q.c));if(!p.length){alert('Select at least one category!');return}
-qz=document.getElementById('sh').checked?sf(p):[...p];const l=parseInt(document.getElementById('qc').value);if(l>0&&qz.length>l)qz=qz.slice(0,l);
-ci=0;sc=0;sk=0;bs=0;ans=[];aw=false;sxp=0;sw('SQ');rd();uh()}
-function rd(){aw=false;const q=qz[ci];document.getElementById('qn').textContent=`${ci+1} / ${qz.length}`;document.getElementById('qtg').textContent=q.c;
-document.getElementById('qx').textContent=q.q;document.getElementById('pb').style.width=`${(ci/qz.length)*100}%`;
-document.getElementById('nb').style.display='none';document.getElementById('ex').classList.remove('sh');
+function showQuote(){const q=QUOTES[Math.floor(Math.random()*QUOTES.length)];document.getElementById('qotd').innerHTML=`<p>${q[0]}</p><cite>— ${q[1]}</cite>`}
+function updateLifetime(){document.getElementById('lifetime-correct').textContent=lifetime.correct;document.getElementById('lifetime-quizzes').textContent=lifetime.quizzes;document.getElementById('lifetime-best').textContent=lifetime.best+'%'}
+function saveLT(){try{localStorage.setItem('mq-life',JSON.stringify(lifetime))}catch(e){}}
+
+// Timer
+function startTimer(){timerStart=Date.now();timerInt=setInterval(()=>{const s=Math.floor((Date.now()-timerStart)/1000);document.getElementById('timer').textContent=`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`},1000)}
+function stopTimer(){clearInterval(timerInt);return Math.floor((Date.now()-timerStart)/1000)}
+function fmtTime(s){return`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`}
+
+function go(sub){let p=sub||Q.filter(q=>sel.has(q.c));if(!p.length){alert('Pick at least one topic! 🌿');return}
+qz=document.getElementById('shuf-tog').classList.contains('on')?sf(p):[...p];
+const l=parseInt(document.getElementById('qc').value);if(l>0&&qz.length>l)qz=qz.slice(0,l);
+ci=0;sc=0;sk=0;bs=0;ans=[];aw=false;sw('SQ');rd();uh();startTimer()}
+
+function rd(){aw=false;const q=qz[ci];document.getElementById('qn').textContent=`${ci+1} of ${qz.length}`;
+document.getElementById('qtg').textContent=q.c;document.getElementById('qx').textContent=q.q;
+document.getElementById('pb').style.width=`${(ci/qz.length)*100}%`;
+document.getElementById('nb').style.display='none';
+document.getElementById('ex').classList.remove('sh');
+document.getElementById('conf').style.display='none';
+document.querySelectorAll('.conf-btn').forEach(b=>b.classList.remove('sel-conf'));
 const L=['A','B','C','D'],ol=document.getElementById('ol');ol.innerHTML='';
-q.o.forEach((o,i)=>{const b=document.createElement('button');b.className='op';const t=o.replace(/^[A-D]\.\s*/,'');
-b.innerHTML=`<span class="ol2">${L[i]}</span><span>${t}</span><span class="ok2">${L[i]}</span>`;b.onclick=()=>pk(i);ol.appendChild(b)})}
-function pk(i){if(aw)return;aw=true;const q=qz[ci],ok=i===q.a;document.querySelectorAll('.op').forEach((b,j)=>{b.classList.add('dis');if(j===q.a)b.classList.add('ok');if(j===i&&!ok)b.classList.add('no')});
-if(ok){sc++;sk++;if(sk>bs)bs=sk;const pts=10+(sk>2?sk*2:0);sxp+=pts;xp+=pts;sxp2('+'+pts+' XP')}else sk=0;
-ans.push({question:q,selected:i,correct:ok});document.getElementById('ext').textContent=q.e;document.getElementById('ex').classList.add('sh');document.getElementById('nb').style.display='inline-flex';uh()}
-function sxp2(t){const d=document.createElement('div');d.className='xpp';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),800)}
-function nx(){ci++;if(ci>=qz.length){sr();return}rd()}
+q.o.forEach((o,i)=>{const b=document.createElement('button');b.className='opt';
+b.innerHTML=`<span class="ol2">${L[i]}</span><span>${o.replace(/^[A-D]\.\s*/,'')}</span>`;
+b.onclick=()=>pk(i);ol.appendChild(b)})}
+
+function pk(i){if(aw)return;aw=true;const q=qz[ci],ok=i===q.a;
+document.querySelectorAll('.opt').forEach((b,j)=>{b.classList.add('dis');if(j===q.a)b.classList.add('ok');if(j===i&&!ok)b.classList.add('no')});
+if(ok){sc++;sk++;if(sk>bs)bs=sk;sparkle()}else sk=0;
+ans.push({question:q,selected:i,correct:ok,conf:0});
+document.getElementById('ext').textContent=q.e;document.getElementById('ex').classList.add('sh');
+document.getElementById('conf').style.display='flex';
+document.getElementById('nb').style.display='inline-flex';uh()}
+
+function rate(v){ans[ans.length-1].conf=v;document.querySelectorAll('.conf-btn').forEach((b,i)=>{b.classList.toggle('sel-conf',i+1===v)})}
+
+function sparkle(){const emojis=['🌸','🌿','✨','🌻','💚'];for(let i=0;i<3;i++){const s=document.createElement('div');s.className='sparkle';s.textContent=emojis[Math.floor(Math.random()*emojis.length)];s.style.left=Math.random()*80+10+'%';s.style.top=Math.random()*40+20+'%';document.body.appendChild(s);setTimeout(()=>s.remove(),900)}}
+
+function nx(){ci++;if(ci>=qz.length){sr2();return}rd()}
 document.addEventListener('keydown',e=>{if(!document.getElementById('SQ').classList.contains('on'))return;
-if(!aw){const m={a:0,b:1,c:2,d:3,'1':0,'2':1,'3':2,'4':3};if(m[e.key.toLowerCase()]!==undefined)pk(m[e.key.toLowerCase()])}
+if(!aw){const m={a:0,b:1,c:2,d:3};if(m[e.key.toLowerCase()]!==undefined)pk(m[e.key.toLowerCase()])}
 else if(e.key==='Enter'||e.key===' '||e.key==='ArrowRight'){e.preventDefault();nx()}});
-function sr(){const p=Math.round((sc/qz.length)*100);let em,ti,su;
-if(p>=90){em='🏆';ti='OUTSTANDING!';su='Absolute mastery!'}else if(p>=80){em='🌟';ti='GREAT JOB!';su='Well prepared!'}
-else if(p>=70){em='👍';ti='SOLID!';su='Almost passing—keep going!'}else if(p>=60){em='💪';ti='GETTING THERE!';su='More review needed!'}
-else{em='📚';ti='KEEP STUDYING!';su='Review explanations and retry!'}
+
+function sr2(){
+const elapsed=stopTimer();const p=Math.round((sc/qz.length)*100);
+lifetime.correct+=sc;lifetime.quizzes++;if(p>lifetime.best)lifetime.best=p;saveLT();
+let em,ti,su;
+if(p>=90){em='🌸';ti='Blooming Brilliantly!';su='You absolutely crushed it, Madi!'}
+else if(p>=80){em='🌻';ti='Beautiful Work!';su='You\'re nearly ready to ace this exam!'}
+else if(p>=70){em='🌿';ti='Growing Strong!';su='So close to the passing mark — keep it up!'}
+else if(p>=60){em='🌱';ti='Putting Down Roots!';su='Every question teaches you something new.'}
+else{em='🌷';ti='Keep Blooming!';su='Review the explanations and watch yourself grow!'}
 document.getElementById('re').textContent=em;document.getElementById('rtt').textContent=ti;document.getElementById('rs').textContent=su;
-document.getElementById('rp').innerHTML=`${p}<small>%</small>`;document.getElementById('s1').textContent=sc;
-document.getElementById('s2').textContent=qz.length-sc;document.getElementById('s3').textContent=bs;document.getElementById('s4').textContent=sxp;
-const fg=document.getElementById('rf'),cr=2*Math.PI*63;fg.className='rfg '+(p>=70?'pass':'fail');
-setTimeout(()=>{fg.style.strokeDashoffset=cr-(cr*p/100)},100);document.getElementById('pb').style.width='100%';sw('SR')}
-function eq(){ans.length?sr():hm()}
+document.getElementById('rp').innerHTML=`${p}<small>%</small>`;
+document.getElementById('s1').textContent=sc;document.getElementById('s2').textContent=qz.length-sc;
+document.getElementById('s3').textContent=bs;document.getElementById('s4').textContent=fmtTime(elapsed);
+const fg=document.getElementById('rf'),cr=2*Math.PI*62;
+fg.className='ring-fg '+(p>=70?'pass':'fail');
+setTimeout(()=>{fg.style.strokeDashoffset=cr-(cr*p/100)},100);
+document.getElementById('pb').style.width='100%';sw('SR')}
+function eq(){ans.length?sr2():hm()}
+
 function rv(){sw('SV');fl('a',document.querySelector('.fb'))}
 function fl(f,b){document.querySelectorAll('.fb').forEach(x=>x.classList.remove('on'));b.classList.add('on');
 const L=['A','B','C','D'],list=document.getElementById('rl');list.innerHTML='';
 ans.forEach((a,i)=>{if(f==='w'&&a.correct)return;if(f==='c'&&!a.correct)return;
-const d=document.createElement('div');d.className='ri';const st=a.question.o[a.selected].replace(/^[A-D]\.\s*/,''),ct=a.question.o[a.question.a].replace(/^[A-D]\.\s*/,'');
+const d=document.createElement('div');d.className='ri';
+const st=a.question.o[a.selected].replace(/^[A-D]\.\s*/,''),ct=a.question.o[a.question.a].replace(/^[A-D]\.\s*/,'');
 let h='';if(a.correct)h=`<span class="ra uc">✓ ${L[a.selected]}. ${st}</span>`;
 else h=`<span class="ra uw">✗ ${L[a.selected]}. ${st}</span><span class="ra ac">✓ ${L[a.question.a]}. ${ct}</span>`;
-d.innerHTML=`<div class="rq">${i+1}. ${a.question.q}</div><div>${h}</div><div class="rvx">${a.question.e}</div>`;list.appendChild(d)});
-if(!list.children.length)list.innerHTML='<div style="text-align:center;color:var(--mut);padding:2rem">No questions match this filter.</div>'}
-function rm(){const m=ans.filter(a=>!a.correct).map(a=>a.question);if(!m.length){alert('All correct! Nothing to retry.');return}go(m)}
+const confLabels=['','🤞 Guessed','🤔 Somewhat','💚 Confident'];
+const confHtml=a.conf?`<span style="font-size:.7rem;color:var(--text3);margin-left:8px">${confLabels[a.conf]}</span>`:'';
+d.innerHTML=`<div class="rq">${i+1}. ${a.question.q}${confHtml}</div><div>${h}</div><div class="rvx">${a.question.e}</div>`;
+list.appendChild(d)});
+if(!list.children.length)list.innerHTML='<div style="text-align:center;color:var(--text3);padding:2rem">No questions match this filter. 🌿</div>'}
+
+function rm(){const m=ans.filter(a=>!a.correct).map(a=>a.question);if(!m.length){alert('All correct! Nothing to retry 🌸');return}go(m)}
 function sw(id){document.querySelectorAll('.sc').forEach(s=>s.classList.remove('on'));document.getElementById(id).classList.add('on');window.scrollTo({top:0,behavior:'smooth'})}
-function hm(){sw('SL');document.getElementById('pb').style.width='0%';document.getElementById('rf').style.strokeDashoffset=395.8;uh()}
-function uh(){document.getElementById('hs1').textContent=sc;document.getElementById('ht1').textContent=qz.length||0;
-document.getElementById('hk1').textContent=sk;document.getElementById('hxp').textContent=xp;document.getElementById('xf').style.width=`${Math.min(xp%100,100)}%`}
+function hm(){stopTimer();document.getElementById('timer').textContent='0:00';sw('SL');document.getElementById('pb').style.width='0%';document.getElementById('rf').style.strokeDashoffset=389.6;uh();updateLifetime();showQuote()}
+function sr(){sw('SR')}
+function uh(){document.getElementById('hs').textContent=sc;document.getElementById('ht').textContent=qz.length||0;document.getElementById('hk').textContent=sk}
 init();
 </script>
 </body>
